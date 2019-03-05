@@ -1,4 +1,4 @@
-# [OpenM++](http://www.openmpp.org/) project: Docker files to build and run openM++
+# Docker files to build and run openM++
 
 This repository is a part of [OpenM++](http://www.openmpp.org/) open source microsimulation platform.
 It contains Docker files to build openM++ latest version or run openM++ models.
