@@ -1,15 +1,15 @@
-# Recommended tags for that image: ompp-run-centos ompp-run:centos-7
+# Docker image to run openM++ models on CentOS 7
 #
 # Examples of build:
-#   docker build -t ompp-run-centos -t ompp-run:centos-7 .
-#   docker build -t ompp-run-centos --build-arg OMPP_USER=ompp .
-#   docker build -t ompp-run-centos --build-arg OMPP_UID=1000 .
-#   docker build -t ompp-run-centos --build-arg OMPP_GID=1000 .
+#   docker build -t openmpp/openmpp-run:centos-7 .
+#   docker build -t openmpp/openmpp-run:centos-7 --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-run:centos-7 --build-arg OMPP_UID=1000 .
+#   docker build -t openmpp/openmpp-run:centos-7 --build-arg OMPP_GID=1000 .
 #
 # Examples of run:
-#   docker run -v $HOME/models/bin:/home/ompp/models ompp-run-centos ./MyModel
-#   docker run -v $HOME/models/bin:/home/ompp/models ompp-run-centos mpiexec -n 2 ./MyModel_mpi -OpenM.SubValues 16
-#   docker run -v $HOME/models/bin:/home/ompp/models -it ompp-run-centos bash
+#   docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 ./MyModel
+#   docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 mpiexec -n 2 ./MyModel_mpi -OpenM.SubValues 16
+#   docker run -v $HOME/models/bin:/home/ompp/models -it openmpp/openmpp-run:centos-7 bash
 # 
 
 FROM centos:7

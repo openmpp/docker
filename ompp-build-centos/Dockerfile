@@ -1,20 +1,20 @@
-# Recommended tags for that image: ompp-build-centos ompp-build:centos-7
+# Docker image to build openM++ latest version on CentOS 7
 #
 # Examples of build:
-#   docker build -t ompp-build-centos -t ompp-build:centos-7 .
-#   docker build -t ompp-build-centos --build-arg OMPP_USER=ompp .
-#   docker build -t ompp-build-centos --build-arg OMPP_UID=1000 .
-#   docker build -t ompp-build-centos --build-arg OMPP_GID=1000 .
+#   docker build -t openmpp/openmpp-build:centos-7 .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_UID=1000 .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GID=1000 .
 #
 # Examples of run:
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-all
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-openmpp
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-models
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-go
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-r
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-ui
-#   docker run -v $HOME/build:/home/ompp/build     ompp-build-centos build-tar.gz
-#   docker run -v $HOME/build:/home/ompp/build -it ompp-build-centos bash
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-all
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-openmpp
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-models
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-go
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-r
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-ui
+#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-tar.gz
+#   docker run -v $HOME/build:/home/ompp/build -it openmpp/openmpp-build:centos-7 bash
 # 
 
 FROM centos:7

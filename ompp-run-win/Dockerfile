@@ -1,13 +1,13 @@
 # escape=`
 
-# Recommended tag name for that image: ompp-run-win
+# Docker image to run openM++ models on Windows
 #
 # Example of build:
-#   docker build --isolation process -t ompp-run-win -t ompp-run:windows-1809 .
+#   docker build --isolation process -t openmpp/openmpp-run:windows-1809 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     ompp-run-win MyModel.exe
-#   docker run --isolation process -v C:\my\ompp:C:\ompp -it ompp-run-win
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 MyModel.exe
+#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1809
 # 
 
 FROM mcr.microsoft.com/windows/servercore:1809
@@ -44,7 +44,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=ompp-run-win
+LABEL name=openmpp/openmpp-run:windows-1809
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ runtime environemnt: VC++ 2015 runtime (Release only), MS MPI"

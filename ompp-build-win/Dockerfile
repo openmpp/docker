@@ -1,21 +1,21 @@
 # escape=`
 
-# Recommended tag name for that image: ompp-build-win
+# Docker image to build openM++ latest version on Windows
 #
 # Example of build:
-#   docker build --isolation process -t ompp-build-win -t ompp-build:windows-1809 .
+#   docker build --isolation process -t openmpp/openmpp-build:windows-1809 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-all
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-openmpp
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-models
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-go
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-r
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-perl
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-ui
-#   docker run --isolation process -v C:\my\build:C:\build     ompp-build-win build-zip
-#   docker run --isolation process -v C:\my\build:C:\build -it ompp-build-win cmd
-#   docker run --isolation process -v C:\my\build:C:\build -it ompp-build-win %PERLROOT%\portableshell
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-all
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-openmpp
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-models
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-go
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-r
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-perl
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-ui
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-zip
+#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1809 cmd
+#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1809 %PERLROOT%\portableshell
 # 
 
 FROM mcr.microsoft.com/windows/servercore:1809
@@ -133,7 +133,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=ompp-build-win
+LABEL name=openmpp/openmpp-build:windows-1809
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ build environemnt: VC++ 2017, MSBuild, MS MPI, git, svn, SQLite, bison, flex, Go, MinGW, R, node.js, Perl"
