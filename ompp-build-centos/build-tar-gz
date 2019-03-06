@@ -73,11 +73,9 @@ echo Copy files: | tee -a log/build-tar-gz.log
 
 do_cmd cp -p AUTHORS.txt LICENSE.txt README.txt README_centos.txt $DEPLOY_DIR
 
-do_cmd cp -pr docker   $DEPLOY_DIR
 do_cmd cp -pr etc      $DEPLOY_DIR
 do_cmd cp -pr include  $DEPLOY_DIR
 do_cmd cp -pr licenses $DEPLOY_DIR
-do_cmd cp -pr R        $DEPLOY_DIR
 do_cmd cp -pr sql      $DEPLOY_DIR
 do_cmd cp -pr use      $DEPLOY_DIR
 
@@ -105,12 +103,47 @@ do_cmd cp -p lib/libopenm${OM_SFX_MPI}.a lib/libsqlite.a $DEPLOY_DIR/lib
 do_cmd cp -p $GOPATH/bin/dbcopy $DEPLOY_DIR/bin
 do_cmd cp -p $GOPATH/bin/oms    $DEPLOY_DIR/bin
 
-do_cmd mkdir $DEPLOY_DIR/go.openmpp.org
+do_cmd mkdir $DEPLOY_DIR/ompp-go
 
-do_cmd cp -pr $GOPATH/src/go.openmpp.org/dbcopy     $DEPLOY_DIR/go.openmpp.org
-do_cmd cp -pr $GOPATH/src/go.openmpp.org/ompp       $DEPLOY_DIR/go.openmpp.org
-do_cmd cp -pr $GOPATH/src/go.openmpp.org/oms        $DEPLOY_DIR/go.openmpp.org
-do_cmd cp -p  $GOPATH/src/go.openmpp.org/licenses/* $DEPLOY_DIR/licenses
+do_cmd cp -p \
+  $GOPATH/src/github.com/openmpp/go/LICENSE.txt \
+  $GOPATH/src/github.com/openmpp/go/AUTHORS.txt \
+  $GOPATH/src/github.com/openmpp/go/README.md \
+  $DEPLOY_DIR/ompp-go
+
+do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/dbcopy   $DEPLOY_DIR/ompp-go
+do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/ompp     $DEPLOY_DIR/ompp-go
+do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/oms      $DEPLOY_DIR/ompp-go
+do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/licenses $DEPLOY_DIR/ompp-go
+
+# get Docker source code from git and copy Docker sources
+
+if [ ! -d ompp-docker ]; then
+  do_cmd git clone https://github.com/openmpp/docker ompp-docker
+fi
+
+do_cmd mkdir $DEPLOY_DIR/ompp-docker
+
+do_cmd cp -p \
+  ompp-docker/LICENSE.txt \
+  ompp-docker/README.md \
+  $DEPLOY_DIR/ompp-docker
+
+do_cmd cp -pr ompp-docker/ompp-build-centos $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-build-win    $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-run-centos   $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-run-win      $DEPLOY_DIR/ompp-docker
+
+# copy R package and source code
+
+do_cmd mkdir $DEPLOY_DIR/ompp-r
+
+do_cmd cp -p \
+  ompp-r/README.md \
+  ompp-r/openMpp*.tar.gz \
+  $DEPLOY_DIR/ompp-r
+
+do_cmd cp -pr ompp-r/openMpp $DEPLOY_DIR/ompp-r
 
 # copy UI html build and source code
 

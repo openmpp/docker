@@ -22,7 +22,7 @@ FROM centos:7
 # update base image
 RUN yum -y update && yum clean all
 
-# install c++17, Open MPI, build utils, source control (git and svn) and SQLite
+# install c++17, Open MPI, build utils, git and SQLite
 RUN yum -y install centos-release-scl && \
   yum -y install devtoolset-7-gcc-c++ && \
   yum -y install openmpi && \
@@ -31,7 +31,6 @@ RUN yum -y install centos-release-scl && \
   yum -y install bison && \
   yum -y install flex && \
   yum -y install git && \
-  yum -y install subversion && \
   yum -y install sqlite && \
   yum clean all
 

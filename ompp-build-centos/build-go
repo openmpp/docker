@@ -18,27 +18,22 @@ if [ ! -d log ]; then mkdir log; fi
 echo Log file: log/build-go.log
 echo `date` Build Go oms web-service and dbcopy utility | tee log/build-go.log 
 
-# get source code from svn, if directory not already exist
-
-if [ ! -d ompp-go ]; then
-  
-  echo svn checkout https://svn.code.sf.net/p/ompp/svn/trunk/ ompp-go/src/go.openmpp.org
-
-  if ! svn checkout https://svn.code.sf.net/p/ompp/svn/trunk/ ompp-go/src/go.openmpp.org >> log/build-go.log 2>&1;
-  then
-    echo FAILED svn checkout | tee -a log/build-go.log
-    exit 1
-  fi
-  
-else
-  echo Skip: svn checkout
-fi
-
 # build go oms web-service and dbcopy database utility
 # do not use unixODBC by defaults, it is required to have dynamic unixODBC.so installed
 # if you want to build dbcopy or oms with ODBC then modify commands below:
 #   go install -tags odbc go.openmpp.org/dbcopy
 #   go install -tags odbc go.openmpp.org/oms
+
+if [ ! -d ompp-go ]; then
+  
+  echo mkdir ompp-go | tee -a log/build-go.log
+
+  if ! mkdir ompp-go >> log/build-go.log 2>&1;
+  then
+    echo FAILED | tee -a log/build-go.log
+    exit 1
+  fi
+fi
 
 pushd ompp-go
 
@@ -53,10 +48,10 @@ do_go_cmd()
   fi
 }
 
-do_go_cmd get go.openmpp.org/dbcopy
-do_go_cmd get go.openmpp.org/oms
-do_go_cmd install go.openmpp.org/dbcopy
-do_go_cmd install go.openmpp.org/oms
+do_go_cmd get github.com/openmpp/go/dbcopy
+do_go_cmd get github.com/openmpp/go/oms
+do_go_cmd install github.com/openmpp/go/dbcopy
+do_go_cmd install github.com/openmpp/go/oms
 
 popd
 
