@@ -93,11 +93,6 @@ RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.1/node-v10.15.1-w
     rename C:\node-v10.15.1-win-x64 node && `
     del C:\Temp\node.zip
 
-# download and install svn command line tools
-RUN curl -L -o C:\Temp\svn.zip https://www.visualsvn.com/files/Apache-Subversion-1.11.1.zip && `
-    C:\7zip\7z.exe x -oC:\svn C:\Temp\svn.zip && `
-    del C:\Temp\svn.zip
-
 # download and install portable Perl
 RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.28.1.1/strawberry-perl-5.28.1.1-64bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl C:\Temp\perl_setup.zip && `
@@ -127,7 +122,7 @@ RUN setx /M GOROOT C:\go && `
   setx /M GOPATH C:\build\ompp\ompp-go && `
   setx /M PERLROOT C:\perl && `
   setx /M OM_SCRIPTS_DIR C:\build_scripts && `
-  setx /M PATH "%GOROOT%\bin;%GOPATH%\bin;C:\Git\cmd;C:\svn\bin;C:\R\bin;%PATH%"
+  setx /M PATH "%GOROOT%\bin;%GOPATH%\bin;C:\Git\cmd;C:\R\bin;%PATH%"
 
 USER ContainerUser
 
@@ -136,7 +131,7 @@ USER ContainerUser
 LABEL name=openmpp/openmpp-build:windows-1809
 LABEL os=Windows
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: VC++ 2017, MSBuild, MS MPI, git, svn, SQLite, bison, flex, Go, MinGW, R, node.js, Perl"
+LABEL description="OpenM++ build environemnt: VC++ 2017, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, R, node.js, Perl"
 
 # Done with installation
 # 

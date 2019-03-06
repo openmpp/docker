@@ -104,7 +104,7 @@ call :make_dir %DEPLOY_DIR%
 echo Copy files: > log\build-zip-copy.log
 
 call :rcopy_files    %DEPLOY_DIR% . "README_win.txt README.txt LICENSE.txt AUTHORS.txt"
-call :rcopy_sub_dirs %DEPLOY_DIR% . "docker,etc,Excel,include,licenses,openm,props,R,sql,use"
+call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,props,sql,use"
 
 REM copy openm runtime libraries
 
@@ -122,9 +122,23 @@ call :rcopy_files ^
 
 REM copy Go bin executables and source code
 
-call :rcopy_files    %DEPLOY_DIR%\bin            ompp-go\bin                "dbcopy.exe oms.exe"
-call :rcopy_files    %DEPLOY_DIR%\go.openmpp.org ompp-go\src\go.openmpp.org "LICENSE.txt AUTHORS.txt"
-call :rcopy_sub_dirs %DEPLOY_DIR%\go.openmpp.org ompp-go\src\go.openmpp.org "dbcopy,ompp,oms,licenses"
+call :rcopy_files    %DEPLOY_DIR%\bin     ompp-go\bin                       "dbcopy.exe oms.exe"
+call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "LICENSE.txt AUTHORS.txt README.md"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbcopy,ompp,oms,licenses"
+
+REM get Docker source code from git and copy Docker sources
+
+if not exist ompp-docker (
+  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/docker ompp-docker"
+)
+
+call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "LICENSE.txt README.md"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos,ompp-build-win,ompp-run-centos,ompp-run-win"
+
+REM copy R package and source code
+
+call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "openMpp*.tar.gz README.md"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
 
 REM copy UI html build and source code
 
@@ -233,7 +247,6 @@ set fnames=%~3
 
 robocopy /njh /njs /np %src_dir% %dst_dir% %fnames% >> log\build-zip-copy.log
 if ERRORLEVEL 2 (
-@echo %ERRORLEVEL%
   @echo FAIL to copy: %fnames%
   @echo FAIL to copy: %fnames% >> log\build-zip.log
   EXIT
@@ -283,5 +296,34 @@ if ERRORLEVEL 1 (
   @echo FAIL to create: %dst_dir% >> log\build-zip.log
   EXIT
 )
+exit /b
+
+REM helper subroutine to execute command, log it and check errorlevel
+REM arguments:
+REM  1 = command line
+
+:do_cmd_line
+  call :do_cmd_line_log log\build-zip.log %1
+exit /b
+
+REM helper subroutine to execute command, log it and check errorlevel
+REM arguments:
+REM  1 = log file path
+REM  2 = command line
+
+:do_cmd_line_log
+
+set c_log=%1
+set c_line=%~2
+
+@echo %c_line%
+@echo %c_line% >> %c_log%
+
+%c_line% >> %c_log% 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  @echo FAILED. >> %c_log%
+  EXIT
+) 
 exit /b
 

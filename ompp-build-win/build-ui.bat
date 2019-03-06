@@ -24,6 +24,17 @@ REM log build environment
 @echo %DATE% %TIME% Build openM++ UI alpha > log\build-ui.log
 @echo OM_ROOT = %OM_ROOT% >> log\build-ui.log
 
+REM get source code from git, if directory not already exist
+
+if not exist ompp-ui (
+  
+  call :do_cmd_line_log log\build-ui.log "git clone https://github.com/openmpp/UI ompp-ui"
+  
+) else (
+  @echo Skip: git clone
+  @echo Skip: git clone >> log\build-ui.log
+)
+
 REM build openM++ UI: node, npm, vue.js
 
 pushd ompp-ui
@@ -57,6 +68,27 @@ call npm %c_line% >> ..\log\build-ui.log 2>&1
 if ERRORLEVEL 1 (
   @echo FAILED.
   @echo FAILED. >> ..\log\build-ui.log
+  EXIT
+) 
+exit /b
+
+REM helper subroutine to execute command, log it and check errorlevel
+REM arguments:
+REM  1 = log file path
+REM  2 = command line
+
+:do_cmd_line_log
+
+set c_log=%1
+set c_line=%~2
+
+@echo %c_line%
+@echo %c_line% >> %c_log%
+
+%c_line% >> %c_log% 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  @echo FAILED. >> %c_log%
   EXIT
 ) 
 exit /b

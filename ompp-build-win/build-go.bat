@@ -20,25 +20,18 @@ REM log build environment
 @echo Log file: log\build-go.log
 @echo %DATE% %TIME% Build Go oms web-service and dbcopy utility > log\build-go.log
 
-REM get source code from svn, if directory not already exist
+REM build go oms web-service and dbcopy database utility
 
 if not exist ompp-go (
-  
-  call :do_cmd_line_log log\build-go.log "svn checkout https://svn.code.sf.net/p/ompp/svn/trunk/ ompp-go/src/go.openmpp.org"
-  
-) else (
-  @echo Skip: svn checkout
-  @echo Skip: svn checkout >> log\build-go.log
+  call :do_cmd_line_log log\build-go.log "mkdir ompp-go"
 )
-
-REM build go oms web-service and dbcopy database utility
 
 pushd ompp-go
 
-call :do_cmd_line "go get go.openmpp.org/dbcopy"
-call :do_cmd_line "go get go.openmpp.org/oms"
-call :do_cmd_line "go install -tags odbc go.openmpp.org/dbcopy"
-call :do_cmd_line "go install -tags odbc go.openmpp.org/oms"
+call :do_cmd_line "go get -tags odbc github.com/openmpp/go/dbcopy"
+call :do_cmd_line "go get -tags odbc github.com/openmpp/go/oms"
+call :do_cmd_line "go install -tags odbc github.com/openmpp/go/dbcopy"
+call :do_cmd_line "go install -tags odbc github.com/openmpp/go/oms"
 
 popd
 

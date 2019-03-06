@@ -20,9 +20,20 @@ REM log build environment
 @echo Log file: log\build-r.log
 @echo %DATE% %TIME% Build openMpp R package > log\build-r.log
 
+REM get source code from git, if directory not already exist
+
+if not exist ompp-r (
+  
+  call :do_cmd_line_log log\build-r.log "git clone https://github.com/openmpp/R ompp-r"
+  
+) else (
+  @echo Skip: git clone
+  @echo Skip: git clone >> log\build-r.log
+)
+
 REM build openMpp R package
 
-pushd R
+pushd ompp-r
 call :do_cmd_line "R CMD build openMpp"
 popd
 
