@@ -7,6 +7,7 @@
 #
 # Example of run:
 #   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 MyModel.exe
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 #   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1809
 # 
 

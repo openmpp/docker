@@ -8,7 +8,7 @@
 #
 # Examples of run:
 #   docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 ./MyModel
-#   docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 mpiexec -n 2 ./MyModel_mpi -OpenM.SubValues 16
+#   docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 #   docker run -v $HOME/models/bin:/home/ompp/models -it openmpp/openmpp-run:centos-7 bash
 # 
 

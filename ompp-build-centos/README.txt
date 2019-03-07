@@ -1,5 +1,6 @@
-=====================
-To build openM++ run:
+## Using image
+
+To build openM++ do:
 
   docker run .... openmpp/openmpp-build:centos-7 ./build-all
   
@@ -14,19 +15,19 @@ To build openM++ run:
   OM_MSG_USE=MPI                 (default: EMPTY)
   MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
 
-To build openM++ libraries and omc compiler run:
+To build openM++ libraries and omc compiler do:
 
   docker run .... openmpp/openmpp-build:centos-7 ./build-openm
   
   Environment variables to control "build-openm": OM_BUILD_CONFIGS, OM_MSG_USE
 
-To build models run:
+To build models do:
 
   docker run .... openmpp/openmpp-build:centos-7 ./build-modles
   
   Environment variables to control "build-modles": OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS
 
-To build openM++ tools run any of:
+To build openM++ tools do any of:
 
   docker run .... openmpp/openmpp-build:centos-7 ./build-go   # Go oms web-service and dbcopy utility
   docker run .... openmpp/openmpp-build:centos-7 ./build-r    # openMpp R package
