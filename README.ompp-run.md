@@ -1,8 +1,8 @@
 # Docker images to run openM++ models
 
+Pull the image and use it to run openM++ models on Windows or Linux as single executable or on MPI cluster.
 This is a part of [OpenM++](http://www.openmpp.org/) open source microsimulation platform.
-It contains Docker images to run microsimulation models on Windows or Linux as single executable or on MPI cluster.
-Please visit our [wiki](http://www.openmpp.org/wiki/) to find more.
+Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
@@ -26,7 +26,7 @@ From: `windows/servercore:1809`
 
 Installed: `VisualC 2015 re-distributable runtime, Microsoft MPI, 7zip, curl`
 
-## Using `openmpp/openmpp-run:centos-7` image
+## How to use `openmpp/openmpp-run:centos-7` image
 
 To run openM++ model do:
 ```
@@ -34,7 +34,7 @@ docker run .... openmpp/openmpp-run:centos-7 ./MyModel
 ```
 
 Examples:
- ```
+```
 docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 ./MyModel
 docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 docker run -v $HOME/models/bin:/home/ompp/models -e OM_ROOT=/home/ompp openmpp/openmpp-run:centos-7 ./MyModel
@@ -45,7 +45,7 @@ To start shell do:
 docker run -v $HOME/models/bin:/home/ompp/models -it openmpp/openmpp-run:centos-7 bash
 ```
 
-## Using `openmpp/openmpp-run:windows-1809` image
+## How to use `openmpp/openmpp-run:windows-1809` image
 
 To run openM++ model do:
 ```
