@@ -1,10 +1,10 @@
 # Docker image to build openM++ latest version on CentOS 7
 #
-# Examples of build:
+# Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:centos-7 .
 #   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_USER=ompp .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_UID=1000 .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GID=1000 .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_UID=1999 .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GID=1999 .
 #
 # Examples of run:
 #   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-all
@@ -83,8 +83,8 @@ RUN chmod 755 /scripts/entrypoint.sh && \
 # Done with installation
 # set user, work directory and entry point
 #
-ARG OMPP_UID=9999
-ARG OMPP_GID=9999
+ARG OMPP_UID=1999
+ARG OMPP_GID=1999
 ARG OMPP_USER=ompp
 
 RUN groupadd -g $OMPP_GID ${OMPP_USER} && \
