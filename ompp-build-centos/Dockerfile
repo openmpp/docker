@@ -3,19 +3,33 @@
 # Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:centos-7 .
 #   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GROUP=ompp .
 #   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_UID=1999 .
 #   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GID=1999 .
 #
-# Examples of run:
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-all
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-openmpp
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-models
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-go
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-r
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-ui
-#   docker run -v $HOME/build:/home/ompp/build     openmpp/openmpp-build:centos-7 build-tar.gz
-#   docker run -v $HOME/build:/home/ompp/build -it openmpp/openmpp-build:centos-7 bash
-# 
+# Examples of run, mapping your login user, group and home to container:
+#
+#   docker run \
+#     -v $HOME/build:/home/build \
+#     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     openmpp/openmpp-build:centos-7 \
+#     ./build-all
+#
+#   docker run \
+#     -v $HOME/build_mpi:/home/build_mpi \
+#     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OM_MSG_USE=MPI \
+#     openmpp/openmpp-build:centos-7 \
+#     ./build-all
+#
+#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:centos-7 ./build-openm
+#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:centos-7 ./build-models
+#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-go
+#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-r
+#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-ui
+#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-tar-gz
+#
+#   docker run -it openmpp/openmpp-build:centos-7 bash
 
 FROM centos:7
 
@@ -83,16 +97,24 @@ RUN chmod 755 /scripts/entrypoint.sh && \
 # Done with installation
 # set user, work directory and entry point
 #
+ARG OMPP_USER=ompp
+ARG OMPP_GROUP=ompp
 ARG OMPP_UID=1999
 ARG OMPP_GID=1999
-ARG OMPP_USER=ompp
 
-RUN groupadd -g $OMPP_GID ${OMPP_USER} && \
-  useradd --no-log-init -g ${OMPP_USER} -u $OMPP_UID ${OMPP_USER}
+ENV OMPP_USER  ${OMPP_USER}
+ENV OMPP_GROUP ${OMPP_GROUP}
+ENV OMPP_UID   ${OMPP_UID}
+ENV OMPP_GID   ${OMPP_GID}
 
-USER ${OMPP_USER}:${OMPP_USER}
-
-WORKDIR /home/${OMPP_USER}/build
+# home directory and user are set by entrypoint.sh
+#
+# RUN groupadd -g $OMPP_GID ${OMPP_GROUP} && \
+#   useradd --no-log-init -g ${OMPP_GROUP} -u $OMPP_UID ${OMPP_USER}
+# 
+# USER ${OMPP_USER}:${OMPP_GROUP}
+# 
+# WORKDIR /home/${OMPP_USER}/build
 
 ENTRYPOINT ["/scripts/entrypoint.sh"]
 

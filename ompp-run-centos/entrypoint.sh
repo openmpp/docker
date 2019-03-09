@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 set -e
 
+# add OMPP_USER and group
+#
+groupadd -g ${OMPP_GID} ${OMPP_GROUP}
+useradd --no-log-init -g ${OMPP_GROUP} -u ${OMPP_UID} ${OMPP_USER}
+
+# set environment: home directory
+#
+export HOME=/home/${OMPP_USER}
+
+chown ${OMPP_UID}:${OMPP_GID} ${HOME}
+cd ${HOME}
+
+
 # set environment: open MPI
+#
 source /usr/share/Modules/init/bash
 module load mpi/openmpi-x86_64
 
+# step down from root to OMPP_USER
 #
-exec "${@}"
-
+exec setpriv --reuid ${OMPP_UID} --regid ${OMPP_GID} --clear-groups "${@}"
