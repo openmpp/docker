@@ -26,7 +26,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://g
 
 From: `windows/servercore:1809`
 
-Installed: `VisualC++ 2017 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
+Installed: `Visual C++ 2017 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
 
 ## How to use `openmpp/openmpp-build:centos-7` image
 
@@ -36,15 +36,31 @@ docker run .... openmpp/openmpp-build:centos-7 ./build-all
 ```
 Examples:
 ```
-docker run -v $HOME/build:/home/ompp/build openmpp/openmpp-build:centos-7 ./build-all
-docker run -v $HOME/build:/home/ompp/build -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:centos-7 ./build-all
-docker run -v $HOME/build:/home/ompp/build -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:centos-7 ./build-all
-docker run -v $HOME/build:/home/ompp/build -e OM_MSG_USE=MPI                 openmpp/openmpp-build:centos-7 ./build-all
+docker run \
+  -v $HOME/build:/home/build \
+  -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-build:centos-7 \
+  ./build-all
+
+docker run \
+  -v $HOME/build_mpi:/home/build_mpi \
+  -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OM_MSG_USE=MPI \
+  openmpp/openmpp-build:centos-7 \
+  ./build-all
+
+docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:centos-7 ./build-all
+docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:centos-7 ./build-all
+docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:centos-7 ./build-all
 ```
 Environment variables:
 ```
-OM_BUILD_CONFIGS=RELEASE,DEBUG (default: RELEASE,DEBUG for libraries and RELEASE for models)
-OM_MSG_USE=MPI                 (default: EMPTY)
+OMPP_USER=ompp                 # default: ompp, container user name and HOME
+OMPP_GROUP=ompp                # default: ompp, container group name
+OMPP_UID=1999                  # default: 1999, container user ID
+OMPP_GID=1999                  # default: 1999, container group ID
+OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
+OM_MSG_USE=MPI                 # default: EMPTY
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
 ```
 

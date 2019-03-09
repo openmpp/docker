@@ -24,7 +24,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://git
 
 From: `windows/servercore:1809`
 
-Installed: `VisualC 2015 re-distributable runtime, Microsoft MPI, 7zip, curl`
+Installed: `Visual C++ 2015 re-distributable runtime, Microsoft MPI, 7zip, curl`
 
 ## How to use `openmpp/openmpp-run:centos-7` image
 
@@ -35,9 +35,17 @@ docker run .... openmpp/openmpp-run:centos-7 ./MyModel
 
 Examples:
 ```
-docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 ./MyModel
-docker run -v $HOME/models/bin:/home/ompp/models openmpp/openmpp-run:centos-7 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
-docker run -v $HOME/models/bin:/home/ompp/models -e OM_ROOT=/home/ompp openmpp/openmpp-run:centos-7 ./MyModel
+docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:centos-7 \
+  ./MyModel
+
+docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:centos-7 \
+  mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 ```
 
 To start shell do:
