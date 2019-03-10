@@ -48,6 +48,14 @@ docker run \
   mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 ```
 
+Environment variables to pass your current user, group and home to container:
+```
+OMPP_USER=ompp   # default: ompp, container user name and HOME
+OMPP_GROUP=ompp  # default: ompp, container group name
+OMPP_UID=1999    # default: 1999, container user ID
+OMPP_GID=1999    # default: 1999, container group ID
+```
+
 To start shell do:
 ```
 docker run -v $HOME/models/bin:/home/ompp/models -it openmpp/openmpp-run:centos-7 bash

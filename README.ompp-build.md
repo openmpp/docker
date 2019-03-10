@@ -53,15 +53,18 @@ docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/o
 docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:centos-7 ./build-all
 docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:centos-7 ./build-all
 ```
-Environment variables:
+Environment variables to control build:
 ```
-OMPP_USER=ompp                 # default: ompp, container user name and HOME
-OMPP_GROUP=ompp                # default: ompp, container group name
-OMPP_UID=1999                  # default: 1999, container user ID
-OMPP_GID=1999                  # default: 1999, container group ID
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+```
+Environment variables to pass your current user, group and home to container:
+```
+OMPP_USER=ompp   # default: ompp, container user name and HOME
+OMPP_GROUP=ompp  # default: ompp, container group name
+OMPP_UID=1999    # default: 1999, container user ID
+OMPP_GID=1999    # default: 1999, container group ID
 ```
 
 To build only openM++ libraries and omc compiler do:
