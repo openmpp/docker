@@ -69,12 +69,12 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2018/sqlite-tools-win32-x86-3260000.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2019/sqlite-tools-win32-x86-3270200.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.11.5.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.12.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
@@ -88,9 +88,9 @@ RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/
     del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.1/node-v10.15.1-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.1/node-v10.15.3-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v10.15.1-win-x64 node && `
+    rename C:\node-v10.15.3-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl

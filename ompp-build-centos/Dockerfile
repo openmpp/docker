@@ -49,7 +49,7 @@ RUN yum -y install centos-release-scl && \
   yum clean all
 
 # download and install Go and unixODBC
-RUN GO_VER=1.11.5; \
+RUN GO_VER=1.12; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -66,7 +66,7 @@ RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-7.n
   yum clean all
 
 # download and install node.js
-RUN NODE_VER=v10.15.1; \
+RUN NODE_VER=v10.15.3; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
