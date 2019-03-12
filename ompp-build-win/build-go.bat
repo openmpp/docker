@@ -30,8 +30,6 @@ pushd ompp-go
 
 call :do_cmd_line "go get -tags odbc github.com/openmpp/go/dbcopy"
 call :do_cmd_line "go get -tags odbc github.com/openmpp/go/oms"
-call :do_cmd_line "go install -tags odbc github.com/openmpp/go/dbcopy"
-call :do_cmd_line "go install -tags odbc github.com/openmpp/go/oms"
 
 popd
 
