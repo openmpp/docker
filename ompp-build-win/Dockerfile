@@ -88,7 +88,7 @@ RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/
     del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.1/node-v10.15.3-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.3/node-v10.15.3-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
     rename C:\node-v10.15.3-win-x64 node && `
     del C:\Temp\node.zip
