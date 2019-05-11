@@ -34,8 +34,8 @@ REM get source code from git
 
 if not exist ompp (
   
-  @echo git clone http://git.code.sf.net/p/ompp/git ompp
-  git clone http://git.code.sf.net/p/ompp/git ompp
+  @echo git clone https://github.com/openmpp/main.git ompp
+  git clone https://github.com/openmpp/main.git ompp
   if ERRORLEVEL 1 (
     @echo FAILED.
     EXIT

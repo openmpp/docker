@@ -39,7 +39,7 @@ fi;
 
 if [ ! -d ompp ]; then
   
-  if ! git clone http://git.code.sf.net/p/ompp/git ompp ;
+  if ! git clone https://github.com/openmpp/main.git ompp ;
   then
     echo FAILED git clone
     exit 1
