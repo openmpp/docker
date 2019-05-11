@@ -142,9 +142,10 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
 
 REM copy UI html build and source code
 
-call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui "dist"
-call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui "build,config,src,static"
+call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist "static"
+call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist "*.*"
+call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui      "*.*"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui      "build,config,src,static"
 
 REM create log directories and models directories
 
@@ -257,7 +258,7 @@ REM robocopy sub-directories
 REM arguments:
 REM  1 = destination directory
 REM  2 = source root directory
-REM  2 = source sub-directories, comma or space separated list, must be "quoted"
+REM  3 = source sub-directories, comma or space separated list, must be "quoted"
 
 :rcopy_sub_dirs
 
