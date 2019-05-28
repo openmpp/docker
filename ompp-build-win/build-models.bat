@@ -155,7 +155,7 @@ if defined MDL_ONE_EXE (
   @echo Run: %MDL_ONE_EXE% >> ..\..\..\..\log\build-models.log
   
   (%MDL_ONE_EXE% -OpenM.RunName Default && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.RunName "Default-4" && ^
+%MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
 %MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
 %MDL_ONE_EXE% -SubValue.salaryFull csv -OpenM.SubValues 2 -OpenM.ParamDir ../../csv ^
   -OpenM.RunName "Parameter sub-values 2 from csv" && ^
