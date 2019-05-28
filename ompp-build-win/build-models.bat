@@ -98,7 +98,7 @@ for %%m in (%OM_BLD_MDLS%) do (
       
       REM build the model
       
-      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% !MDL_P_ARGS!"
+      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% -p:PLATFORM_TOOLSET=v141 !MDL_P_ARGS!"
       
       REM run the model after first build, if not modelOne
       
