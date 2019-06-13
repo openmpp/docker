@@ -5,9 +5,9 @@ To build openM++ do:
   docker run .... openmpp/openmpp-build:windows-1809 build-all
 
   Examples:
-  docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-1809 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1809 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1809 build-all
+  docker run -v C:\my\build:C:\build openmpp/openmpp-build:windows-1809 build-all
+  docker run -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1809 build-all
+  docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1809 build-all
 
   Environment variables:
   set OM_BUILD_CONFIGS=Release,Debug (default: Release)

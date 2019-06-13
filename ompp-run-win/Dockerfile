@@ -3,12 +3,12 @@
 # Docker image to run openM++ models on Windows
 #
 # Example of build:
-#   docker build --isolation process -t openmpp/openmpp-run:windows-1809 .
+#   docker build -t openmpp/openmpp-run:windows-1809 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 MyModel.exe
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
-#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1809
+#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 MyModel.exe
+#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
+#   docker run -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1809
 # 
 
 FROM mcr.microsoft.com/windows/servercore:1809
