@@ -3,23 +3,23 @@
 # Docker image to run openM++ models on Windows
 #
 # Example of build:
-#   docker build --isolation process -t openmpp/openmpp-run:windows-1903 .
+#   docker build --isolation process -t openmpp/openmpp-run:windows-1809 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1903 MyModel.exe
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1903 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
-#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1903
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 MyModel.exe
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1809 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
+#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1809
 # 
 
-FROM mcr.microsoft.com/windows/servercore:1903
+FROM mcr.microsoft.com/windows/servercore:1809
 
 # download and install 7zip and curl
-ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
+ADD https://www.7-zip.org/a/7z1806-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
-ADD https://curl.haxx.se/windows/dl-7.65.1/curl-7.65.1-win64-mingw.zip C:\Temp\curl.zip
+ADD https://curl.haxx.se/windows/dl-7.64.0/curl-7.64.0-win64-mingw.zip C:\Temp\curl.zip
 
 RUN C:\7zip\7z.exe x -oC:\curl C:\Temp\curl.zip && `
     del C:\Temp\curl.zip
@@ -45,7 +45,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-run:windows-1903
+LABEL name=openmpp/openmpp-run:windows-1809
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ runtime environemnt: VC++ 2015 runtime (Release only), MS MPI"

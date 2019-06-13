@@ -3,30 +3,30 @@
 # Docker image to build openM++ latest version on Windows
 #
 # Example of build:
-#   docker build --isolation process -t openmpp/openmpp-build:windows-1903 .
+#   docker build --isolation process -t openmpp/openmpp-build:windows-1809 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-all
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-openmpp
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-models
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-go
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-r
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-perl
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-ui
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1903 build-zip
-#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1903 cmd
-#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1903 %PERLROOT%\portableshell
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-all
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-openmpp
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-models
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-go
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-r
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-perl
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-ui
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1809 build-zip
+#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1809 cmd
+#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-1809 %PERLROOT%\portableshell
 # 
 
-FROM mcr.microsoft.com/windows/servercore:1903
+FROM mcr.microsoft.com/windows/servercore:1809
 
 # download and install 7zip and curl
-ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
+ADD https://www.7-zip.org/a/7z1806-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
-ADD https://curl.haxx.se/windows/dl-7.65.1/curl-7.65.1-win64-mingw.zip C:\Temp\curl.zip
+ADD https://curl.haxx.se/windows/dl-7.64.0/curl-7.64.0-win64-mingw.zip C:\Temp\curl.zip
 
 RUN C:\7zip\7z.exe x -oC:\curl C:\Temp\curl.zip && `
     del C:\Temp\curl.zip
@@ -52,7 +52,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/Microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.22.0.windows.1/Git-2.22.0-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.20.1.windows.1/Git-2.20.1-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
@@ -69,12 +69,12 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2019/sqlite-tools-win32-x86-3280000.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2019/sqlite-tools-win32-x86-3270200.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.12.6.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.12.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
@@ -88,18 +88,20 @@ RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/
     del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.16.0/node-v10.16.0-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v10.15.3/node-v10.15.3-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v10.16.0-win-x64 node && `
+    rename C:\node-v10.15.3-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
-RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.30.0.1/strawberry-perl-5.30.0.1-64bit-portable.zip && `
+RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.28.1.1/strawberry-perl-5.28.1.1-64bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl C:\Temp\perl_setup.zip && `
     del C:\Temp\perl_setup.zip
 
 # install cpan modules
-RUN C:\perl\portableshell /SETENV && SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm pp
+RUN C:\perl\portableshell /SETENV && `
+    cpanm pp && `
+    cpanm Getopt::Long::Descriptive
 
 # copy build scripts
 COPY copy_scripts.bat `
@@ -126,7 +128,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:windows-1903
+LABEL name=openmpp/openmpp-build:windows-1809
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ build environemnt: VC++ 2017, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, R, node.js, Perl"

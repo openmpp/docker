@@ -6,6 +6,20 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
+- `openmpp/openmpp-run:windows-1903`
+- `openmpp/openmpp-run:windows-1809`
+- `openmpp/openmpp-run:centos-7`
+
+### `openmpp/openmpp-build:windows-1903`
+
+Pull: `docker pull openmpp/openmpp-build:windows-1903`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://github.com/openmpp/docker/tree/master/ompp-build-win)
+
+From: `windows/servercore:1903`
+
+Installed: `Visual C++ 2017 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
+
 ### `openmpp/openmpp-build:centos-7`
 
 Pull: `docker pull openmpp/openmpp-build:centos-7`
@@ -18,15 +32,57 @@ Installed: `gcc-c++17, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R
 
 User: `ompp, uid=1999, gid=1999`
 
-### `openmpp/openmpp-build:windows-1809`
+## How to use `openmpp/openmpp-build:windows-1903` image
 
-Pull: `docker pull openmpp/openmpp-build:windows-1809`
+To build openM++ do:
+```
+docker run .... openmpp/openmpp-build:windows-1903 build-all
+```
+Examples:
+```
+docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-1903 build-all
+docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1903 build-all
+docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1903 build-all
+```
+Environment variables:
+```
+set OM_BUILD_CONFIGS=Release,Debug (default: Release)
+set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
+set OM_MSG_USE=MPI                 (default: EMPTY)
+set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+```
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://github.com/openmpp/docker/tree/master/ompp-build-win)
+To build only openM++ libraries and omc compiler do:
+```
+docker run .... openmpp/openmpp-build:windows-1903 build-openm
+```
+Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE`
 
-From: `windows/servercore:1809`
+To build models do:
+```
+docker run .... openmpp/openmpp-build:windows-1903 build-models
+```
+Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS`
 
-Installed: `Visual C++ 2017 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
+To build openM++ tools do any of:
+```
+docker run .... openmpp/openmpp-build:windows-1903 build-go   # Go oms web-service and dbcopy utility
+docker run .... openmpp/openmpp-build:windows-1903 build-r    # openMpp R package
+docker run .... openmpp/openmpp-build:windows-1903 build-perl # Perl utilities
+docker run .... openmpp/openmpp-build:windows-1903 build-ui   # openM++ UI (alpha)
+```
+
+To create `openmpp_win_YYYYMMDD.zip` archive:
+```
+docker run .... openmpp/openmpp-build:windows-1903 build-zip
+```
+Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
+
+To open cmd command prompt or Perl command prompt:
+```
+docker run .... -it openmpp/openmpp-build:windows-1903 cmd
+docker run .... -it openmpp/openmpp-build:windows-1903 C:\perl\portableshell
+```
 
 ## How to use `openmpp/openmpp-build:centos-7` image
 
@@ -95,58 +151,6 @@ Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
 To start shell do:
 ```
 docker run .... -it openmpp/openmpp-build:centos-7 bash
-```
-
-## How to use `openmpp/openmpp-build:windows-1809` image
-
-To build openM++ do:
-```
-docker run .... openmpp/openmpp-build:windows-1809 build-all
-```
-Examples:
-```
-docker run -v C:\my\build:C:\build openmpp/openmpp-build:windows-1809 build-all
-docker run -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1809 build-all
-docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1809 build-all
-```
-Environment variables:
-```
-set OM_BUILD_CONFIGS=Release,Debug (default: Release)
-set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
-set OM_MSG_USE=MPI                 (default: EMPTY)
-set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
-```
-
-To build only openM++ libraries and omc compiler do:
-```
-docker run .... openmpp/openmpp-build:windows-1809 build-openm
-```
-Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE`
-
-To build models do:
-```
-docker run .... openmpp/openmpp-build:windows-1809 build-models
-```
-Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS`
-
-To build openM++ tools do any of:
-```
-docker run .... openmpp/openmpp-build:windows-1809 build-go   # Go oms web-service and dbcopy utility
-docker run .... openmpp/openmpp-build:windows-1809 build-r    # openMpp R package
-docker run .... openmpp/openmpp-build:windows-1809 build-perl # Perl utilities
-docker run .... openmpp/openmpp-build:windows-1809 build-ui   # openM++ UI (alpha)
-```
-
-To create `openmpp_win_YYYYMMDD.zip` archive:
-```
-docker run .... openmpp/openmpp-build:windows-1809 build-zip
-```
-Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
-
-To open cmd command prompt or Perl command prompt:
-```
-docker run .... -it openmpp/openmpp-build:windows-1809 cmd
-docker run .... -it openmpp/openmpp-build:windows-1809 C:\perl\portableshell
 ```
 
 ## License: MIT
