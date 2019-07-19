@@ -13,16 +13,11 @@
 
 FROM mcr.microsoft.com/windows/servercore:1903
 
-# download and install 7zip and curl
+# download and install 7zip, curl expected to be included in servercore
 ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
-
-ADD https://curl.haxx.se/windows/dl-7.65.1/curl-7.65.1-win64-mingw.zip C:\Temp\curl.zip
-
-RUN C:\7zip\7z.exe x -oC:\curl C:\Temp\curl.zip && `
-    del C:\Temp\curl.zip
 
 # download and install VC2015 re-distributable runtimes
 RUN curl -L -o C:\Temp\vc_redist.x86.exe https://download.microsoft.com/download/6/A/A/6AA4EDFF-645B-48C5-81CC-ED5963AEAD48/vc_redist.x86.exe && `

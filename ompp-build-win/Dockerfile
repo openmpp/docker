@@ -20,16 +20,11 @@
 
 FROM mcr.microsoft.com/windows/servercore:1903
 
-# download and install 7zip and curl
+# download and install 7zip, curl expected to be included in servercore
 ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
-
-ADD https://curl.haxx.se/windows/dl-7.65.1/curl-7.65.1-win64-mingw.zip C:\Temp\curl.zip
-
-RUN C:\7zip\7z.exe x -oC:\curl C:\Temp\curl.zip && `
-    del C:\Temp\curl.zip
 
 # download and install v15 (latest) Microsoft MSBuild Tools and VC++
 RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/15/release/vs_buildtools.exe && `
