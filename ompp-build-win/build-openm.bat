@@ -69,6 +69,31 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-openm.log
 )
 
+REM create omVersion.h
+
+@echo Create include/libopenm/omVersion.h >> log\build-openm.log
+
+@echo /** > include/libopenm/omVersion.h
+@echo  * @file >> include/libopenm/omVersion.h
+@echo  * OpenM++: runtime version >> include/libopenm/omVersion.h
+@echo  */ >> include/libopenm/omVersion.h
+@echo // Copyright (c) OpenM++ >> include/libopenm/omVersion.h
+@echo // This code is licensed under the MIT license (see LICENSE.txt for details) >> include/libopenm/omVersion.h
+@echo // >> include/libopenm/omVersion.h
+@echo #ifndef OM_H_VERSION_H >> include/libopenm/omVersion.h
+@echo #define OM_H_VERSION_H >> include/libopenm/omVersion.h
+@echo // >> include/libopenm/omVersion.h
+
+@echo git show -s --date=short --format=.... >> log\build-openm.log
+git show -s --date=short --format="#define OM_RUNTIME_VERSION \"%%cd %%H\"" >> include/libopenm/omVersion.h
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
+ 
+@echo // >> include/libopenm/omVersion.h
+@echo #endif  // OM_H_VERSION_H >> include/libopenm/omVersion.h
+
 REM build c++ run-time libraries and omc compiler
 
 pushd openm
