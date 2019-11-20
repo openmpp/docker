@@ -103,8 +103,8 @@ call :make_dir %DEPLOY_DIR%
 
 echo Copy files: > log\build-zip-copy.log
 
-call :rcopy_files    %DEPLOY_DIR% . "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,Perl,props,sql,use"
+call :rcopy_files    %DEPLOY_DIR% . "README_win.txt README.txt LICENSE.txt AUTHORS.txt"
+call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,props,sql,use"
 
 REM copy openm runtime libraries
 
@@ -123,12 +123,8 @@ call :rcopy_files ^
 REM copy Go bin executables and source code
 
 call :rcopy_files    %DEPLOY_DIR%\bin     ompp-go\bin                       "dbcopy.exe oms.exe"
-call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbcopy,licenses,ompp,oms"
-
-REM copy MPI template file to run models
-
-call :do_copy_files  %DEPLOY_DIR%\etc\mpiWindows.template.txt etc\mpiModelRun.template.txt
+call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "LICENSE.txt AUTHORS.txt README.md"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbcopy,ompp,oms,licenses"
 
 REM get Docker source code from git and copy Docker sources
 
@@ -136,12 +132,12 @@ if not exist ompp-docker (
   call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/docker ompp-docker"
 )
 
-call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
+call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "LICENSE.txt README.md"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos,ompp-build-win,ompp-run-centos,ompp-run-win"
 
 REM copy R package and source code
 
-call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "*.*"
+call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "openMpp*.tar.gz README.md"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
 
 REM copy UI html build and source code
@@ -149,21 +145,7 @@ REM copy UI html build and source code
 call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist "static"
 call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist "*.*"
 call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui      "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui      "build,config,licenses,src,static"
-
-REM delete package-lock.json from source files
-  
-if exist %DEPLOY_DIR%\ompp-ui\package-lock.json (
-  @echo Remove existing: %DEPLOY_DIR%\ompp-ui\package-lock.json
-  @echo Remove existing: %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log
-
-  del /f /q %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log 2>&1
-)
-if exist %DEPLOY_DIR%\ompp-ui\package-lock.json (
-  @echo FAIL to delete: %DEPLOY_DIR%\ompp-ui\package-lock.json
-  @echo FAIL to delete: %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log
-  EXIT 1
-)
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui      "build,config,src,static"
 
 REM create log directories and models directories
 
@@ -175,9 +157,6 @@ call :make_dir %DEPLOY_DIR%\models\log
 REM copy models
 REM modelOne is special case, it does not have modgen or any code/*.ompp or parameters/*.mpp files
 
-call :do_copy_files  %DEPLOY_DIR%\models models\*.*
-call :rcopy_sub_dirs %DEPLOY_DIR%\models models  "microdata"
-
 for %%m in (%OM_BLD_MDLS%) do (
   
   set MDL_DIR=%%m
@@ -186,15 +165,15 @@ for %%m in (%OM_BLD_MDLS%) do (
   
   if /i "!MDL_DIR:modelOne=!"=="!MDL_DIR!" (
   
-    call :rcopy_files    %DEPLOY_DIR%\models\%%m        models\%%m          "*.*"
     call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters"
+    call :rcopy_files    %DEPLOY_DIR%\models\%%m        models\%%m          "*.sln"
     call :rcopy_files    %DEPLOY_DIR%\models\%%m\modgen models\%%m\modgen   "*.vcxproj *.vcxproj.filters *.props"
     call :do_copy_files  %DEPLOY_DIR%\models\sql        models\%%m\ompp\src\*.sql
     
   ) else (
   
-    call :rcopy_files    %DEPLOY_DIR%\models\%%m models\%%m  "*.*"
     call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m models\%%m  "csv"
+    call :rcopy_files    %DEPLOY_DIR%\models\%%m models\%%m  "*.sln *.cpp *.h *.ini *.sql *.txt"
     call :do_copy_files  %DEPLOY_DIR%\models\sql models\%%m\*.sql
   )
   
@@ -205,6 +184,9 @@ for %%m in (%OM_BLD_MDLS%) do (
     models\%%m\ompp\bin ^
     "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!64%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
 )
+
+call :rcopy_files    %DEPLOY_DIR%\models          models          ".gitignore"
+call :rcopy_sub_dirs %DEPLOY_DIR%\models          models          "microdata"
 
 REM create zip archive from deployment directory
 

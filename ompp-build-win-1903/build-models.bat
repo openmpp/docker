@@ -98,7 +98,7 @@ for %%m in (%OM_BLD_MDLS%) do (
       
       REM build the model
       
-      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% -p:PLATFORM_TOOLSET=v142 !MDL_P_ARGS!"
+      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% -p:PLATFORM_TOOLSET=v141 !MDL_P_ARGS!"
       
       REM run the model after first build, if not modelOne
       
@@ -157,9 +157,9 @@ if defined MDL_ONE_EXE (
   (%MDL_ONE_EXE% -OpenM.RunName Default && ^
 %MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
 %MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
-%MDL_ONE_EXE% -SubFrom.salaryFull csv -OpenM.SubValues 2 -OpenM.ParamDir ../../csv ^
+%MDL_ONE_EXE% -SubValue.salaryFull csv -OpenM.SubValues 2 -OpenM.ParamDir ../../csv ^
   -OpenM.RunName "Parameter sub-values 2 from csv" && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
+%MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -SubValue.baseSalary db -SubValue.salaryFull db -SubValue.filePath db -SubValue.isOldAge db ^
   -OpenM.RunName "Parameter sub-values 4") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
