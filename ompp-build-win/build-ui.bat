@@ -17,11 +17,11 @@ if not exist log mkdir log
 
 REM log build environment 
 
-@echo %DATE% %TIME% Build openM++ UI alpha
+@echo %DATE% %TIME% Build openM++ UI
 @echo OM_ROOT = %OM_ROOT%
 
 @echo Log file: log\build-ui.log
-@echo %DATE% %TIME% Build openM++ UI alpha > log\build-ui.log
+@echo %DATE% %TIME% Build openM++ UI > log\build-ui.log
 @echo OM_ROOT = %OM_ROOT% >> log\build-ui.log
 
 REM get source code from git, if directory not already exist

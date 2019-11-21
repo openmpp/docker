@@ -6,19 +6,20 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
+- `openmpp/openmpp-run:windows-1909`
 - `openmpp/openmpp-run:windows-1903`
 - `openmpp/openmpp-run:windows-1809`
 - `openmpp/openmpp-run:centos-7`
 
-### `openmpp/openmpp-build:windows-1903`
+### `openmpp/openmpp-build:windows-1909`
 
-Pull: `docker pull openmpp/openmpp-build:windows-1903`
+Pull: `docker pull openmpp/openmpp-build:windows-1909`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://github.com/openmpp/docker/tree/master/ompp-build-win)
 
-From: `windows/servercore:1903`
+From: `windows/servercore:1909`
 
-Installed: `Visual C++ 2017 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
+Installed: `Visual C++ 2019 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
 
 ### `openmpp/openmpp-build:centos-7`
 
@@ -32,17 +33,17 @@ Installed: `gcc-c++17, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R
 
 User: `ompp, uid=1999, gid=1999`
 
-## How to use `openmpp/openmpp-build:windows-1903` image
+## How to use `openmpp/openmpp-build:windows-1909` image
 
 To build openM++ do:
 ```
-docker run .... openmpp/openmpp-build:windows-1903 build-all
+docker run .... openmpp/openmpp-build:windows-1909 build-all
 ```
 Examples:
 ```
-docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-1903 build-all
-docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1903 build-all
-docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1903 build-all
+docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-1909 build-all
+docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1909 build-all
+docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1909 build-all
 ```
 Environment variables:
 ```
@@ -54,34 +55,34 @@ set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTime
 
 To build only openM++ libraries and omc compiler do:
 ```
-docker run .... openmpp/openmpp-build:windows-1903 build-openm
+docker run .... openmpp/openmpp-build:windows-1909 build-openm
 ```
 Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE`
 
 To build models do:
 ```
-docker run .... openmpp/openmpp-build:windows-1903 build-models
+docker run .... openmpp/openmpp-build:windows-1909 build-models
 ```
 Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS`
 
 To build openM++ tools do any of:
 ```
-docker run .... openmpp/openmpp-build:windows-1903 build-go   # Go oms web-service and dbcopy utility
-docker run .... openmpp/openmpp-build:windows-1903 build-r    # openMpp R package
-docker run .... openmpp/openmpp-build:windows-1903 build-perl # Perl utilities
-docker run .... openmpp/openmpp-build:windows-1903 build-ui   # openM++ UI (alpha)
+docker run .... openmpp/openmpp-build:windows-1909 build-go   # Go oms web-service and dbcopy utility
+docker run .... openmpp/openmpp-build:windows-1909 build-r    # openMpp R package
+docker run .... openmpp/openmpp-build:windows-1909 build-perl # Perl utilities
+docker run .... openmpp/openmpp-build:windows-1909 build-ui   # openM++ UI
 ```
 
 To create `openmpp_win_YYYYMMDD.zip` archive:
 ```
-docker run .... openmpp/openmpp-build:windows-1903 build-zip
+docker run .... openmpp/openmpp-build:windows-1909 build-zip
 ```
 Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
 
 To open cmd command prompt or Perl command prompt:
 ```
-docker run .... -it openmpp/openmpp-build:windows-1903 cmd
-docker run .... -it openmpp/openmpp-build:windows-1903 C:\perl\portableshell
+docker run .... -it openmpp/openmpp-build:windows-1909 cmd
+docker run .... -it openmpp/openmpp-build:windows-1909 C:\perl\portableshell
 ```
 
 ## How to use `openmpp/openmpp-build:centos-7` image
@@ -139,7 +140,7 @@ To build openM++ tools do any of:
 ```
 docker run .... openmpp/openmpp-build:centos-7 ./build-go   # Go oms web-service and dbcopy utility
 docker run .... openmpp/openmpp-build:centos-7 ./build-r    # openMpp R package
-docker run .... openmpp/openmpp-build:centos-7 ./build-ui   # openM++ UI (alpha)
+docker run .... openmpp/openmpp-build:centos-7 ./build-ui   # openM++ UI
 ```
 
 To create `openmpp_centos_YYYYMMDD.tar.gz` archive:

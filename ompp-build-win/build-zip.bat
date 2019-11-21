@@ -128,7 +128,7 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbc
 
 REM copy MPI template file to run models
 
-call :do_copy_files  %DEPLOY_DIR%\etc\mpiWindows.template.txt etc\mpiModelRun.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\mpiModelRun.template.txt etc\mpiWindows.template.txt
 
 REM get Docker source code from git and copy Docker sources
 
