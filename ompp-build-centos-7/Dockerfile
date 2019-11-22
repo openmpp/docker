@@ -90,10 +90,10 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
   chmod 755 /scripts/build-go && \
-  chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-r && \
+  chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
-  chmod 744 /scripts/build-all
+  chmod 744 /scripts/README.txt
 
 # Done with installation
 # set user, work directory and entry point
