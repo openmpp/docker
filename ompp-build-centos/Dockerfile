@@ -1,52 +1,48 @@
-# Docker image to build openM++ latest version on CentOS 7
+# Docker image to build openM++ latest version on CentOS 8
 #
 # Examples of build and arguments default values:
-#   docker build -t openmpp/openmpp-build:centos-7 .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_USER=ompp .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GROUP=ompp .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_UID=1999 .
-#   docker build -t openmpp/openmpp-build:centos-7 --build-arg OMPP_GID=1999 .
+#   podman build -t openmpp/openmpp-build:centos-8 .
+#   podman build -t openmpp/openmpp-build:centos-8 --build-arg OMPP_USER=ompp .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
-#   docker run \
-#     -v $HOME/build:/home/build \
-#     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     openmpp/openmpp-build:centos-7 \
+#   podman run \
+#     -userns=host \
+#     -v $HOME/build:/home/build:z \
+#     -e OMPP_USER=build \
+#     openmpp/openmpp-build:centos-8 \
 #     ./build-all
 #
-#   docker run \
-#     -v $HOME/build_mpi:/home/build_mpi \
-#     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#   podman run \
+#     -userns=host \
+#     -v $HOME/build:/home/build:z \
+#     -e OMPP_USER=build \
 #     -e OM_MSG_USE=MPI \
-#     openmpp/openmpp-build:centos-7 \
+#     openmpp/openmpp-build:centos-8 \
 #     ./build-all
 #
-#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:centos-7 ./build-openm
-#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:centos-7 ./build-models
-#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-go
-#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-r
-#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-ui
-#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-tar-gz
+#   podman run .... -e OM_MSG_USE=MPI     openmpp/openmpp-build:centos-8 ./build-openm
+#   podman run .... -e MODEL_DIRS=MyModel openmpp/openmpp-build:centos-8 ./build-models
+#   podman run .... openmpp/openmpp-build:centos-8 ./build-go
+#   podman run .... openmpp/openmpp-build:centos-8 ./build-r
+#   podman run .... openmpp/openmpp-build:centos-8 ./build-ui
+#   podman run .... openmpp/openmpp-build:centos-8 ./build-tar-gz
 #
-#   docker run -it openmpp/openmpp-build:centos-7 bash
+#   podman run -it openmpp/openmpp-build:centos-8 bash
 
-FROM centos:7
+FROM centos:8
 
 # update base image
-RUN yum -y update && yum clean all
+RUN dnf -y update && dnf clean all
 
-# install c++17, Open MPI, build utils, git and SQLite
-RUN yum -y install centos-release-scl && \
-  yum -y install devtoolset-7-gcc-c++ && \
-  yum -y install openmpi && \
-  yum -y install openmpi-devel && \
-  yum -y install make && \
-  yum -y install bison && \
-  yum -y install flex && \
-  yum -y install git && \
-  yum -y install sqlite && \
-  yum clean all
+# install c++, Open MPI, build utils, git and SQLite
+RUN dnf -y install gcc-c++ && \
+  dnf -y install openmpi openmpi-devel && \
+  dnf -y install make && \
+  dnf -y install bison flex && \
+  dnf -y install git && \
+  dnf -y install sqlite && \
+  dnf clean all
 
 # download and install Go
 RUN GO_VER=1.13.4; \
@@ -57,14 +53,18 @@ RUN GO_VER=1.13.4; \
   rm /tmp/go_setup.tar.gz
 
 # download and install unixODBC (optional)
-RUN yum -y install unixODBC && \
-  yum -y install unixODBC-devel && \
-  yum clean all
+RUN dnf -y install unixODBC && \
+  dnf -y install unixODBC-devel && \
+  dnf clean all
 
 # download and install R
-RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-  yum -y install R-core && \
-  yum clean all
+RUN dnf install -y epel-release && \
+  dnf install -y dnf-plugins-core && \
+  dnf config-manager --set-enabled PowerTools
+
+RUN dnf -y install cups && \
+  dnf -y install R-core && \
+  dnf clean all
 
 # download and install node.js
 RUN NODE_VER=v12.13.1; \
@@ -90,34 +90,22 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
   chmod 755 /scripts/build-go && \
-  chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-r && \
+  chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
-  chmod 744 /scripts/build-all
+  chmod 744 /scripts/README.txt
 
 # Done with installation
-# set user, work directory and entry point
+# set work directory argument
 #
 ARG OMPP_USER=ompp
-ARG OMPP_GROUP=ompp
-ARG OMPP_UID=1999
-ARG OMPP_GID=1999
 
 ENV OMPP_USER  ${OMPP_USER}
-ENV OMPP_GROUP ${OMPP_GROUP}
-ENV OMPP_UID   ${OMPP_UID}
-ENV OMPP_GID   ${OMPP_GID}
 
-# home directory and user are set by entrypoint.sh
+# actual home directory is set by entrypoint.sh
 #
-# RUN groupadd -g $OMPP_GID ${OMPP_GROUP} && \
-#   useradd --no-log-init -g ${OMPP_GROUP} -u $OMPP_UID ${OMPP_USER}
-# 
-# USER ${OMPP_USER}:${OMPP_GROUP}
-# 
-# WORKDIR /home/${OMPP_USER}/build
-
+# WORKDIR /home/${OMPP_USER}
+#
 ENTRYPOINT ["/scripts/entrypoint.sh"]
 
 CMD ["cat", "/scripts/README.txt"]
-
