@@ -14,8 +14,8 @@ Examples:
 
   podman run \
     -userns=host \
-    -v $HOME/build:/home/build:z \
-    -e OMPP_USER=build \
+    -v $HOME/build_mpi:/home/build_mpi:z \
+    -e OMPP_USER=build_mpi \
     -e OM_MSG_USE=MPI \
     openmpp/openmpp-build:centos-8 \
     ./build-all
@@ -56,4 +56,4 @@ To create openmpp_centos_YYYYMMDD.tar.gz archive:
 
 To open shell command prompt:
 
-  podman run .... -it openmpp/openmpp-build:centos-8 bash
+  podman run -it openmpp/openmpp-build:centos-8 bash

@@ -15,14 +15,14 @@
 #
 #   podman run \
 #     -userns=host \
-#     -v $HOME/build:/home/build:z \
-#     -e OMPP_USER=build \
+#     -v $HOME/build_mpi:/home/build_mpi:z \
+#     -e OMPP_USER=build_mpi \
 #     -e OM_MSG_USE=MPI \
 #     openmpp/openmpp-build:centos-8 \
 #     ./build-all
 #
-#   podman run .... -e OM_MSG_USE=MPI     openmpp/openmpp-build:centos-8 ./build-openm
-#   podman run .... -e MODEL_DIRS=MyModel openmpp/openmpp-build:centos-8 ./build-models
+#   podman run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:centos-8 ./build-openm
+#   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:centos-8 ./build-models
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-go
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-r
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-ui

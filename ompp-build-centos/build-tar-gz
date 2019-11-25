@@ -32,7 +32,7 @@ if [ ! -d log ]; then mkdir log; fi
 
 OM_DATE_STAMP=`date -u +%Y%m%d`
 
-DEPLOY_DIR=../openmpp_centos_7${OM_SFX_MPI}_${OM_DATE_STAMP}
+DEPLOY_DIR=../openmpp_centos${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_GZ=$DEPLOY_DIR.tar.gz
 
 # log build environment 
