@@ -140,10 +140,16 @@ do_cmd mkdir $DEPLOY_DIR/ompp-docker
 
 do_cp_all ompp-docker $DEPLOY_DIR/ompp-docker
 
-do_cmd cp -pr ompp-docker/ompp-build-centos $DEPLOY_DIR/ompp-docker
-do_cmd cp -pr ompp-docker/ompp-build-win    $DEPLOY_DIR/ompp-docker
-do_cmd cp -pr ompp-docker/ompp-run-centos   $DEPLOY_DIR/ompp-docker
-do_cmd cp -pr ompp-docker/ompp-run-win      $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-build-win      $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-build-win-1903 $DEPLOY_DIR/ompp-docker-1903
+do_cmd cp -pr ompp-docker/ompp-build-win-1809 $DEPLOY_DIR/ompp-docker-1809
+do_cmd cp -pr ompp-docker/ompp-run-win        $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-run-win-1903   $DEPLOY_DIR/ompp-docker-1903
+do_cmd cp -pr ompp-docker/ompp-run-win-1809   $DEPLOY_DIR/ompp-docker-1809
+do_cmd cp -pr ompp-docker/ompp-build-centos   $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-build-centos-7 $DEPLOY_DIR/ompp-docker-7
+do_cmd cp -pr ompp-docker/ompp-run-centos     $DEPLOY_DIR/ompp-docker
+do_cmd cp -pr ompp-docker/ompp-run-centos-7   $DEPLOY_DIR/ompp-docker-7
 
 # copy R package and source code
 
