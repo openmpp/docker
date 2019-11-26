@@ -38,9 +38,9 @@ To build openM++ libraries and omc compiler do:
 
 To build models do:
 
-  podman run .... openmpp/openmpp-build:centos-8 ./build-modles
+  podman run .... openmpp/openmpp-build:centos-8 ./build-models
   
-  Environment variables to control "build-modles": OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS
+  Environment variables to control "build-models": OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS
 
 To build openM++ tools do any of:
 
