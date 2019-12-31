@@ -163,7 +163,7 @@ if defined MDL_ONE_EXE (
   -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
   -OpenM.RunName "Parameter sub-values 4" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 ^
-  -SubGroupFrom.age_sex_parameters csv -SubGroupValues.age_sex_parameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
+  -SubGroupFrom.AgeSexParameters csv -SubGroupValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
   -OpenM.RunName "Parameter group sub-values 2 from csv") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
