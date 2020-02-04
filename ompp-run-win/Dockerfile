@@ -20,7 +20,7 @@ RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
 # download and install VC2015, VC2017, VC2019 re-distributable runtimes
-# note from Microsoft: VC2015, VC2017, VC2019 all share the same re-distributable runtime
+# according to Microsoft: VC2015, VC2017, VC2019 all share the same re-distributable runtime
 RUN curl -L -o C:\Temp\vc_redist.x86.exe https://aka.ms/vs/16/release/vc_redist.x86.exe && `
     C:\Temp\vc_redist.x86.exe /install /quiet /norestart /log C:\Temp\log.x86.txt
 

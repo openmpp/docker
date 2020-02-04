@@ -150,10 +150,10 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
 
 REM copy UI html build and source code
 
-call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist "static"
+call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist "css,js"
 call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist "*.*"
 call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui      "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui      "build,config,licenses,src,static"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui      "licenses,public,src"
 
 REM delete package-lock.json from source files
   

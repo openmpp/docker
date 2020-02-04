@@ -45,7 +45,7 @@ RUN dnf -y install gcc-c++ && \
   dnf clean all
 
 # download and install Go
-RUN GO_VER=1.13.4; \
+RUN GO_VER=1.13.7; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -67,7 +67,7 @@ RUN dnf -y install cups && \
   dnf clean all
 
 # download and install node.js
-RUN NODE_VER=v12.13.1; \
+RUN NODE_VER=v12.14.1; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \

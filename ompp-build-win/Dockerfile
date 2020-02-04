@@ -46,7 +46,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.24.0.windows.2/Git-2.24.0.2-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
@@ -63,32 +63,32 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2019/sqlite-tools-win32-x86-3300100.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2020/sqlite-tools-win32-x86-3310100.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.13.4.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.13.7.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
-RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-16.1-without-git.exe && `
+RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-17.1-without-git.exe && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\mingw_setup.exe && `
     del C:\Temp\mingw_setup.exe
 
 # download and install R
-RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/R-3.6.1-win.exe && `
+RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/R-3.6.2-win.exe && `
     C:\Temp\r_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\R /LOG && `
     del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v12.13.1/node-v12.13.1-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v12.14.1/node-v12.14.1-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v12.13.1-win-x64 node && `
+    rename C:\node-v12.14.1-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
-RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.30.0.1/strawberry-perl-5.30.0.1-64bit-portable.zip && `
+RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.30.1.1/strawberry-perl-5.30.1.1-64bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl C:\Temp\perl_setup.zip && `
     del C:\Temp\perl_setup.zip
 
