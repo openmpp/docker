@@ -164,7 +164,9 @@ if defined MDL_ONE_EXE (
   -OpenM.RunName "Parameter sub-values 4" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 ^
   -SubGroupFrom.AgeSexParameters csv -SubGroupValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
-  -OpenM.RunName "Parameter group sub-values 2 from csv") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -OpenM.RunName "Parameter group sub-values 2 from csv" && ^
+%MDL_ONE_EXE% -ImportRunName.modelOne Default ^
+  -OpenM.RunName "Import parameters from Default run") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
