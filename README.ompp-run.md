@@ -30,7 +30,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-centos](https://
 
 From: `centos:8`
 
-Installed: `Open MPI, SQLite, unixODBC`
+Installed: `MPICH, SQLite, unixODBC`
 
 ### `openmpp/openmpp-run:centos-7`
 
@@ -82,7 +82,7 @@ podman run \
   -v $HOME/models:/home/models:z \
   -e OMPP_USER=models \
   openmpp/openmpp-run:centos-8 \
-  mpiexec --allow-run-as-root -n 2 modelOne_mpi -OpenM.SubValues 16
+  mpiexec -n 2 ./modelOne_mpi -OpenM.SubValues 16
 ```
 
 Environment variables to pass your current user and home directory to container:

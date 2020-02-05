@@ -10,13 +10,13 @@ if [ ! -d ${HOME} ]; then mkdir ${HOME}; fi
 
 cp -uv /scripts/README.txt ${HOME}
 
-# set environment and enable open MPI
+# set environment and enable MPI CH
 #
 cd ${HOME}
 export OM_ROOT=${HOME}
 
 source /usr/share/Modules/init/bash
-module load mpi/openmpi-x86_64
+module load mpi/mpich-x86_64
 
 # done: execute command line arguments
 #

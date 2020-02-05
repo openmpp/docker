@@ -27,8 +27,8 @@ FROM centos:8
 # update base image
 RUN dnf -y update && dnf clean all
 
-# install Open MPI and SQLite
-RUN dnf -y install openmpi && \
+# install MPICH and SQLite
+RUN dnf -y install mpich && \
   dnf -y install sqlite && \
   dnf clean all
 

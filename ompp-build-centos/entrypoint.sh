@@ -25,11 +25,11 @@ cp -uv \
  /scripts/README.txt \
  ${HOME}
 
-# set environment: open MPI, Go, node.js, R
+# set environment: MPICH, Go, node.js, R
 cd ${HOME}
 
 source /usr/share/Modules/init/bash
-module load mpi/openmpi-x86_64
+module load mpi/mpich-x86_64
 
 export GOROOT=/go
 export GOPATH=${HOME}/ompp/ompp-go

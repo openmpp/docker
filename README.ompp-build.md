@@ -30,7 +30,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-centos](https:
 
 From: `centos:8`
 
-Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
+Installed: `gcc-c++, MPICH, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
 User: `ompp`
 

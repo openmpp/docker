@@ -35,13 +35,13 @@ FROM centos:8
 # update base image
 RUN dnf -y update && dnf clean all
 
-# install c++, Open MPI, build utils, git and SQLite
-RUN dnf -y install gcc-c++ && \
-  dnf -y install openmpi openmpi-devel && \
-  dnf -y install make && \
+# install c++, MPICH, build utils, git and SQLite
+RUN dnf -y install make && \
   dnf -y install bison flex && \
   dnf -y install git && \
   dnf -y install sqlite && \
+  dnf -y install gcc-c++ && \
+  dnf -y install mpich mpich-devel && \
   dnf clean all
 
 # download and install Go
