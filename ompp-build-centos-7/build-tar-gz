@@ -101,7 +101,7 @@ do_cmd cp -pr use      $DEPLOY_DIR
 
 # copy MPI template file to run models
 
-do_cmd cp -p etc/mpiLinux.template.txt $DEPLOY_DIR/etc/mpiModelRun.template.txt
+do_cmd cp -p etc/mpiLinux.openMPI.template.txt $DEPLOY_DIR/etc/mpi.ModelRun.template.txt
 
 # copy openm bin directory
 
