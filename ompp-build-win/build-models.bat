@@ -158,15 +158,19 @@ if defined MDL_ONE_EXE (
 %MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
 %MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 -SubFrom.salaryFull csv -OpenM.ParamDir ../../csv ^
-  -OpenM.RunName "Parameter sub-values 2 from csv" && ^
+  -OpenM.RunName "Sub-values_2_from_csv" ^
+  -EN.RunDescription "Parameter sub-values 2 from csv" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
-  -OpenM.RunName "Parameter sub-values 4" && ^
+  -OpenM.RunName Sub-values_4" ^
+  -EN.RunDescription "Parameter sub-values 4" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 ^
   -SubGroupFrom.AgeSexParameters csv -SubGroupValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
-  -OpenM.RunName "Parameter group sub-values 2 from csv" && ^
+  -OpenM.RunName "Group_sub-values_2_from_csv" ^
+  -EN.RunDescription "Parameter group sub-values 2 from csv" && ^
 %MDL_ONE_EXE% -ImportRunName.modelOne Default ^
-  -OpenM.RunName "Import parameters from Default run") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -OpenM.RunName "Import_from_Default_run" ^
+  -EN.RunDescription "Import parameters from Default run") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
