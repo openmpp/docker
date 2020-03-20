@@ -162,7 +162,7 @@ if defined MDL_ONE_EXE (
   -EN.RunDescription "Parameter sub-values 2 from csv" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
-  -OpenM.RunName Sub-values_4" ^
+  -OpenM.RunName "Sub-values_4" ^
   -EN.RunDescription "Parameter sub-values 4" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 ^
   -SubGroupFrom.AgeSexParameters csv -SubGroupValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
