@@ -49,7 +49,7 @@ RUN yum -y install centos-release-scl && \
   yum clean all
 
 # download and install Go
-RUN GO_VER=1.13.7; \
+RUN GO_VER=1.14.1; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
