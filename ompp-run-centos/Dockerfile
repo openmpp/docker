@@ -36,6 +36,10 @@ RUN dnf -y install mpich && \
 RUN dnf -y install unixODBC && \
   dnf clean all
 
+# set local openM++ timezone
+RUN rm -f /etc/localtime && \
+  ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+
 # copy entry point and build scripts
 COPY entrypoint.sh \
   README.txt \
