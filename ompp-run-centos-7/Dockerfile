@@ -42,6 +42,10 @@ RUN yum -y install openmpi && \
 RUN yum -y install unixODBC && \
   yum clean all
 
+# set local openM++ timezone
+RUN rm -f /etc/localtime && \
+  ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+
 # copy entry point and build scripts
 COPY entrypoint.sh /scripts/
 
