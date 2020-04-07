@@ -73,6 +73,10 @@ RUN NODE_VER=v12.14.1; \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
   rm /tmp/node.tar.xz
 
+# set local openM++ timezone
+RUN rm -f /etc/localtime && \
+  ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+
 # copy entry point and build scripts
 COPY entrypoint.sh \
   build-all \
