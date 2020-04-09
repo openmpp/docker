@@ -126,9 +126,12 @@ call :rcopy_files    %DEPLOY_DIR%\bin     ompp-go\bin                       "dbc
 call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbcopy,licenses,ompp,oms"
 
-REM copy MPI template file to run models
+REM copy template files to run models
 
-call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt etc\mpiWindows.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.Win32.Debug.template.txt etc\runWindows.Win32.Debug.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Debug.template.txt   etc\runWindows.x64.Debug.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Release.template.txt etc\runWindows.x64.Release.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt    etc\mpiWindows.template.txt
 
 REM get Docker source code from git and copy Docker sources
 
