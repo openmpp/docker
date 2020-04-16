@@ -28,9 +28,9 @@ OM_ROOT=$PWD
 
 if [ ! -d log ]; then mkdir log; fi
 
-# get current date, UTC time zone and set archive name
+# get current date and set archive name
 
-OM_DATE_STAMP=`date -u +%Y%m%d`
+OM_DATE_STAMP=`date +%Y%m%d`
 
 DEPLOY_DIR=../openmpp_centos_7${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_GZ=$DEPLOY_DIR.tar.gz
