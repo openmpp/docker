@@ -44,10 +44,9 @@ To build models do:
 
 To build openM++ tools do any of:
 
-  podman run .... openmpp/openmpp-build:centos-8 ./build-go     # Go oms web-service and dbcopy utility
-  podman run .... openmpp/openmpp-build:centos-8 ./build-r      # openMpp R package
-  podman run .... openmpp/openmpp-build:centos-8 ./build-python # openM++ Python examples
-  podman run .... openmpp/openmpp-build:centos-8 ./build-ui     # openM++ UI
+  podman run .... openmpp/openmpp-build:centos-8 ./build-go # Go oms web-service and dbcopy utility
+  podman run .... openmpp/openmpp-build:centos-8 ./build-r  # openMpp R package
+  podman run .... openmpp/openmpp-build:centos-8 ./build-ui # openM++ UI
   
 To create openmpp_centos_YYYYMMDD.tar.gz archive:
 

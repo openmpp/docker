@@ -29,11 +29,10 @@ To build models do:
 
 To build openM++ tools do any of:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-go     # Go oms web-service and dbcopy utility
-  docker run .... openmpp/openmpp-build:windows-1909 build-r      # openMpp R package
-  docker run .... openmpp/openmpp-build:windows-1909 build-python # openM++ Python examples
-  docker run .... openmpp/openmpp-build:windows-1909 build-perl   # Perl utilities
-  docker run .... openmpp/openmpp-build:windows-1909 build-ui     # openM++ UI
+  docker run .... openmpp/openmpp-build:windows-1909 build-go   # Go oms web-service and dbcopy utility
+  docker run .... openmpp/openmpp-build:windows-1909 build-r    # openMpp R package
+  docker run .... openmpp/openmpp-build:windows-1909 build-perl # Perl utilities
+  docker run .... openmpp/openmpp-build:windows-1909 build-ui   # openM++ UI
 
 To create openmpp_win_YYYYMMDD.zip archive:
 

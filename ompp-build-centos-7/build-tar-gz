@@ -152,6 +152,18 @@ do_cmd cp -pr ompp-docker/ompp-build-centos-7 $DEPLOY_DIR/ompp-docker
 do_cmd cp -pr ompp-docker/ompp-run-centos     $DEPLOY_DIR/ompp-docker
 do_cmd cp -pr ompp-docker/ompp-run-centos-7   $DEPLOY_DIR/ompp-docker
 
+# get Python source code from git and copy Python sources
+
+if [ ! -d ompp-python ]; then
+  do_cmd git clone https://github.com/openmpp/python ompp-python
+fi
+
+do_cmd mkdir $DEPLOY_DIR/ompp-python
+
+do_cp_all ompp-python $DEPLOY_DIR/ompp-python
+
+do_cmd cp -pr ompp-python/images $DEPLOY_DIR/ompp-python
+
 # copy R package and source code
 
 do_cmd mkdir $DEPLOY_DIR/ompp-r
@@ -159,14 +171,6 @@ do_cmd mkdir $DEPLOY_DIR/ompp-r
 do_cp_all ompp-r $DEPLOY_DIR/ompp-r
 
 do_cmd cp -pr ompp-r/openMpp $DEPLOY_DIR/ompp-r
-
-# copy Python source code
-
-do_cmd mkdir $DEPLOY_DIR/ompp-python
-
-do_cp_all ompp-python $DEPLOY_DIR/ompp-python
-
-do_cmd cp -pr ompp-python/images $DEPLOY_DIR/ompp-python
 
 # copy UI html build and source code
 

@@ -146,15 +146,19 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1809,o
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos,ompp-run-centos"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos-7,ompp-run-centos-7"
 
+REM get Python source code from git and copy Python sources
+
+if not exist ompp-python (
+  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/python ompp-python"
+)
+
+call :rcopy_files    %DEPLOY_DIR%\ompp-python ompp-python "*.*"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-python ompp-python "images"
+
 REM copy R package and source code
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
-
-REM copy Python source code
-
-call :rcopy_files    %DEPLOY_DIR%\ompp-python ompp-python "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-python ompp-python "images"
 
 REM copy UI html build and source code
 

@@ -26,7 +26,6 @@
 #   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:centos-7 ./build-models
 #   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-go
 #   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-r
-#   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-python
 #   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-ui
 #   docker run ....user, group, home.... openmpp/openmpp-build:centos-7 ./build-tar-gz
 #
@@ -95,7 +94,6 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
   chmod 755 /scripts/build-go && \
-  chmod 755 /scripts/build-python && \
   chmod 755 /scripts/build-r && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \

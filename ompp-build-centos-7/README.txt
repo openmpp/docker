@@ -45,10 +45,9 @@ To build models do:
 
 To build openM++ tools do any of:
 
-  docker run .... openmpp/openmpp-build:centos-7 ./build-go     # Go oms web-service and dbcopy utility
-  docker run .... openmpp/openmpp-build:centos-7 ./build-r      # openMpp R package
-  docker run .... openmpp/openmpp-build:centos-7 ./build-python # openM++ Python examples
-  docker run .... openmpp/openmpp-build:centos-7 ./build-ui     # openM++ UI
+  docker run .... openmpp/openmpp-build:centos-7 ./build-go # Go oms web-service and dbcopy utility
+  docker run .... openmpp/openmpp-build:centos-7 ./build-r  # openMpp R package
+  docker run .... openmpp/openmpp-build:centos-7 ./build-ui # openM++ UI
   
 To create openmpp_centos_YYYYMMDD.tar.gz archive:
 

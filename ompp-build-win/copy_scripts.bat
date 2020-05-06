@@ -8,7 +8,6 @@ call :do_copy_script build-openm.bat
 call :do_copy_script build-models.bat
 call :do_copy_script build-go.bat
 call :do_copy_script build-r.bat
-call :do_copy_script build-python.bat
 call :do_copy_script build-perl.bat
 call :do_copy_script build-ui.bat
 call :do_copy_script build-zip.bat
