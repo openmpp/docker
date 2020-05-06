@@ -160,6 +160,14 @@ do_cp_all ompp-r $DEPLOY_DIR/ompp-r
 
 do_cmd cp -pr ompp-r/openMpp $DEPLOY_DIR/ompp-r
 
+# copy Python source code
+
+do_cmd mkdir $DEPLOY_DIR/ompp-python
+
+do_cp_all ompp-python $DEPLOY_DIR/ompp-python
+
+do_cmd cp -pr ompp-python/images $DEPLOY_DIR/ompp-python
+
 # copy UI html build and source code
 
 do_cmd cp -pr ompp-ui/dist   $DEPLOY_DIR/html
