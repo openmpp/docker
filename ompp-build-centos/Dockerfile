@@ -25,6 +25,7 @@
 #   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:centos-8 ./build-models
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-go
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-r
+#   podman run .... openmpp/openmpp-build:centos-8 ./build-python
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-ui
 #   podman run .... openmpp/openmpp-build:centos-8 ./build-tar-gz
 #
@@ -86,6 +87,7 @@ COPY entrypoint.sh \
   build-models \
   build-go \
   build-r \
+  build-python \
   build-ui \
   build-tar-gz \
   README.txt \

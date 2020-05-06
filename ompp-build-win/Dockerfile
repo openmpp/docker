@@ -11,6 +11,7 @@
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-models
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-go
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-r
+#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-python
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-perl
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-ui
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-1909 build-zip
@@ -103,6 +104,7 @@ COPY copy_scripts.bat `
     build-go.bat `
     build-ui.bat `
     build-r.bat `
+    build-pyhon.bat `
     build-perl.bat `
     build-zip.bat `
     README.txt C:\build_scripts\

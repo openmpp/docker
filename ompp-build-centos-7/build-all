@@ -9,5 +9,6 @@ set -e
 ./build-models && \
 ./build-go && \
 ./build-r && \
+./build-python && \
 ./build-ui && \
 ./build-tar-gz

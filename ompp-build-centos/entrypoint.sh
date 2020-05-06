@@ -20,6 +20,7 @@ cp -uv \
  /scripts/build-models \
  /scripts/build-go \
  /scripts/build-r \
+ /scripts/build-python \
  /scripts/build-ui \
  /scripts/build-tar-gz \
  /scripts/README.txt \

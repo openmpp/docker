@@ -6,6 +6,7 @@ call build-openm.bat
 call build-models.bat
 call build-go.bat
 call build-r.bat
+call build-pyhon.bat
 call build-perl.bat
 call build-ui.bat
 
