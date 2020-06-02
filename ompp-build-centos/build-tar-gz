@@ -32,8 +32,9 @@ if [ ! -d log ]; then mkdir log; fi
 
 OM_DATE_STAMP=`date -u +%Y%m%d`
 
-DEPLOY_DIR=../openmpp_centos${OM_SFX_MPI}_${OM_DATE_STAMP}
-DEPLOY_GZ=$DEPLOY_DIR.tar.gz
+DEPLOY_NAME=openmpp_centos${OM_SFX_MPI}_${OM_DATE_STAMP}
+DEPLOY_DIR=../$DEPLOY_NAME
+DEPLOY_GZ=$DEPLOY_NAME.tar.gz
 
 # log build environment 
 
@@ -77,7 +78,7 @@ do_cp_all()
 # delete existing pack directory and zip file
 
 if [ -e $DEPLOY_DIR ]; then do_cmd rm -rf $DEPLOY_DIR; fi
-if [ -e $DEPLOY_GZ ];  then do_cmd rm -rf $DEPLOY_GZ; fi
+if [ -e ../$DEPLOY_GZ ];  then do_cmd rm -rf ../$DEPLOY_GZ; fi
 
 # create new deploy directory
 # copy top level sub-directories and files
@@ -119,17 +120,17 @@ do_cmd cp -p lib/libopenm${OM_SFX_MPI}.a lib/libsqlite.a $DEPLOY_DIR/lib
 
 # copy Go bin executables and source code
 
-do_cmd cp -p $GOPATH/bin/dbcopy $DEPLOY_DIR/bin
-do_cmd cp -p $GOPATH/bin/oms    $DEPLOY_DIR/bin
+do_cmd cp -p ompp-go/bin/dbcopy $DEPLOY_DIR/bin
+do_cmd cp -p ompp-go/bin/oms    $DEPLOY_DIR/bin
 
 do_cmd mkdir $DEPLOY_DIR/ompp-go
 
-do_cp_all $GOPATH/src/github.com/openmpp/go $DEPLOY_DIR/ompp-go
+do_cp_all ompp-go/src/github.com/openmpp/go $DEPLOY_DIR/ompp-go
 
-do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/dbcopy   $DEPLOY_DIR/ompp-go
-do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/ompp     $DEPLOY_DIR/ompp-go
-do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/oms      $DEPLOY_DIR/ompp-go
-do_cmd cp -pr $GOPATH/src/github.com/openmpp/go/licenses $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/src/github.com/openmpp/go/dbcopy   $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/src/github.com/openmpp/go/ompp     $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/src/github.com/openmpp/go/oms      $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/src/github.com/openmpp/go/licenses $DEPLOY_DIR/ompp-go
 
 # get Docker source code from git and copy Docker sources
 
@@ -212,13 +213,19 @@ for M in $OM_BLD_MDLS; do
   
 done
 
-# create tar.gz archive from deployment directory
-
 echo Build completed on:  ${OM_DATE_STAMP:0:4}-${OM_DATE_STAMP:4:2}-${OM_DATE_STAMP:6:2} > $DEPLOY_DIR/build_date.txt
 
-echo Create $DEPLOY_GZ | tee -a log/build-tar-gz.log
-
-do_cmd tar czf $DEPLOY_GZ $DEPLOY_DIR
-
-echo `date` Done. | tee -a log/build-tar-gz.log
 popd
+
+# create tar.gz archive from deployment directory
+
+echo Create $DEPLOY_GZ | tee -a ompp/log/build-tar-gz.log
+echo tar czf $DEPLOY_GZ $DEPLOY_NAME | tee -a ompp/log/build-tar-gz.log
+  
+if ! tar czf $DEPLOY_GZ $DEPLOY_NAME >> ompp/log/build-tar-gz.log 2>&1;
+then
+  echo FAILED. | tee -a ompp/log/build-tar-gz.log
+  exit 1
+fi
+
+echo `date` Done. | tee -a ompp/log/build-tar-gz.log
