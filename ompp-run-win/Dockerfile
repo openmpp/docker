@@ -3,15 +3,15 @@
 # Docker image to run openM++ models on Windows
 #
 # Example of build:
-#   docker build --isolation process -t openmpp/openmpp-run:windows-1909 .
+#   docker build --isolation process -t openmpp/openmpp-run:windows-2004 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1909 MyModel.exe
-#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-1909 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
-#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-1909
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-2004 MyModel.exe
+#   docker run --isolation process -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-2004 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
+#   docker run --isolation process -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-2004
 # 
 
-FROM mcr.microsoft.com/windows/servercore:1909
+FROM mcr.microsoft.com/windows/servercore:2004
 
 # download and install 7zip, curl expected to be included in servercore
 ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
@@ -41,7 +41,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-run:windows-1909
+LABEL name=openmpp/openmpp-run:windows-2004
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ runtime environemnt: VC++ 2015, VC++ 2017, VC++ 2019 runtime (Release only), MS MPI"

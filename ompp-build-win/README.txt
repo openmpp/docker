@@ -2,12 +2,12 @@
 
 To build openM++ do:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-all
+  docker run .... openmpp/openmpp-build:windows-2004 build-all
 
   Examples:
-  docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-1909 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-1909 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-1909 build-all
+  docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-2004 build-all
+  docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-2004 build-all
+  docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-2004 build-all
 
   Environment variables:
   set OM_BUILD_CONFIGS=Release,Debug (default: Release)
@@ -17,30 +17,30 @@ To build openM++ do:
 
 To build openM++ libraries and omc compiler do:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-openm
+  docker run .... openmpp/openmpp-build:windows-2004 build-openm
   
   Environment variables to control "build-openm": OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE
 
 To build models do:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-models
+  docker run .... openmpp/openmpp-build:windows-2004 build-models
   
   Environment variables to control "build-models": OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS
 
 To build openM++ tools do any of:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-go   # Go oms web-service and dbcopy utility
-  docker run .... openmpp/openmpp-build:windows-1909 build-r    # openMpp R package
-  docker run .... openmpp/openmpp-build:windows-1909 build-perl # Perl utilities
-  docker run .... openmpp/openmpp-build:windows-1909 build-ui   # openM++ UI
+  docker run .... openmpp/openmpp-build:windows-2004 build-go   # Go oms web-service and dbcopy utility
+  docker run .... openmpp/openmpp-build:windows-2004 build-r    # openMpp R package
+  docker run .... openmpp/openmpp-build:windows-2004 build-perl # Perl utilities
+  docker run .... openmpp/openmpp-build:windows-2004 build-ui   # openM++ UI
 
 To create openmpp_win_YYYYMMDD.zip archive:
 
-  docker run .... openmpp/openmpp-build:windows-1909 build-zip
+  docker run .... openmpp/openmpp-build:windows-2004 build-zip
   
   Environment variables to control "build-zip": OM_MSG_USE, MODEL_DIRS
 
 To open cmd command prompt or Perl command prompt:
 
-  docker run .... -it openmpp/openmpp-build:windows-1909 cmd
-  docker run .... -it openmpp/openmpp-build:windows-1909 C:\perl\portableshell
+  docker run .... -it openmpp/openmpp-build:windows-2004 cmd
+  docker run .... -it openmpp/openmpp-build:windows-2004 C:\perl\portableshell
