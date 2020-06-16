@@ -136,7 +136,7 @@ call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt    etc\mpiWindow
 REM get Docker source code from git and copy Docker sources
 
 if not exist ompp-docker (
-  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/docker ompp-docker"
+  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/docker ompp-docker"
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
@@ -149,7 +149,7 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos-7,o
 REM get Python source code from git and copy Python sources
 
 if not exist ompp-python (
-  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/python ompp-python"
+  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/python ompp-python"
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-python ompp-python "*.*"
@@ -227,8 +227,8 @@ for %%m in (%OM_BLD_MDLS%) do (
 
 REM add MacOS extra source code and documents
 
-if not exist ompp-python (
-  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/mac ompp-mac"
+if not exist ompp-mac (
+  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/mac ompp-mac"
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-mac ompp-mac "*.*"
