@@ -104,7 +104,7 @@ call :make_dir %DEPLOY_DIR%
 echo Copy files: > log\build-zip-copy.log
 
 call :rcopy_files    %DEPLOY_DIR% . "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,Perl,props,sql,use"
+call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,Perl,props,sql,use,Xcode"
 
 REM copy openm runtime libraries
 
