@@ -225,6 +225,16 @@ for %%m in (%OM_BLD_MDLS%) do (
     "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!64%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
 )
 
+REM add MacOS extra source code and documents
+
+if not exist ompp-python (
+  call :do_cmd_line_log log\build-zip-copy.log "git clone https://github.com/openmpp/mac ompp-mac"
+)
+
+call :rcopy_files    %DEPLOY_DIR%\ompp-mac ompp-mac "*.*"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-mac ompp-mac "build"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-mac ompp-mac "pictures"
+
 REM create zip archive from deployment directory
 
 @echo Build completed on: %OM_DATE_STAMP:~0,4%-%OM_DATE_STAMP:~4,2%-%OM_DATE_STAMP:~6,2% > %DEPLOY_DIR%\build_date.txt
