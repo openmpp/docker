@@ -213,6 +213,22 @@ for M in $OM_BLD_MDLS; do
   
 done
 
+# add MacOS extra source code and documents
+
+if [ ! -d ompp-mac ]; then
+  do_cmd git clone https://github.com/openmpp/mac.git ompp-mac
+  do_cmd chmod a+x "ompp-mac/build/build-*"
+fi
+
+do_cmd mkdir -p $DEPLOY_DIR/ompp-mac
+
+do_cp_all ompp-mac $DEPLOY_DIR/ompp-mac
+
+do_cmd cp -pr ompp-mac/build    $DEPLOY_DIR/ompp-mac/
+do_cmd cp -pr ompp-mac/pictures $DEPLOY_DIR/ompp-mac/
+
+# build completed
+
 echo Build completed on:  ${OM_DATE_STAMP:0:4}-${OM_DATE_STAMP:4:2}-${OM_DATE_STAMP:6:2} > $DEPLOY_DIR/build_date.txt
 
 popd
