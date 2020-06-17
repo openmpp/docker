@@ -6,19 +6,20 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
+- `openmpp/openmpp-run:windows-2004`
 - `openmpp/openmpp-run:windows-1909`
 - `openmpp/openmpp-run:windows-1903`
 - `openmpp/openmpp-run:windows-1809`
 - `openmpp/openmpp-run:centos-8`
 - `openmpp/openmpp-run:centos-7`
 
-### `openmpp/openmpp-run:windows-1909`
+### `openmpp/openmpp-run:windows-2004`
 
-Pull: `docker pull openmpp/openmpp-run:windows-1909`
+Pull: `docker pull openmpp/openmpp-run:windows-2004`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://github.com/openmpp/docker/tree/master/ompp-run-win)
 
-From: `windows/servercore:1909`
+From: `windows/servercore:2004`
 
 Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
 
@@ -30,35 +31,25 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-centos](https://
 
 From: `centos:8`
 
-Installed: `MPICH, SQLite, unixODBC`
-
-### `openmpp/openmpp-run:centos-7`
-
-Pull: `docker pull openmpp/openmpp-run:centos-7`
-
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-centos](https://github.com/openmpp/docker/tree/master/ompp-run-centos-7)
-
-From: `centos:7`
-
 Installed: `Open MPI, SQLite, unixODBC`
 
-## How to use `openmpp/openmpp-run:windows-1909` image
+## How to use `openmpp/openmpp-run:windows-2004` image
 
 To run openM++ model do:
 ```
-docker run .... openmpp/openmpp-run:windows-1909 modelOne.exe
+docker run .... openmpp/openmpp-run:windows-2004 modelOne.exe
 ```
 
 Examples:
 ```
-docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-1909 modelOne.exe
-docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-1909 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
-docker run --isolation process -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-1909 modelOne.exe
+docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-2004 modelOne.exe
+docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-2004 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
+docker run --isolation process -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-2004 modelOne.exe
 ```
   
 To start command prompt do:
 ```
-docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-1909
+docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-2004
 ```
 
 ## How to use `openmpp/openmpp-run:centos-8` image
@@ -93,41 +84,6 @@ OMPP_USER=ompp   # default: ompp, container user name and HOME dir
 To start shell do:
 ```
 podman run -it openmpp/openmpp-run:centos-8 bash
-```
-
-## How to use `openmpp/openmpp-run:centos-7` image
-
-To run openM++ model do:
-```
-docker run .... openmpp/openmpp-run:centos-7 ./modelOne
-```
-
-Examples:
-```
-docker run \
-  -v $HOME/models:/home/models \
-  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-  openmpp/openmpp-run:centos-7 \
-  ./modelOne
-
-docker run \
-  -v $HOME/models:/home/models \
-  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-  openmpp/openmpp-run:centos-7 \
-  mpiexec -n 2 modelOne_mpi -OpenM.SubValues 16
-```
-
-Environment variables to pass your current user, group and home to container:
-```
-OMPP_USER=ompp   # default: ompp, container user name and HOME
-OMPP_GROUP=ompp  # default: ompp, container group name
-OMPP_UID=1999    # default: 1999, container user ID
-OMPP_GID=1999    # default: 1999, container group ID
-```
-
-To start shell do:
-```
-docker run -v $HOME/models/bin:/home/ompp/models -it openmpp/openmpp-run:centos-7 bash
 ```
 
 ## License: MIT
