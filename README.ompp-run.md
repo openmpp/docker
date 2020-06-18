@@ -10,6 +10,7 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 - `openmpp/openmpp-run:windows-1909`
 - `openmpp/openmpp-run:windows-1903`
 - `openmpp/openmpp-run:windows-1809`
+- `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:centos-8`
 - `openmpp/openmpp-run:centos-7`
 
@@ -22,6 +23,16 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://git
 From: `windows/servercore:2004`
 
 Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
+
+### `openmpp/openmpp-run:debian`
+
+Pull: `podman pull openmpp/openmpp-run:debian`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian](https://github.com/openmpp/docker/tree/master/ompp-run-debian)
+
+From: `debian:stable`
+
+Installed: `Open MPI, SQLite, unixODBC`
 
 ### `openmpp/openmpp-run:centos-8`
 
@@ -50,6 +61,41 @@ docker run --isolation process -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp op
 To start command prompt do:
 ```
 docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-2004
+```
+
+## How to use `openmpp/openmpp-run:debian` image
+
+To run openM++ model do:
+```
+docker run ....options... openmpp/openmpp-run:debian ./modelOne
+```
+
+Examples:
+```
+docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:debian \
+  ./modelOne
+
+docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:debian \
+  mpiexec -n 2 ./modelOne_mpi -OpenM.SubValues 16
+```
+
+Environment variables to pass your current user and home directory to container:
+```
+OMPP_USER=ompp   # default: ompp, container user name and HOME
+OMPP_GROUP=ompp  # default: ompp, container group name
+OMPP_UID=1999    # default: 1999, container user ID
+OMPP_GID=1999    # default: 1999, container group ID
+```
+
+To start shell do:
+```
+docker run -it openmpp/openmpp-run:debian bash
 ```
 
 ## How to use `openmpp/openmpp-run:centos-8` image
