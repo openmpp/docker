@@ -1,48 +1,54 @@
-# Docker image to build openM++ latest version on CentOS 8
+# Docker image to build openM++ latest version on Debian stable
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-build:centos-8 .
-#   podman build -t openmpp/openmpp-build:centos-8 --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:debian .
+#   docker build -t openmpp/openmpp-build:debian --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:debian --build-arg OMPP_GROUP=ompp .
+#   docker build -t openmpp/openmpp-build:debian --build-arg OMPP_UID=1999 .
+#   docker build -t openmpp/openmpp-build:debian --build-arg OMPP_GID=1999 .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
-#   podman run \
-#     -userns=host \
-#     -v $HOME/build:/home/build:z \
-#     -e OMPP_USER=build \
-#     openmpp/openmpp-build:centos-8 \
+#   docker run \
+#     -v $HOME/build:/home/build \
+#     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     openmpp/openmpp-build:debian \
 #     ./build-all
 #
-#   podman run \
-#     -userns=host \
-#     -v $HOME/build_mpi:/home/build_mpi:z \
-#     -e OMPP_USER=build_mpi \
+#   docker run \
+#     -v $HOME/build_mpi:/home/build_mpi \
+#     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
 #     -e OM_MSG_USE=MPI \
-#     openmpp/openmpp-build:centos-8 \
+#     openmpp/openmpp-build:debian \
 #     ./build-all
 #
-#   podman run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:centos-8 ./build-openm
-#   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:centos-8 ./build-models
-#   podman run .... openmpp/openmpp-build:centos-8 ./build-go
-#   podman run .... openmpp/openmpp-build:centos-8 ./build-r
-#   podman run .... openmpp/openmpp-build:centos-8 ./build-ui
-#   podman run .... openmpp/openmpp-build:centos-8 ./build-tar-gz
+#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian ./build-openm
+#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian ./build-models
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-go
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-r
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-ui
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-tar-gz
 #
-#   podman run -it openmpp/openmpp-build:centos-8 bash
+#   docker run -it openmpp/openmpp-build:debian bash
 
-FROM centos:8
+FROM debian:stable
+
+# disable debconf terminal input
+ARG DEBIAN_FRONTEND=noninteractive
 
 # update base image
-RUN dnf -y update && dnf clean all
+RUN apt-get update
 
 # install c++, Open MPI, build utils, git and SQLite
-RUN dnf -y install make && \
-  dnf -y install bison flex && \
-  dnf -y install git && \
-  dnf -y install sqlite && \
-  dnf -y install gcc-c++ && \
-  dnf -y install openmpi openmpi-devel && \
-  dnf clean all
+RUN apt-get install -y apt-utils && \
+  apt-get install -y g++ && \
+  apt-get install -y make && \
+  apt-get install -y bison flex && \
+  apt-get install -y git && \
+  apt-get install -y sqlite3 && \
+  apt-get install -y openmpi-bin libopenmpi-dev && \
+  apt-get install -y curl && \
+  apt-get autoclean
 
 # download and install Go
 RUN GO_VER=1.14.4; \
@@ -53,20 +59,12 @@ RUN GO_VER=1.14.4; \
   rm /tmp/go_setup.tar.gz
 
 # download and install unixODBC (optional)
-RUN dnf -y install unixODBC && \
-  dnf -y install unixODBC-devel && \
-  dnf clean all
+RUN apt-get install -y unixodbc unixodbc-dev && \
+  apt-get autoclean
 
 # download and install R
-RUN dnf install -y epel-release && \
-  dnf install -y dnf-plugins-core && \
-  dnf config-manager --set-enabled PowerTools
-
-RUN dnf -y install cups
-
-RUN dnf -y install R-core
-
-RUN dnf clean all
+RUN apt-get install -y r-base-core && \
+  apt-get autoclean
 
 # download and install node.js
 RUN NODE_VER=v12.18.0; \
@@ -103,7 +101,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:centos-8
+LABEL name=openmpp/openmpp-build:debian
 LABEL os=Linux
 LABEL license=MIT
 LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, R, node.js"

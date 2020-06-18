@@ -141,8 +141,10 @@ if not exist ompp-docker (
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win,ompp-run-win"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1909,ompp-run-win-1909"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1903,ompp-run-win-1903"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1809,ompp-run-win-1809"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-debian,ompp-run-debian"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos,ompp-run-centos"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos-7,ompp-run-centos-7"
 

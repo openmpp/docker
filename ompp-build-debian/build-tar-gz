@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# create zip archive of openM++ build from ompp sub-directory: openmpp_centos_YYYYMMDD.tar.gz
+# create zip archive of openM++ build from ompp sub-directory: openmpp_debian_YYYYMMDD.tar.gz
 # environmemnt variables:
 #  OM_MSG_USE=MPI                 (default: EMPTY)
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
@@ -32,7 +32,7 @@ if [ ! -d log ]; then mkdir log; fi
 
 OM_DATE_STAMP=`date -u +%Y%m%d`
 
-DEPLOY_NAME=openmpp_centos${OM_SFX_MPI}_${OM_DATE_STAMP}
+DEPLOY_NAME=openmpp_debian${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_DIR=../$DEPLOY_NAME
 DEPLOY_GZ=$DEPLOY_NAME.tar.gz
 
