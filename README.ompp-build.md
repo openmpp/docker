@@ -26,7 +26,7 @@ Installed: `Visual C++ 2019 development tools and MSBuild, Microsoft MPI and SDK
 
 ### `openmpp/openmpp-build:debian`
 
-Pull: `podman pull openmpp/openmpp-build:debian`
+Pull: `docker pull openmpp/openmpp-build:debian`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian](https://github.com/openmpp/docker/tree/master/ompp-build-debian)
 

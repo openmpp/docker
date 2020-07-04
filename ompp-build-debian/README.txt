@@ -49,7 +49,7 @@ To build openM++ tools do any of:
   docker run .... openmpp/openmpp-build:debian ./build-r  # openMpp R package
   docker run .... openmpp/openmpp-build:debian ./build-ui # openM++ UI
   
-To create openmpp_centos_YYYYMMDD.tar.gz archive:
+To create openmpp_debian_YYYYMMDD.tar.gz archive:
 
   docker run .... openmpp/openmpp-build:debian ./build-tar-gz
   

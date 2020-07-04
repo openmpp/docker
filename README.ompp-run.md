@@ -26,7 +26,7 @@ Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft
 
 ### `openmpp/openmpp-run:debian`
 
-Pull: `podman pull openmpp/openmpp-run:debian`
+Pull: `docker pull openmpp/openmpp-run:debian`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian](https://github.com/openmpp/docker/tree/master/ompp-run-debian)
 
