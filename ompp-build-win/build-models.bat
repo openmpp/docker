@@ -170,7 +170,10 @@ if defined MDL_ONE_EXE (
   -EN.RunDescription "Parameter group sub-values 2 from csv" && ^
 %MDL_ONE_EXE% -ImportRunName.modelOne Default ^
   -OpenM.RunName "Import_from_Default_run" ^
-  -EN.RunDescription "Import parameters from Default run") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -EN.RunDescription "Import parameters from Default run" && ^
+%MDL_ONE_EXE% -OpenM.RunName "Base_run_is_Sub-values_2_from_csv" ^
+  -OpenM.SubValues 2 -SubFrom.salaryFull db ^
+  -EN.RunDescription "Parameters from base run Sub-values_2_from_csv") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
