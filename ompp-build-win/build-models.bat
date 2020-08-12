@@ -172,6 +172,7 @@ if defined MDL_ONE_EXE (
   -OpenM.RunName "Import_from_Default_run" ^
   -EN.RunDescription "Import parameters from Default run" && ^
 %MDL_ONE_EXE% -OpenM.RunName "Base_run_is_Sub-values_2_from_csv" ^
+  -OpenM.BaseRunName "Sub-values_2_from_csv" ^
   -OpenM.SubValues 2 -SubFrom.salaryFull db ^
   -EN.RunDescription "Parameters from base run Sub-values_2_from_csv") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
@@ -181,6 +182,7 @@ if defined MDL_ONE_EXE (
   )
   popd
 )
+
 
 @echo %DATE% %TIME% Done.
 @echo %DATE% %TIME% Done. >> ..\log\build-models.log
