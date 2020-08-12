@@ -174,7 +174,11 @@ if defined MDL_ONE_EXE (
 %MDL_ONE_EXE% -OpenM.RunName "Base_run_is_Sub-values_2_from_csv" ^
   -OpenM.BaseRunName "Sub-values_2_from_csv" ^
   -OpenM.SubValues 2 -SubFrom.salaryFull db ^
-  -EN.RunDescription "Parameters from base run Sub-values_2_from_csv") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -EN.RunDescription "Parameters from base run Sub-values_2_from_csv" && ^
+%MDL_ONE_EXE% -OpenM.RunName "Base_run_and_partial_input_set" ^
+  -OpenM.BaseRunName "Sub-values_2_from_csv" ^
+  -OpenM.SetName modelOne_partial ^
+  -EN.RunDescription "Parameters from base run and from partial input set") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
