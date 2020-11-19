@@ -68,7 +68,7 @@ RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2020/sqlite-tools-w
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.14.4.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.15.5.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
@@ -82,9 +82,9 @@ RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/
     del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v12.18.0/node-v12.18.0-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.15.1/node-v14.15.1-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v12.18.0-win-x64 node && `
+    rename C:\node-v14.15.1-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
