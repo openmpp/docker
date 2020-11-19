@@ -63,7 +63,8 @@ RUN apt-get install -y unixodbc unixodbc-dev && \
   apt-get autoclean
 
 # download and install R
-RUN apt-get install -y r-base-core && \
+RUN apt-get update && \
+  apt-get install -y r-base-core && \
   apt-get autoclean
 
 # download and install node.js
