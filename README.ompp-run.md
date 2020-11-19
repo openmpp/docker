@@ -7,12 +7,8 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 ## Supported tags
 
 - `openmpp/openmpp-run:windows-2004`
-- `openmpp/openmpp-run:windows-1909`
-- `openmpp/openmpp-run:windows-1903`
-- `openmpp/openmpp-run:windows-1809`
 - `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:centos-8`
-- `openmpp/openmpp-run:centos-7`
 
 ### `openmpp/openmpp-run:windows-2004`
 

@@ -7,12 +7,8 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 ## Supported tags
 
 - `openmpp/openmpp-build:windows-2004`
-- `openmpp/openmpp-build:windows-1909`
-- `openmpp/openmpp-build:windows-1903`
-- `openmpp/openmpp-build:windows-1809`
 - `openmpp/openmpp-build:debian`
 - `openmpp/openmpp-build:centos-8`
-- `openmpp/openmpp-build:centos-7`
 
 ### `openmpp/openmpp-build:windows-2004`
 
