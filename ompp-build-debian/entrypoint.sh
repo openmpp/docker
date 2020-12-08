@@ -33,7 +33,7 @@ cd ${HOME}
 # set environment: open MPI, Go, node.js, R
 #
 export GOROOT=/go
-export GOPATH=${HOME}/ompp/ompp-go
+export GOPATH=${HOME}/ompp
 
 export PATH=${GOROOT}/bin:${GOPATH}/bin:/node/bin:${PATH}
 

@@ -32,7 +32,7 @@ source /usr/share/Modules/init/bash
 module load mpi/openmpi-x86_64
 
 export GOROOT=/go
-export GOPATH=${HOME}/ompp/ompp-go
+export GOPATH=${HOME}/ompp
 
 export PATH=${GOROOT}/bin:${GOPATH}/bin:/node/bin:${PATH}
 
