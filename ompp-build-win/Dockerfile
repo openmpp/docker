@@ -111,7 +111,7 @@ COPY copy_scripts.bat `
 USER ContainerAdministrator
 
 RUN setx /M GOROOT C:\go && `
-  setx /M GOPATH C:\build\ompp\ompp-go && `
+  setx /M GOPATH C:\build\ompp && `
   setx /M PERLROOT C:\perl && `
   setx /M OM_SCRIPTS_DIR C:\build_scripts && `
   setx /M PATH "%GOROOT%\bin;%GOPATH%\bin;C:\Git\cmd;C:\R\bin;%PATH%"

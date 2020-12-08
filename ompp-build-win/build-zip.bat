@@ -124,7 +124,7 @@ call :rcopy_files %DEPLOY_DIR%\bin  bin "README_win.txt ompp_ui.bat"
 
 REM copy Go bin executables and source code
 
-call :rcopy_files    %DEPLOY_DIR%\bin     ompp-go\bin                       "dbcopy.exe oms.exe"
+call :rcopy_files    %DEPLOY_DIR%\bin     bin                               "dbcopy.exe oms.exe"
 call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go\src\github.com\openmpp\go "dbcopy,licenses,ompp,oms"
 
