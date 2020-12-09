@@ -36,13 +36,12 @@ FROM centos:8
 RUN dnf -y update && dnf clean all
 
 # install c++, Open MPI, build utils, git and SQLite
-RUN dnf -y install make && \
-  dnf -y install bison flex && \
-  dnf -y install git && \
-  dnf -y install sqlite && \
-  dnf -y install gcc-c++ && \
-  dnf -y install openmpi openmpi-devel && \
-  dnf clean all
+RUN dnf -y --setopt=tsflags=nodocs install make && \
+  dnf -y --setopt=tsflags=nodocs install bison flex && \
+  dnf -y --setopt=tsflags=nodocs install git && \
+  dnf -y --setopt=tsflags=nodocs install sqlite && \
+  dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
+  dnf -y --setopt=tsflags=nodocs install openmpi openmpi-devel
 
 # download and install Go
 RUN GO_VER=1.15.5; \
@@ -53,19 +52,21 @@ RUN GO_VER=1.15.5; \
   rm /tmp/go_setup.tar.gz
 
 # download and install unixODBC (optional)
-RUN dnf -y install unixODBC && \
-  dnf -y install unixODBC-devel && \
-  dnf clean all
+RUN dnf -y --setopt=tsflags=nodocs install unixODBC && \
+  dnf --setopt=tsflags=nodocs -y install unixODBC-devel
 
 # download and install R
-RUN dnf install -y epel-release && \
-  dnf install -y dnf-plugins-core && \
-  dnf config-manager --set-enabled PowerTools
+RUN dnf install -y --setopt=tsflags=nodocs epel-release
 
-RUN dnf -y install cups
+RUN dnf install -y --setopt=tsflags=nodocs dnf-plugins-core
 
-RUN dnf -y install R-core
+RUN dnf config-manager --set-enabled powertools
 
+RUN dnf -y --setopt=tsflags=nodocs install cups
+
+RUN dnf -y --setopt=tsflags=nodocs install R-core
+
+# cleanup
 RUN dnf clean all
 
 # download and install node.js

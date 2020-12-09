@@ -28,13 +28,14 @@ FROM centos:8
 RUN dnf -y update && dnf clean all
 
 # install MPICH and SQLite
-RUN dnf -y install mpich && \
-  dnf -y install sqlite && \
-  dnf clean all
+RUN dnf -y --setopt=tsflags=nodocs install mpich && \
+  dnf -y --setopt=tsflags=nodocs install sqlite
 
 # download and install unixODBC (optional)
-RUN dnf -y install unixODBC && \
-  dnf clean all
+RUN dnf -y --setopt=tsflags=nodocs install unixODBC
+
+# cleanup
+RUN dnf clean all
 
 # set local openM++ timezone
 RUN rm -f /etc/localtime && \
