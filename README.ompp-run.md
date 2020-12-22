@@ -6,17 +6,17 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
-- `openmpp/openmpp-run:windows-2004`
+- `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:centos-8`
 
-### `openmpp/openmpp-run:windows-2004`
+### `openmpp/openmpp-run:windows-20H2`
 
-Pull: `docker pull openmpp/openmpp-run:windows-2004`
+Pull: `docker pull openmpp/openmpp-run:windows-20H2`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://github.com/openmpp/docker/tree/master/ompp-run-win)
 
-From: `windows/servercore:2004`
+From: `windows/servercore:20H2`
 
 Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
 
@@ -40,23 +40,23 @@ From: `centos:8`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
-## How to use `openmpp/openmpp-run:windows-2004` image
+## How to use `openmpp/openmpp-run:windows-20H2` image
 
 To run openM++ model do:
 ```
-docker run .... openmpp/openmpp-run:windows-2004 modelOne.exe
+docker run .... openmpp/openmpp-run:windows-20H2 modelOne.exe
 ```
 
 Examples:
 ```
-docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-2004 modelOne.exe
-docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-2004 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
-docker run --isolation process -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-2004 modelOne.exe
+docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-20H2 modelOne.exe
+docker run --isolation process -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-20H2 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
+docker run --isolation process -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-20H2 modelOne.exe
 ```
   
 To start command prompt do:
 ```
-docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-2004
+docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-20H2
 ```
 
 ## How to use `openmpp/openmpp-run:debian` image

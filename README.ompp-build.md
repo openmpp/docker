@@ -6,17 +6,17 @@ Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
 
 ## Supported tags
 
-- `openmpp/openmpp-build:windows-2004`
+- `openmpp/openmpp-build:windows-20H2`
 - `openmpp/openmpp-build:debian`
 - `openmpp/openmpp-build:centos-8`
 
-### `openmpp/openmpp-build:windows-2004`
+### `openmpp/openmpp-build:windows-20H2`
 
-Pull: `docker pull openmpp/openmpp-build:windows-2004`
+Pull: `docker pull openmpp/openmpp-build:windows-20H2`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://github.com/openmpp/docker/tree/master/ompp-build-win)
 
-From: `windows/servercore:2004`
+From: `windows/servercore:20H2`
 
 Installed: `Visual C++ 2019 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
 
@@ -42,17 +42,17 @@ Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, 
 
 User: `ompp`
 
-## How to use `openmpp/openmpp-build:windows-2004` image
+## How to use `openmpp/openmpp-build:windows-20H2` image
 
 To build openM++ do:
 ```
-docker run .... openmpp/openmpp-build:windows-2004 build-all
+docker run .... openmpp/openmpp-build:windows-20H2 build-all
 ```
 Examples:
 ```
-docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-2004 build-all
-docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-2004 build-all
-docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-2004 build-all
+docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-20H2 build-all
+docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-20H2 build-all
+docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-20H2 build-all
 ```
 Environment variables:
 ```
@@ -64,34 +64,34 @@ set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTime
 
 To build only openM++ libraries and omc compiler do:
 ```
-docker run .... openmpp/openmpp-build:windows-2004 build-openm
+docker run .... openmpp/openmpp-build:windows-20H2 build-openm
 ```
 Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE`
 
 To build models do:
 ```
-docker run .... openmpp/openmpp-build:windows-2004 build-models
+docker run .... openmpp/openmpp-build:windows-20H2 build-models
 ```
 Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS`
 
 To build openM++ tools do any of:
 ```
-docker run .... openmpp/openmpp-build:windows-2004 build-go   # Go oms web-service and dbcopy utility
-docker run .... openmpp/openmpp-build:windows-2004 build-r    # openMpp R package
-docker run .... openmpp/openmpp-build:windows-2004 build-perl # Perl utilities
-docker run .... openmpp/openmpp-build:windows-2004 build-ui   # openM++ UI
+docker run .... openmpp/openmpp-build:windows-20H2 build-go   # Go oms web-service and dbcopy utility
+docker run .... openmpp/openmpp-build:windows-20H2 build-r    # openMpp R package
+docker run .... openmpp/openmpp-build:windows-20H2 build-perl # Perl utilities
+docker run .... openmpp/openmpp-build:windows-20H2 build-ui   # openM++ UI
 ```
 
 To create `openmpp_win_YYYYMMDD.zip` archive:
 ```
-docker run .... openmpp/openmpp-build:windows-2004 build-zip
+docker run .... openmpp/openmpp-build:windows-20H2 build-zip
 ```
 Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
 
 To open cmd command prompt or Perl command prompt:
 ```
-docker run .... -it openmpp/openmpp-build:windows-2004 cmd
-docker run .... -it openmpp/openmpp-build:windows-2004 C:\perl\portableshell
+docker run .... -it openmpp/openmpp-build:windows-20H2 cmd
+docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl\portableshell
 ```
 
 ## How to use `openmpp/openmpp-build:debian` image
