@@ -143,6 +143,7 @@ if not exist ompp-docker (
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win,ompp-run-win"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-2004,ompp-run-win-2004"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1909,ompp-run-win-1909"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1903,ompp-run-win-1903"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1809,ompp-run-win-1809"
@@ -193,7 +194,8 @@ call :make_dir %DEPLOY_DIR%\models\sql
 call :make_dir %DEPLOY_DIR%\models\log
 
 REM copy models
-REM modelOne is special case, it does not have modgen or any code/*.ompp or parameters/*.mpp files
+REM modelOne special case:
+REM   it does not have modgen or any code/*.ompp or parameters/*.mpp files
 
 call :do_copy_files  %DEPLOY_DIR%\models models\*.*
 call :rcopy_sub_dirs %DEPLOY_DIR%\models models  "microdata"
@@ -224,6 +226,13 @@ for %%m in (%OM_BLD_MDLS%) do (
     %DEPLOY_DIR%\models\bin ^
     models\%%m\ompp\bin ^
     "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!64%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
+)
+
+REM Alpha2 special case:
+REM   if Alpha2 was not included in the model build list then copy Alpha2 source files
+
+if not exist %DEPLOY_DIR%\models\Alpha2 (
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models models "Alpha2"
 )
 
 REM add MacOS extra source code and documents
