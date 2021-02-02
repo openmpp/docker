@@ -131,10 +131,10 @@ call :rcopy_sub_dirs %DEPLOY_DIR% ompp-go etc
 
 REM copy template files to run models
 
-call :do_copy_files  %DEPLOY_DIR%\etc\run.Win32.Debug.template.txt etc\runWindows.Win32.Debug.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Debug.template.txt   etc\runWindows.x64.Debug.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Release.template.txt etc\runWindows.x64.Release.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt    etc\mpiWindows.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.Win32.Debug.template.txt ompp-go\etc\runWindows.Win32.Debug.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Debug.template.txt   ompp-go\etc\runWindows.x64.Debug.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Release.template.txt ompp-go\etc\runWindows.x64.Release.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt    ompp-go\etc\mpiWindows.template.txt
 
 REM get Docker source code from git and copy Docker sources
 
