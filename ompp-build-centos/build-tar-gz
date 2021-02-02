@@ -90,7 +90,6 @@ echo Copy files: | tee -a log/build-tar-gz.log
 
 do_cp_all . $DEPLOY_DIR
 
-do_cmd cp -pr etc      $DEPLOY_DIR
 do_cmd cp -pr Excel    $DEPLOY_DIR
 do_cmd cp -pr include  $DEPLOY_DIR
 do_cmd cp -pr licenses $DEPLOY_DIR
@@ -132,6 +131,7 @@ do_cmd cp -pr ompp-go/dbcopy   $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/ompp     $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/oms      $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/licenses $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/etc      $DEPLOY_DIR
 
 # get Docker source code from git and copy Docker sources
 
