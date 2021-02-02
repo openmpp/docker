@@ -120,7 +120,7 @@ call :rcopy_files ^
   bin ^
   "omc.exe omc.message.ini ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe sqlite3.exe"
 
-call :rcopy_files %DEPLOY_DIR%\bin  bin "README_win.txt ompp_ui.bat"
+call :rcopy_files %DEPLOY_DIR%\bin  bin "README_win.txt ompp_ui.bat copy-ui-to-om_root.bat"
 
 REM copy Go bin executables and source code
 
@@ -143,13 +143,8 @@ if not exist ompp-docker (
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win,ompp-run-win"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-2004,ompp-run-win-2004"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1909,ompp-run-win-1909"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1903,ompp-run-win-1903"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win-1809,ompp-run-win-1809"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-debian,ompp-run-debian"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos,ompp-run-centos"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-centos-7,ompp-run-centos-7"
 
 call :rcopy_files    %DEPLOY_DIR%\bin ompp-docker\ompp-build-win "copy-ui-to-om_root.bat"
 
@@ -211,7 +206,7 @@ for %%m in (%OM_BLD_MDLS%) do (
   if /i "!MDL_DIR:modelOne=!"=="!MDL_DIR!" (
   
     call :rcopy_files    %DEPLOY_DIR%\models\%%m        models\%%m          "*.*"
-    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters"
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters,code_original"
     call :rcopy_files    %DEPLOY_DIR%\models\%%m\modgen models\%%m\modgen   "*.vcxproj *.vcxproj.filters *.props"
     call :do_copy_files  %DEPLOY_DIR%\models\sql        models\%%m\ompp\src\*.sql
     
