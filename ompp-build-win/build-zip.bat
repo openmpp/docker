@@ -104,7 +104,7 @@ call :make_dir %DEPLOY_DIR%
 echo Copy files: > log\build-zip-copy.log
 
 call :rcopy_files    %DEPLOY_DIR% . "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR% . "etc,Excel,include,licenses,openm,Perl,props,sql,use,Xcode"
+call :rcopy_sub_dirs %DEPLOY_DIR% . "Excel,include,licenses,openm,Perl,props,sql,use,Xcode"
 
 REM copy openm runtime libraries
 
@@ -127,6 +127,7 @@ REM copy Go bin executables and source code
 call :rcopy_files    %DEPLOY_DIR%\bin     bin     "dbcopy.exe oms.exe"
 call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,licenses,ompp,oms"
+call :rcopy_sub_dirs %DEPLOY_DIR% ompp-go etc
 
 REM copy template files to run models
 
