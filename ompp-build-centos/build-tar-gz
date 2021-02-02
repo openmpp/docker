@@ -100,11 +100,6 @@ do_cmd cp -pr sql      $DEPLOY_DIR
 do_cmd cp -pr use      $DEPLOY_DIR
 do_cmd cp -pr Xcode    $DEPLOY_DIR
 
-# copy template files to run models
-
-do_cmd cp -p etc/runLinux.Debug.template.txt   $DEPLOY_DIR/etc/run.Debug.template.txt
-do_cmd cp -p etc/mpiLinux.openMPI.template.txt $DEPLOY_DIR/etc/mpi.ModelRun.template.txt
-
 # copy openm bin directory
 
 do_cmd cp -pr bin $DEPLOY_DIR
@@ -131,7 +126,13 @@ do_cmd cp -pr ompp-go/dbcopy   $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/ompp     $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/oms      $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/licenses $DEPLOY_DIR/ompp-go
-do_cmd cp -pr ompp-go/etc      $DEPLOY_DIR
+
+# copy template files to run models
+
+do_cmd cp -pr ompp-go/etc $DEPLOY_DIR
+
+do_cmd cp -p  ompp-go/etc/runLinux.Debug.template.txt   $DEPLOY_DIR/etc/run.Debug.template.txt
+do_cmd cp -p  ompp-go/etc/mpiLinux.openMPI.template.txt $DEPLOY_DIR/etc/mpi.ModelRun.template.txt
 
 # get Docker source code from git and copy Docker sources
 
