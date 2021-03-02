@@ -48,7 +48,7 @@ RUN apt-get install -y apt-utils && \
   apt-get install -y sqlite3 && \
   apt-get install -y openmpi-bin libopenmpi-dev && \
   apt-get install -y curl && \
-  apt-get autoclean
+  apt-get install -y xz-utils
 
 # download and install Go
 RUN GO_VER=1.15.5; \
