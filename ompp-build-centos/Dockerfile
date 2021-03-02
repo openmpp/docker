@@ -56,21 +56,21 @@ RUN dnf -y --setopt=tsflags=nodocs install unixODBC && \
   dnf --setopt=tsflags=nodocs -y install unixODBC-devel
 
 # download and install R
-RUN dnf install -y --setopt=tsflags=nodocs epel-release
-
-RUN dnf install -y --setopt=tsflags=nodocs dnf-plugins-core
-
-RUN dnf config-manager --set-enabled powertools
-
-RUN dnf -y --setopt=tsflags=nodocs install cups
-
-RUN dnf -y --setopt=tsflags=nodocs install R-core
+# RUN dnf install -y --setopt=tsflags=nodocs epel-release
+#
+# RUN dnf install -y --setopt=tsflags=nodocs dnf-plugins-core
+#
+# RUN dnf config-manager --set-enabled powertools
+#
+# RUN dnf -y --setopt=tsflags=nodocs install cups
+#
+# RUN dnf -y --setopt=tsflags=nodocs install R-core
 
 # cleanup
 RUN dnf clean all
 
 # download and install node.js
-RUN NODE_VER=v12.2.0; \
+RUN NODE_VER=v14.16.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
