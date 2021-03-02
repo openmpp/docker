@@ -63,9 +63,9 @@ RUN apt-get install -y unixodbc unixodbc-dev && \
   apt-get autoclean
 
 # download and install R
-RUN apt-get update && \
-  apt-get install -y r-base-core && \
-  apt-get autoclean
+# RUN apt-get update && \
+#  apt-get install -y r-base-core && \
+#  apt-get autoclean
 
 # download and install node.js
 RUN NODE_VER=v12.2.0; \
