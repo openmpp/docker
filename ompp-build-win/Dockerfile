@@ -77,12 +77,12 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-17.1-
     del C:\Temp\mingw_setup.exe
 
 # download and install R
-RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/old/3.6.3/R-3.6.3-win.exe && `
-    C:\Temp\r_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\R /LOG && `
-    del C:\Temp\r_setup.exe
+# RUN curl -L -o C:\Temp\r_setup.exe https://cloud.r-project.org/bin/windows/base/old/3.6.3/R-3.6.3-win.exe && `
+#    C:\Temp\r_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\R /LOG && `
+#    del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v12.2.0/node-v12.2.0-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.16.0/node-v14.16.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
     rename C:\node-v12.2.0-win-x64 node && `
     del C:\Temp\node.zip

@@ -31,11 +31,17 @@ if not exist ompp-r (
   @echo Skip: git clone >> log\build-r.log
 )
 
-REM build openMpp R package
 
+REM download latest release of openMpp R package
 pushd ompp-r
-call :do_cmd_line "R CMD build openMpp"
+call :do_cmd_line "curl -L -o openMpp_0.8.5.tar.gz https://github.com/openmpp/R/releases/download/0.8.5/openMpp_0.8.5.tar.gz"
 popd
+
+REM build openMpp R package
+REM 
+REM pushd ompp-r
+REM call :do_cmd_line "R CMD build openMpp"
+REM popd
 
 @echo %DATE% %TIME% Done.
 @echo %DATE% %TIME% Done. >> log\build-r.log
