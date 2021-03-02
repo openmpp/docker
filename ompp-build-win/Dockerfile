@@ -84,7 +84,7 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-17.1-
 # download and install node.js
 RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.16.0/node-v14.16.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v12.2.0-win-x64 node && `
+    rename C:\node-v14.16.0-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
