@@ -37,7 +37,7 @@ FROM debian:stable
 ARG DEBIAN_FRONTEND=noninteractive
 
 # update base image
-RUN apt-get update
+RUN apt-get update && apt-get upgrade -y
 
 # install c++, Open MPI, build utils, git and SQLite
 RUN apt-get install -y apt-utils && \
@@ -59,13 +59,13 @@ RUN GO_VER=1.15.5; \
   rm /tmp/go_setup.tar.gz
 
 # download and install unixODBC (optional)
-RUN apt-get install -y unixodbc unixodbc-dev && \
-  apt-get autoclean
+RUN apt-get install -y unixodbc unixodbc-dev
 
 # download and install R
-# RUN apt-get update && \
-#  apt-get install -y r-base-core && \
-#  apt-get autoclean
+RUN apt-get install -y r-base-core
+
+# cleanup
+RUN apt-get autoclean
 
 # download and install node.js
 RUN NODE_VER=v14.16.0; \
