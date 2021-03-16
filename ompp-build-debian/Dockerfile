@@ -37,11 +37,11 @@ FROM debian:stable
 ARG DEBIAN_FRONTEND=noninteractive
 
 # update base image
+RUN apt-get install -y apt-utils
 RUN apt-get update && apt-get upgrade -y
 
 # install c++, Open MPI, build utils, git and SQLite
-RUN apt-get install -y apt-utils && \
-  apt-get install -y g++ && \
+RUN apt-get install -y g++ && \
   apt-get install -y make && \
   apt-get install -y bison flex && \
   apt-get install -y git && \
