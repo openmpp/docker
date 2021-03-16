@@ -33,13 +33,14 @@ FROM debian:stable
 # disable debconf terminal input
 ARG DEBIAN_FRONTEND=noninteractive
 
-
 # update base image
 RUN apt-get update
+RUN apt-get install -y apt-utils
+RUN apt-get upgrade -y
+
 
 # install Open MPI and SQLite
-RUN apt-get install -y apt-utils && \
-  apt-get install -y sqlite3 && \
+RUN apt-get install -y sqlite3 && \
   apt-get install -y openmpi-bin && \
   apt-get autoclean
 
