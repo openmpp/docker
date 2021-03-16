@@ -165,7 +165,7 @@ if defined MDL_ONE_EXE (
   -OpenM.RunName "Sub-values_4" ^
   -EN.RunDescription "Parameter sub-values 4" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 ^
-  -SubGroupFrom.AgeSexParameters csv -SubGroupValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
+  -SubFrom.AgeSexParameters csv -SubValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
   -OpenM.RunName "Group_sub-values_2_from_csv" ^
   -EN.RunDescription "Parameter group sub-values 2 from csv" && ^
 %MDL_ONE_EXE% -ImportRunName.modelOne Default ^
