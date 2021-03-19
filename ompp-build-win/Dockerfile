@@ -88,7 +88,7 @@ RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.16.0/node-v14.16.0-w
     del C:\Temp\node.zip
 
 # download and install portable Perl
-RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.30.1.1/strawberry-perl-5.30.1.1-64bit-portable.zip && `
+RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-64bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl C:\Temp\perl_setup.zip && `
     del C:\Temp\perl_setup.zip
 
