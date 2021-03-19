@@ -52,7 +52,7 @@ RUN apt-get install -y g++ && \
   apt-get install -y xz-utils
 
 # download and install Go
-RUN GO_VER=1.15.5; \
+RUN GO_VER=1.16.2; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
