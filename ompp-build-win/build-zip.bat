@@ -190,13 +190,13 @@ call :make_dir %DEPLOY_DIR%\log
 call :make_dir %DEPLOY_DIR%\models\bin
 call :make_dir %DEPLOY_DIR%\models\sql
 call :make_dir %DEPLOY_DIR%\models\log
+call :make_dir %DEPLOY_DIR%\models\home
 
 REM copy models
 REM modelOne special case:
 REM   it does not have modgen or any code/*.ompp or parameters/*.mpp files
 
 call :do_copy_files  %DEPLOY_DIR%\models models\*.*
-call :rcopy_sub_dirs %DEPLOY_DIR%\models models  "microdata"
 
 for %%m in (%OM_BLD_MDLS%) do (
   
@@ -207,7 +207,7 @@ for %%m in (%OM_BLD_MDLS%) do (
   if /i "!MDL_DIR:modelOne=!"=="!MDL_DIR!" (
   
     call :rcopy_files    %DEPLOY_DIR%\models\%%m        models\%%m          "*.*"
-    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters"
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters,microdata"
     call :rcopy_files    %DEPLOY_DIR%\models\%%m\modgen models\%%m\modgen   "*.vcxproj *.vcxproj.filters *.props"
     call :do_copy_files  %DEPLOY_DIR%\models\sql        models\%%m\ompp\src\*.sql
 
