@@ -207,10 +207,13 @@ for %%m in (%OM_BLD_MDLS%) do (
   if /i "!MDL_DIR:modelOne=!"=="!MDL_DIR!" (
   
     call :rcopy_files    %DEPLOY_DIR%\models\%%m        models\%%m          "*.*"
-    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters,microdata"
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m        models\%%m          "code,parameters"
     call :rcopy_files    %DEPLOY_DIR%\models\%%m\modgen models\%%m\modgen   "*.vcxproj *.vcxproj.filters *.props"
     call :do_copy_files  %DEPLOY_DIR%\models\sql        models\%%m\ompp\src\*.sql
 
+    if exist models\%%m\microdata (
+      call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "microdata"
+    )
     if exist models\%%m\code_original (
       call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "code_original"
     )
