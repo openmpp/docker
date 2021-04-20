@@ -2,7 +2,7 @@
 
 Pull the image and use it to build latest openM++ version from source code.
 This is a part of [OpenM++](http://www.openmpp.org/) open source microsimulation platform.
-Please visit our [wiki](http://www.openmpp.org/wiki/) for more information.
+Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for more information.
 
 ## Supported tags
 
