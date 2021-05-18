@@ -115,6 +115,12 @@ docker run \
   openmpp/openmpp-build:debian \
   ./build-all
 
+docker run \
+  -v $HOME/build_doc:/home/build_doc \
+  -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-build:debian \
+  ./make-doc
+
 docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:debian ./build-all
 docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:debian ./build-all
 docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:debian ./build-all
@@ -158,6 +164,11 @@ To create `openmpp_debian_YYYYMMDD.tar.gz` archive:
 docker run .... openmpp/openmpp-build:debian ./build-tar-gz
 ```
 Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
+
+To create a new version of `openmpp_doc_YYYYMMDD.zip` documentation archive:
+```
+docker run .... openmpp/openmpp-build:debian ./make-doc
+```
 
 To start shell do:
 ```

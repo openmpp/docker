@@ -1,4 +1,5 @@
 # Docker image to build openM++ latest version on Debian stable
+# It is also can make latest version of openM++ documentation
 #
 # Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:debian .
@@ -21,6 +22,14 @@
 #     -e OM_MSG_USE=MPI \
 #     openmpp/openmpp-build:debian \
 #     ./build-all
+#
+# To build openM++ documentation:
+#
+#   docker run \
+#     -v $HOME/build_doc:/home/build_doc \
+#     -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     openmpp/openmpp-build:debian \
+#     ./make-doc
 #
 #   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian ./build-openm
 #   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian ./build-models
@@ -68,6 +77,15 @@ RUN apt-get install -y r-base-core
 # cleanup
 RUN apt-get autoclean
 
+# for documentation build: download and install Doxygen
+RUN apt-get install -y doxygen graphviz
+
+# for documentation build: download and install wkhtmltopdf
+RUN WKHPDF_VER=0.12.6-1; \
+  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
+  apt install -y /tmp/wkhtmltopdf_setup.deb && \
+  rm /tmp/wkhtmltopdf_setup.deb
+
 # download and install node.js
 RUN NODE_VER=v14.16.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
@@ -88,6 +106,7 @@ COPY entrypoint.sh \
   build-r \
   build-ui \
   build-tar-gz \
+  make-doc \
   README.txt \
   /scripts/
 
@@ -99,6 +118,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-r && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
+  chmod 755 /scripts/make-doc && \
   chmod 744 /scripts/README.txt
 
 # describe image
