@@ -100,6 +100,10 @@ To build openM++ do:
 ```
 docker run ....options... openmpp/openmpp-build:debian ./build-all
 ```
+To build openM++ documentation:
+```
+docker run ....options... openmpp/openmpp-build:debian ./make-doc
+```
 Examples:
 ```
 docker run \
