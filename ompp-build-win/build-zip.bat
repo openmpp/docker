@@ -118,7 +118,7 @@ REM copy bin directory executables
 call :rcopy_files ^
   %DEPLOY_DIR%\bin ^
   bin ^
-  "omc.exe omc.message.ini ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe sqlite3.exe"
+  "omc.exe omc.message.ini test_models.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe sqlite3.exe"
 
 call :rcopy_files %DEPLOY_DIR%\bin  bin "README_win.txt ompp_ui.bat"
 
