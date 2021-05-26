@@ -84,7 +84,7 @@ REM create omVersion.h
 @echo #define OM_H_VERSION_H >> include/libopenm/omVersion.h
 @echo // >> include/libopenm/omVersion.h
 
-@echo git show -s --date=short --format=.... >> log\build-openm.log
+@echo git show -s --format=.... >> log\build-openm.log
 git show -s --format="#define OM_RUNTIME_VERSION \"%%cs %%H\"" >> include/libopenm/omVersion.h
 if ERRORLEVEL 1 (
   @echo FAILED.
