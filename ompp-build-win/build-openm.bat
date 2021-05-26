@@ -69,6 +69,39 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-openm.log
 )
 
+REM find openM++ version by last tag
+
+@echo git rev-list --tags --max-count=1 >> log\build-openm.log
+git rev-list --tags --max-count=1 > log\openm_last_tag.log
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+)
+for /F "tokens=*" %%g in (log\openm_last_tag.log) do (
+  set OM_LAST_TAG=%%g
+)
+if not defined OM_LAST_TAG (
+  @echo ERROR: openM++ last commit tag is not defined
+  EXIT 1
+)
+@echo  OM_LAST_TAG        = %OM_LAST_TAG% >> log\build-openm.log
+
+@echo git show -s --format="%%cs %%H %%d" %OM_LAST_TAG% >> log\build-openm.log
+git show -s --format="%%cs %%H %%d" %OM_LAST_TAG% > log\openm_runtime_version.log
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+)
+for /F "tokens=*" %%g in (log\openm_runtime_version.log) do (
+  set OM_RUNTIME_VERSION=%%g
+)
+if not defined OM_RUNTIME_VERSION (
+  @echo ERROR: openM++ version not defined for commit %OM_LAST_TAG%
+  EXIT 1
+)
+@echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION% >> log\build-openm.log
+@echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION%
+
 REM create omVersion.h
 
 @echo Create include/libopenm/omVersion.h >> log\build-openm.log
@@ -84,12 +117,7 @@ REM create omVersion.h
 @echo #define OM_H_VERSION_H >> include/libopenm/omVersion.h
 @echo // >> include/libopenm/omVersion.h
 
-@echo git show -s --format=.... >> log\build-openm.log
-git show -s --format="#define OM_RUNTIME_VERSION \"%%cs %%H\"" >> include/libopenm/omVersion.h
-if ERRORLEVEL 1 (
-  @echo FAILED.
-  EXIT
-) 
+@echo #define OM_RUNTIME_VERSION "%OM_RUNTIME_VERSION%" >> include/libopenm/omVersion.h
  
 @echo // >> include/libopenm/omVersion.h
 @echo #endif  // OM_H_VERSION_H >> include/libopenm/omVersion.h
