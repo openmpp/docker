@@ -88,7 +88,7 @@ echo "#ifndef OM_H_VERSION_H"      >> include/libopenm/omVersion.h
 echo "#define OM_H_VERSION_H"      >> include/libopenm/omVersion.h
 echo "//"                          >> include/libopenm/omVersion.h
 
-echo "git show -s --format=...." >> log/build-openm.log
+echo "git show -s --date=short --format=...." >> log/build-openm.log
 
 if ! git show -s --date=short --format="#define OM_RUNTIME_VERSION \"%cd %H %d\"" `git rev-list --tags --max-count=1` >> include/libopenm/omVersion.h ;
 then
