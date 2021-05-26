@@ -72,32 +72,24 @@ if defined OM_P_MPI (
 REM find openM++ version by last tag
 
 @echo git rev-list --tags --max-count=1 >> log\build-openm.log
-git rev-list --tags --max-count=1 > log\openm_last_tag.log
-if ERRORLEVEL 1 (
-  @echo FAILED.
-  EXIT
-)
-for /F "tokens=*" %%g in (log\openm_last_tag.log) do (
-  set OM_LAST_TAG=%%g
-)
-if not defined OM_LAST_TAG (
-  @echo ERROR: openM++ last commit tag is not defined
-  EXIT 1
+
+for /F "usebackq tokens=* delims=" %%i in (`git rev-list --tags --max-count^=1`) do (
+  if ERRORLEVEL 1 (
+    @echo FAILED.
+    EXIT
+  )
+  set OM_LAST_TAG=%%i
 )
 @echo  OM_LAST_TAG        = %OM_LAST_TAG% >> log\build-openm.log
 
-@echo git show -s --format="%%cs %%H %%d" %OM_LAST_TAG% >> log\build-openm.log
-git show -s --format="%%cs %%H %%d" %OM_LAST_TAG% > log\openm_runtime_version.log
-if ERRORLEVEL 1 (
-  @echo FAILED.
-  EXIT
-)
-for /F "tokens=*" %%g in (log\openm_runtime_version.log) do (
-  set OM_RUNTIME_VERSION=%%g
-)
-if not defined OM_RUNTIME_VERSION (
-  @echo ERROR: openM++ version not defined for commit %OM_LAST_TAG%
-  EXIT 1
+@echo git show -s --date=short --format=.... %OM_LAST_TAG% >> log\build-openm.log
+
+for /F "usebackq tokens=* delims=" %%i in (`git show -s --date=short --format^="%%cd %%H %%d" %OM_LAST_TAG%`) do (
+  if ERRORLEVEL 1 (
+    @echo FAILED.
+    EXIT
+  )
+  set OM_RUNTIME_VERSION=%%i
 )
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION% >> log\build-openm.log
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION%
