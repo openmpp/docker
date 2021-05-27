@@ -69,11 +69,21 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-openm.log
 )
 
-REM find openM++ version by last tag
+REM find openM++ version commit and use commit tag, if tagged
 
-@echo git rev-list --tags --max-count=1 >> log\build-openm.log
+@echo git log -n 1 --date=short --format.... >> log\build-openm.log
 
-for /F "usebackq tokens=* delims=" %%i in (`git rev-list --tags --max-count^=1`) do (
+for /F "usebackq tokens=* delims=" %%i in (`git log -n 1 --date^=short --format^="%%cd %%H"`) do (
+  if ERRORLEVEL 1 (
+    @echo FAILED.
+    EXIT
+  )
+  set OM_RUNTIME_VERSION=%%i
+)
+
+@echo git log --tags -n 1 --date=short --format.... >> log\build-openm.log
+
+for /F "usebackq tokens=* delims=" %%i in (`git log --tags -n 1 --date^=short --format^="%%cd %%H %%S"`) do (
   if ERRORLEVEL 1 (
     @echo FAILED.
     EXIT
@@ -82,14 +92,8 @@ for /F "usebackq tokens=* delims=" %%i in (`git rev-list --tags --max-count^=1`)
 )
 @echo  OM_LAST_TAG        = %OM_LAST_TAG% >> log\build-openm.log
 
-@echo git show -s --date=short --format=.... %OM_LAST_TAG% >> log\build-openm.log
-
-for /F "usebackq tokens=* delims=" %%i in (`git show -s --date=short --format^="%%cd %%H %%d" %OM_LAST_TAG%`) do (
-  if ERRORLEVEL 1 (
-    @echo FAILED.
-    EXIT
-  )
-  set OM_RUNTIME_VERSION=%%i
+if  "%OM_LAST_TAG:~0,51%"=="%OM_RUNTIME_VERSION%" (
+  set OM_RUNTIME_VERSION=%OM_LAST_TAG%
 )
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION% >> log\build-openm.log
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION%
