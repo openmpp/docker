@@ -9,7 +9,7 @@ REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,Ne
 setlocal enabledelayedexpansion
 
 set OM_BLD_CFG=Release
-set OM_BLD_PLT=Win32
+set OM_BLD_PLT=x64
 
 if defined OM_BUILD_CONFIGS   set OM_BLD_CFG=%OM_BUILD_CONFIGS%
 if defined OM_BUILD_PLATFORMS set OM_BLD_PLT=%OM_BUILD_PLATFORMS%
@@ -76,7 +76,7 @@ for %%m in (%OM_BLD_MDLS%) do (
     for %%p in (%OM_BLD_PLT%) do (
 
       set MDL_EXE=%%m
-      if /i "%%p"=="x64" set MDL_EXE=!MDL_EXE!64
+rem      if /i "%%p"=="x64" set MDL_EXE=!MDL_EXE!64
       if /i "%%c"=="Debug" set MDL_EXE=!MDL_EXE!D
       if not defined OM_BLD_EMPTY (
         if defined OM_P_MPI set MDL_EXE=!MDL_EXE!_mpi

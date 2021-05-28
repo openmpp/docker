@@ -126,15 +126,14 @@ REM copy Go bin executables and source code
 
 call :rcopy_files    %DEPLOY_DIR%\bin     bin     "dbcopy.exe oms.exe"
 call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,licenses,ompp,oms"
-call :rcopy_sub_dirs %DEPLOY_DIR% ompp-go etc
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,etc,licenses,ompp,oms"
 
 REM copy template files to run models
 
-call :do_copy_files  %DEPLOY_DIR%\etc\run.Win32.Debug.template.txt ompp-go\etc\runWindows.Win32.Debug.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Debug.template.txt   ompp-go\etc\runWindows.x64.Debug.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\run.x64.Release.template.txt ompp-go\etc\runWindows.x64.Release.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt    ompp-go\etc\mpiWindows.template.txt
+call :make_dir %DEPLOY_DIR%\etc
+
+call :do_copy_files  %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
+call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
 
 REM get Docker source code from git and copy Docker sources
 
@@ -169,20 +168,6 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist\spa "css,fonts,icons,js,p
 call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist\spa "*.*"
 call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui          "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui          ".quasar,.vscode,licenses,public,src"
-
-REM delete package-lock.json from source files
-  
-if exist %DEPLOY_DIR%\ompp-ui\package-lock.json (
-  @echo Remove existing: %DEPLOY_DIR%\ompp-ui\package-lock.json
-  @echo Remove existing: %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log
-
-  del /f /q %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log 2>&1
-)
-if exist %DEPLOY_DIR%\ompp-ui\package-lock.json (
-  @echo FAIL to delete: %DEPLOY_DIR%\ompp-ui\package-lock.json
-  @echo FAIL to delete: %DEPLOY_DIR%\ompp-ui\package-lock.json >> log\build-zip.log
-  EXIT 1
-)
 
 REM create log directories and models directories
 
@@ -230,7 +215,7 @@ for %%m in (%OM_BLD_MDLS%) do (
   call :rcopy_files ^
     %DEPLOY_DIR%\models\bin ^
     models\%%m\ompp\bin ^
-    "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!64%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
+    "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
 )
 
 REM Alpha2 special case:
