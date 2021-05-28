@@ -27,8 +27,8 @@ FROM centos:8
 # update base image
 RUN dnf -y update && dnf clean all
 
-# install MPICH and SQLite
-RUN dnf -y --setopt=tsflags=nodocs install mpich && \
+# install Open MPI and SQLite
+RUN dnf -y --setopt=tsflags=nodocs install openmpi && \
   dnf -y --setopt=tsflags=nodocs install sqlite
 
 # download and install unixODBC (optional)
