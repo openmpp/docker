@@ -46,7 +46,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/Git-2.31.1-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
@@ -63,12 +63,12 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2020/sqlite-tools-win32-x86-3320200.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2021/sqlite-tools-win32-x86-3350500.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.16.2.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.16.4.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
@@ -82,9 +82,9 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-17.1-
 #    del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.16.0/node-v14.16.0-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.17.0/node-v14.17.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v14.16.0-win-x64 node && `
+    rename C:\node-v14.17.0-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
@@ -93,7 +93,7 @@ RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.32.1.
     del C:\Temp\perl_setup.zip
 
 # install cpan modules
-RUN C:\perl\portableshell /SETENV && SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm pp
+RUN C:\perl\portableshell /SETENV && SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
 
 # copy build scripts
 COPY copy_scripts.bat `
