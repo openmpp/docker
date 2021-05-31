@@ -23,6 +23,15 @@
 #     openmpp/openmpp-build:debian \
 #     ./build-all
 #
+#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian ./build-openm
+#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian ./build-models
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-go
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-r
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-ui
+#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-tar-gz
+#
+#   docker run .... -it openmpp/openmpp-build:debian bash
+#
 # To build openM++ documentation:
 #
 #   docker run \
@@ -31,14 +40,14 @@
 #     openmpp/openmpp-build:debian \
 #     ./make-doc
 #
-#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian ./build-openm
-#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian ./build-models
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-go
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-r
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-ui
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian ./build-tar-gz
+# To build openMpp R package:
 #
-#   docker run -it openmpp/openmpp-build:debian bash
+#   docker run \
+#     -v $HOME/build_r:/home/build_r \
+#     -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     openmpp/openmpp-build:debian \
+#     ./make-r
+#
 
 FROM debian:stable
 
@@ -107,6 +116,7 @@ COPY entrypoint.sh \
   build-ui \
   build-tar-gz \
   make-doc \
+  make-r \
   README.txt \
   /scripts/
 
@@ -119,6 +129,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 755 /scripts/make-doc && \
+  chmod 755 /scripts/make-r && \
   chmod 744 /scripts/README.txt
 
 # describe image

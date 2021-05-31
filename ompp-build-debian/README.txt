@@ -18,14 +18,6 @@ Examples:
     openmpp/openmpp-build:debian \
     ./build-all
 
-To build openM++ documentation:
-
-  docker run \
-    -v $HOME/build_doc:/home/build_doc \
-    -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-    openmpp/openmpp-build:debian \
-    ./make-doc
-
   docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:debian ./build-all
   docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:debian ./build-all
   docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:debian ./build-all
@@ -66,3 +58,19 @@ To create openmpp_debian_YYYYMMDD.tar.gz archive:
 To open shell command prompt:
 
   docker run .... -it openmpp/openmpp-build:debian bash
+
+To build openM++ documentation:
+
+  docker run \
+    -v $HOME/build_doc:/home/build_doc \
+    -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+    openmpp/openmpp-build:debian \
+    ./make-doc
+
+To build openMpp R package:
+
+  docker run \
+    -v $HOME/build_r:/home/build_r \
+    -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+    openmpp/openmpp-build:debian \
+    ./make-r

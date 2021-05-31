@@ -125,14 +125,15 @@ do_cp_all ompp-go $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/dbcopy   $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/ompp     $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/oms      $DEPLOY_DIR/ompp-go
+do_cmd cp -pr ompp-go/etc      $DEPLOY_DIR/ompp-go
 do_cmd cp -pr ompp-go/licenses $DEPLOY_DIR/ompp-go
 
 # copy template files to run models
 
-do_cmd cp -pr ompp-go/etc $DEPLOY_DIR
+do_cmd mkdir $DEPLOY_DIR/etc
 
-do_cmd cp -p  ompp-go/etc/runLinux.Debug.template.txt   $DEPLOY_DIR/etc/run.Debug.template.txt
-do_cmd cp -p  ompp-go/etc/mpiLinux.openMPI.template.txt $DEPLOY_DIR/etc/mpi.ModelRun.template.txt
+do_cmd cp -p ompp-go/etc/runLinux.Debug.template.txt   $DEPLOY_DIR/etc/run.Debug.template.txt
+do_cmd cp -p ompp-go/etc/mpiLinux.openMPI.template.txt $DEPLOY_DIR/etc/mpi.ModelRun.template.txt
 
 # get Docker source code from git and copy Docker sources
 
@@ -184,8 +185,6 @@ do_cmd cp -pr ompp-ui/.vscode  $DEPLOY_DIR/ompp-ui/.vscode
 do_cmd cp -pr ompp-ui/licenses $DEPLOY_DIR/ompp-ui/licenses
 do_cmd cp -pr ompp-ui/public   $DEPLOY_DIR/ompp-ui/public
 do_cmd cp -pr ompp-ui/src      $DEPLOY_DIR/ompp-ui/src
-
-[ -e $DEPLOY_DIR/ompp-ui/package-lock.json ] && do_cmd rm -v $DEPLOY_DIR/ompp-ui/package-lock.json
 
 # copy models
 

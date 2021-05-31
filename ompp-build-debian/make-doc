@@ -9,24 +9,25 @@
 # update local copy of GitHub pages git repository with new documentation
 #
 
-# push into ompp-doc root and make log directory if not exist
+# push into ompp-make-doc root and make log directory if not exist
 
-if [ ! -d ompp-doc ]; then 
+if [ ! -d ompp-make-doc ]; then 
 
-  echo mkdir ompp-doc
+  echo mkdir ompp-make-doc
   
-  if ! mkdir ompp-doc; then
+  if ! mkdir ompp-make-doc; then
     echo FAILED
     exit 1
   fi
 fi
 
-pushd ompp-doc
-OM_ROOT=$PWD
-LOG_DIR=$OM_ROOT/log
-LOG_PATH=$LOG_DIR/build-doc.log
+pushd ompp-make-doc
 
 if [ ! -d log ]; then mkdir log; fi
+
+OM_ROOT=$PWD
+LOG_DIR=$OM_ROOT/log
+LOG_PATH=$LOG_DIR/make-doc.log
 
 # log build environment 
 
@@ -63,7 +64,7 @@ do_doxygen()
 
   echo doxygen $1.doxyfile | tee -a $LOG_PATH
 
-  if ! doxygen $1.doxyfile > $LOG_DIR/build-doc-doxygen-$1.log 2>&1;
+  if ! doxygen $1.doxyfile > $LOG_DIR/make-doc-doxygen-$1.log 2>&1;
   then
     echo FAILED doxygen $1. | tee -a $LOG_PATH
     exit 1
@@ -71,7 +72,7 @@ do_doxygen()
 
   # echo zip -r $1_doxygen.zip $1_doxygen | tee -a $LOG_PATH
   #
-  # if ! zip -r $1_doxygen.zip $1_doxygen > $LOG_DIR/build-doc-doxygen-$1-zip.log 2>&1;
+  # if ! zip -r $1_doxygen.zip $1_doxygen > $LOG_DIR/make-doc-doxygen-$1-zip.log 2>&1;
   # then
   #   echo FAILED zip $1. | tee -a $LOG_PATH
   #   exit 1
@@ -137,7 +138,7 @@ do_replace_doxygen()
 {
   echo git rm -rf $1_doxygen | tee -a $LOG_PATH
   
-  if ! git rm -rf $1_doxygen > $LOG_DIR/build-doc-doxygen-$1-rm.log 2>&1;
+  if ! git rm -rf $1_doxygen > $LOG_DIR/make-doc-doxygen-$1-rm.log 2>&1;
   then
     echo FAILED git rm -rf $1_doxygen | tee -a $LOG_PATH
     exit 1
@@ -153,7 +154,7 @@ do_replace_doxygen()
 
   echo git add $1_doxygen | tee -a $LOG_PATH
   
-  if ! git add $1_doxygen/\* > $LOG_DIR/build-doc-doxygen-$1-add.log 2>&1;
+  if ! git add $1_doxygen/\* > $LOG_DIR/make-doc-doxygen-$1-add.log 2>&1;
   then
     echo FAILED git add $1_doxygen | tee -a $LOG_PATH
     exit 1
@@ -211,7 +212,7 @@ popd
 echo Create $DEPLOY_ZIP | tee -a $LOG_PATH
 echo zip -r $DEPLOY_ZIP $DEPLOY_NAME | tee -a $LOG_PATH
   
-if ! zip -r $DEPLOY_ZIP $DEPLOY_NAME > $LOG_DIR/build-doc-zip.log 2>&1;
+if ! zip -r $DEPLOY_ZIP $DEPLOY_NAME > $LOG_DIR/make-doc-zip.log 2>&1;
 then
   echo FAILED. | tee -a $LOG_PATH
   exit 1
