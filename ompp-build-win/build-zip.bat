@@ -116,7 +116,7 @@ call :rcopy_files ^
 REM copy bin directory executables
 
 call :rcopy_files %DEPLOY_DIR%\bin bin "omc.exe omc.ini omc.message.ini sqlite3.exe"
-call :rcopy_files %DEPLOY_DIR%\bin bin "ompp_ui.bat ompp_ui_linux.sh ompp_ui_macOS.command start_oms.sh README_win.txt"
+call :rcopy_files %DEPLOY_DIR%\bin bin "ompp_ui.bat ompp_ui_linux.sh ompp_ui_mac.command start_oms.sh README_win.txt"
 
 call :rcopy_files ^
   %DEPLOY_DIR%\bin ^
