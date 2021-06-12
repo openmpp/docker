@@ -132,9 +132,17 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,etc,licenses,ompp,oms"
 REM copy template files to run models
 
 call :make_dir %DEPLOY_DIR%\etc
+call :make_dir %DEPLOY_DIR%\etc\scripts
 
-call :do_copy_files  %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
-call :do_copy_files  %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
+
+call :do_copy_files %DEPLOY_DIR%\etc\run.OzProj.template.txt          ompp-go\etc\runWindows.OzProj.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\run.OzProj.Debug.template.txt    ompp-go\etc\runWindows.OzProj.Debug.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\run.OzProjGen.template.txt       ompp-go\etc\runWindows.OzProjGen.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\run.OzProjGen.Debug.template.txt ompp-go\etc\runWindows.OzProjGen.Debug.template.txt
+
+call :do_copy_files %DEPLOY_DIR%\etc\scripts\oms-OzProj-run.bat ompp-go\etc\scripts\*.bat
 
 REM get Docker source code from git and copy Docker sources
 
@@ -223,7 +231,18 @@ REM Alpha2 special case:
 REM   if Alpha2 was not included in the model build list then copy Alpha2 source files
 
 if not exist %DEPLOY_DIR%\models\Alpha2 (
-    call :rcopy_sub_dirs %DEPLOY_DIR%\models models "Alpha2"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\models models "Alpha2"
+)
+
+REM OzProj special case:
+REM   if OzProj included in the model build list then create ompp/bin sub-directory
+
+if exist %DEPLOY_DIR%\models\OzProj (
+  call :make_dir %DEPLOY_DIR%\models\OzProj\ompp\bin
+)
+
+if exist %DEPLOY_DIR%\models\OzProjGen (
+  call :make_dir %DEPLOY_DIR%\models\OzProjGen\ompp\bin
 )
 
 REM add MacOS extra source code and documents
