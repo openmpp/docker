@@ -2,13 +2,13 @@
 REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_20180817.zip
 REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths,RiskPaths_csv
 
 setlocal enabledelayedexpansion
 
 if /I "%OM_MSG_USE%"=="MPI" set OM_SFX_MPI=_mpi
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths,RiskPaths_csv
 if defined MODEL_DIRS       set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist
@@ -121,7 +121,7 @@ call :rcopy_files %DEPLOY_DIR%\bin bin "ompp_ui.bat ompp_ui_linux.sh ompp_ui_mac
 call :rcopy_files ^
   %DEPLOY_DIR%\bin ^
   bin ^
-  "test_models.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe"
+  "test_models.exe CsvToDat.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe"
 
 REM copy Go bin executables and source code
 

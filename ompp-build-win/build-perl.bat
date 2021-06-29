@@ -30,6 +30,7 @@ call %PERLROOT%\portableshell /SETENV
 pushd Perl
 
 call :do_pp_call "-o ../bin/test_models.exe test_models.pl"
+call :do_pp_call "-o ../bin/CsvToDat.exe CsvToDat.pl"
 call :do_pp_call "-o ../bin/ompp_export_excel.exe ompp_export_excel.pl"
 call :do_pp_call "-o ../bin/ompp_export_csv.exe ompp_export_csv.pl"
 call :do_pp_call "-o ../bin/modgen_export_csv.exe modgen_export_csv.pl"
