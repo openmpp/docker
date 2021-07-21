@@ -91,7 +91,7 @@ Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
 To open cmd command prompt or Perl command prompt:
 ```
 docker run .... -it openmpp/openmpp-build:windows-20H2 cmd
-docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl\portableshell
+docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
 ```
 
 ## How to use `openmpp/openmpp-build:debian` image
