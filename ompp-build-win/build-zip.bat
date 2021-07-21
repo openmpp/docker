@@ -123,6 +123,11 @@ call :rcopy_files ^
   bin ^
   "test_models.exe CsvToDat.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe"
 
+call :rcopy_files ^
+  %DEPLOY_DIR%\bin ^
+  bin ^
+  "test_models32.exe CsvToDat32.exe ompp_create_scex32.exe ompp_export_csv32.exe ompp_export_excel32.exe modgen_export_csv32.exe patch_modgen11_outputs32.exe patch_modgen12_outputs32.exe patch_modgen12.1_outputs32.exe"
+
 REM copy Go bin executables and source code
 
 call :rcopy_files    %DEPLOY_DIR%\bin     bin     "dbcopy.exe oms.exe"
