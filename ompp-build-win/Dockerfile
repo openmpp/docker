@@ -15,7 +15,7 @@
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-ui
 #   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-zip
 #   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 cmd
-#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 %PERLROOT%\portableshell
+#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
 # 
 
 FROM mcr.microsoft.com/windows/servercore:20H2
@@ -88,12 +88,20 @@ RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v14.17.0/node-v14.17.0-w
     del C:\Temp\node.zip
 
 # download and install portable Perl
-RUN curl -L -o C:\Temp\perl_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-64bit-portable.zip && `
-    C:\7zip\7z.exe x -oC:\perl C:\Temp\perl_setup.zip && `
-    del C:\Temp\perl_setup.zip
+RUN curl -L -o C:\Temp\perl32_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip && `
+    C:\7zip\7z.exe x -oC:\perl32 C:\Temp\perl32_setup.zip && `
+    del C:\Temp\perl32_setup.zip
+
+RUN curl -L -o C:\Temp\perl64_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-64bit-portable.zip && `
+    C:\7zip\7z.exe x -oC:\perl64 C:\Temp\perl64_setup.zip && `
+    del C:\Temp\perl64_setup.zip
 
 # install cpan modules
-RUN C:\perl\portableshell /SETENV && SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
+RUN C:\perl32\portableshell /SETENV && `
+    SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
+
+RUN C:\perl64\portableshell /SETENV && `
+    SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
 
 # copy build scripts
 COPY copy_scripts.bat `
@@ -107,12 +115,11 @@ COPY copy_scripts.bat `
     build-zip.bat `
     README.txt C:\build_scripts\
 
-# set Go, MinGW and R environment, set portable Perl directory
+# set Go, MinGW and R environment
 USER ContainerAdministrator
 
 RUN setx /M GOROOT C:\go && `
   setx /M GOPATH C:\build\ompp && `
-  setx /M PERLROOT C:\perl && `
   setx /M OM_SCRIPTS_DIR C:\build_scripts && `
   setx /M PATH "%GOROOT%\bin;%GOPATH%\bin;C:\Git\cmd;C:\R\bin;%PATH%"
 

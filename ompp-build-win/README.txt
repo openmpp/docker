@@ -43,4 +43,4 @@ To create openmpp_win_YYYYMMDD.zip archive:
 To open cmd command prompt or Perl command prompt:
 
   docker run .... -it openmpp/openmpp-build:windows-20H2 cmd
-  docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl\portableshell
+  docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell

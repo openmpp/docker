@@ -26,18 +26,27 @@ REM log build environment
 
 REM build Perl utilities
 
-call %PERLROOT%\portableshell /SETENV
 pushd Perl
 
-call :do_pp_call "-o ../bin/test_models.exe test_models.pl"
-call :do_pp_call "-o ../bin/CsvToDat.exe CsvToDat.pl"
-call :do_pp_call "-o ../bin/ompp_export_excel.exe ompp_export_excel.pl"
-call :do_pp_call "-o ../bin/ompp_export_csv.exe ompp_export_csv.pl"
-call :do_pp_call "-o ../bin/modgen_export_csv.exe modgen_export_csv.pl"
-call :do_pp_call "-o ../bin/ompp_create_scex.exe ompp_create_scex.pl"
-call :do_pp_call "-o ../bin/patch_modgen11_outputs.exe patch_modgen11_outputs.pl"
-call :do_pp_call "-o ../bin/patch_modgen12_outputs.exe patch_modgen12_outputs.pl"
-call :do_pp_call "-o ../bin/patch_modgen12.1_outputs.exe patch_modgen12.1_outputs.pl"
+call :do_pp32_call "-o ../bin/test_models32.exe test_models.pl"
+call :do_pp32_call "-o ../bin/CsvToDat32.exe CsvToDat.pl"
+call :do_pp32_call "-o ../bin/ompp_export_excel32.exe ompp_export_excel.pl"
+call :do_pp32_call "-o ../bin/ompp_export_csv32.exe ompp_export_csv.pl"
+call :do_pp32_call "-o ../bin/modgen_export_csv32.exe modgen_export_csv.pl"
+call :do_pp32_call "-o ../bin/ompp_create_scex32.exe ompp_create_scex.pl"
+call :do_pp32_call "-o ../bin/patch_modgen11_outputs32.exe patch_modgen11_outputs.pl"
+call :do_pp32_call "-o ../bin/patch_modgen12_outputs32.exe patch_modgen12_outputs.pl"
+call :do_pp32_call "-o ../bin/patch_modgen12.1_outputs32.exe patch_modgen12.1_outputs.pl"
+
+call :do_pp64_call "-o ../bin/test_models.exe test_models.pl"
+call :do_pp64_call "-o ../bin/CsvToDat.exe CsvToDat.pl"
+call :do_pp64_call "-o ../bin/ompp_export_excel.exe ompp_export_excel.pl"
+call :do_pp64_call "-o ../bin/ompp_export_csv.exe ompp_export_csv.pl"
+call :do_pp64_call "-o ../bin/modgen_export_csv.exe modgen_export_csv.pl"
+call :do_pp64_call "-o ../bin/ompp_create_scex.exe ompp_create_scex.pl"
+call :do_pp64_call "-o ../bin/patch_modgen11_outputs.exe patch_modgen11_outputs.pl"
+call :do_pp64_call "-o ../bin/patch_modgen12_outputs.exe patch_modgen12_outputs.pl"
+call :do_pp64_call "-o ../bin/patch_modgen12.1_outputs.exe patch_modgen12.1_outputs.pl"
 
 popd
 
@@ -54,13 +63,17 @@ goto :eof
 
 REM end of main body
 
-REM helper subroutine to call Perl pp, log it and check errorlevel
+REM helper subroutine to call 32bit Perl pp, log it and check errorlevel
 REM arguments:
 REM  1 = pp command line arguments
 
-:do_pp_call
+:do_pp32_call
+
+setlocal
 
 set c_line=%~1
+
+call C:\perl32\portableshell /SETENV
 
 @echo pp %c_line%
 @echo pp %c_line% >> ..\log\build-perl.log
@@ -71,4 +84,31 @@ if ERRORLEVEL 1 (
   @echo FAILED. >> ..\log\build-perl.log
   EXIT
 ) 
+
+endlocal
+exit /b
+
+REM helper subroutine to call 64bit Perl pp, log it and check errorlevel
+REM arguments:
+REM  1 = pp command line arguments
+
+:do_pp64_call
+
+setlocal
+
+set c_line=%~1
+
+call C:\perl64\portableshell /SETENV
+
+@echo pp %c_line%
+@echo pp %c_line% >> ..\log\build-perl.log
+
+call pp %c_line% >> ..\log\build-perl.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  @echo FAILED. >> ..\log\build-perl.log
+  EXIT
+) 
+
+endlocal
 exit /b
