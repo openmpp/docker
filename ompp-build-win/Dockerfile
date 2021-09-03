@@ -3,19 +3,19 @@
 # Docker image to build openM++ latest version on Windows
 #
 # Example of build:
-#   docker build --isolation process -t openmpp/openmpp-build:windows-20H2 .
+#   docker build -t openmpp/openmpp-build:windows-20H2 .
 #
 # Example of run:
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-all
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-openmpp
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-models
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-go
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-r
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-perl
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-ui
-#   docker run --isolation process -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-zip
-#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 cmd
-#   docker run --isolation process -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-all
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-openmpp
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-models
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-go
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-r
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-perl
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-ui
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-zip
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 cmd
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
 # 
 
 FROM mcr.microsoft.com/windows/servercore:20H2
