@@ -159,7 +159,9 @@ if defined MDL_ONE_EXE (
 %MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 -SubFrom.salaryFull csv -OpenM.ParamDir ../../csv ^
   -OpenM.RunName "Sub-values_2_from_csv" ^
-  -EN.RunDescription "Parameter sub-values 2 from csv" && ^
+  -EN.RunDescription "Parameter sub-values 2 from csv" ^
+  -EN.RunNotesPath ../../run_notes-en.md ^
+  -FR.RunNotesPath ../../run_notes-fr.md && ^
 %MDL_ONE_EXE% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
   -OpenM.RunName "Sub-values_4" ^
