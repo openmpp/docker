@@ -107,7 +107,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
 LABEL name=openmpp/openmpp-build:centos-8
 LABEL os=Linux
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, R, node.js"
+LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, node.js"
 
 # Done with installation
 # set work directory argument
