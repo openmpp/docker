@@ -105,15 +105,39 @@ To start shell do:
 docker run -it openmpp/openmpp-run:debian bash
 ```
 
-## How to use `openmpp/openmpp-run:debian` image
+## How to use `openmpp/openmpp-run:ubuntu` image
 
-Same as Debian above, only `sudo` may be neccessary, for example:
+To run openM++ model do:
+```
+sudo docker run ....options... openmpp/openmpp-run:ubuntu ./modelOne
+```
+
+Examples:
 ```
 sudo docker run \
   -v $HOME/models:/home/models \
   -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
   openmpp/openmpp-run:ubuntu \
   ./modelOne
+
+sudo docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:ubuntu \
+  mpiexec -n 2 ./modelOne_mpi -OpenM.SubValues 16
+```
+
+Environment variables to pass your current user and home directory to container:
+```
+OMPP_USER=ompp   # default: ompp, container user name and HOME
+OMPP_GROUP=ompp  # default: ompp, container group name
+OMPP_UID=1999    # default: 1999, container user ID
+OMPP_GID=1999    # default: 1999, container group ID
+```
+
+To start shell do:
+```
+sudo docker run -it openmpp/openmpp-run:ubuntu bash
 ```
 
 ## How to use `openmpp/openmpp-run:centos-8` image
