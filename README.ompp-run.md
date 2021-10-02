@@ -8,6 +8,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
+- `openmpp/openmpp-run:ubuntu`
 - `openmpp/openmpp-run:centos-8`
 
 ### `openmpp/openmpp-run:windows-20H2`
@@ -27,6 +28,16 @@ Pull: `docker pull openmpp/openmpp-run:debian`
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian](https://github.com/openmpp/docker/tree/master/ompp-run-debian)
 
 From: `debian:stable`
+
+Installed: `Open MPI, SQLite, unixODBC`
+
+### `openmpp/openmpp-run:ubuntu`
+
+Pull: `docker pull openmpp/openmpp-run:ubuntu`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu)
+
+From: `ubuntu:20.04`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
@@ -92,6 +103,17 @@ OMPP_GID=1999    # default: 1999, container group ID
 To start shell do:
 ```
 docker run -it openmpp/openmpp-run:debian bash
+```
+
+## How to use `openmpp/openmpp-run:debian` image
+
+Same as Debian above, only `sudo` may be neccessary, for example:
+```
+sudo docker run \
+  -v $HOME/models:/home/models \
+  -e OMPP_USER=models -e OMPP_GROUP=models -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-run:ubuntu \
+  ./modelOne
 ```
 
 ## How to use `openmpp/openmpp-run:centos-8` image

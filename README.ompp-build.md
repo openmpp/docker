@@ -8,6 +8,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-build:windows-20H2`
 - `openmpp/openmpp-build:debian`
+- `openmpp/openmpp-build:ubuntu`
 - `openmpp/openmpp-build:centos-8`
 
 ### `openmpp/openmpp-build:windows-20H2`
@@ -27,6 +28,16 @@ Pull: `docker pull openmpp/openmpp-build:debian`
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian](https://github.com/openmpp/docker/tree/master/ompp-build-debian)
 
 From: `debian:stable`
+
+Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
+
+### `openmpp/openmpp-build:ubuntu`
+
+Pull: `docker pull openmpp/openmpp-build:ubuntu`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu)
+
+From: `ubuntu:20.04`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
@@ -188,6 +199,88 @@ docker run .... openmpp/openmpp-build:debian ./make-r
 To start shell do:
 ```
 docker run .... -it openmpp/openmpp-build:debian bash
+```
+
+## How to use `openmpp/openmpp-build:ubuntu` image
+
+To build openM++ do:
+```
+sudo docker run ....options... openmpp/openmpp-build:ubuntu ./build-all
+```
+Examples:
+```
+sudo docker run \
+  -v $HOME/build:/home/build \
+  -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-build:ubuntu \
+  ./build-all
+
+sudo docker run \
+  -v $HOME/build_mpi:/home/build_mpi \
+  -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OM_MSG_USE=MPI \
+  openmpp/openmpp-build:ubuntu \
+  ./build-all
+
+sudo docker run \
+  -v $HOME/build_doc:/home/build_doc \
+  -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-build:ubuntu \
+  ./make-doc
+
+sudo docker run \
+  -v $HOME/build_r:/home/build_r \
+  -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  openmpp/openmpp-build:ubuntu \
+  ./make-r
+
+sudo docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:ubuntu ./build-all
+sudo docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:ubuntu ./build-all
+sudo docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:ubuntu ./build-all
+
+```
+Environment variables to control build:
+```
+OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
+OM_MSG_USE=MPI                 # default: EMPTY
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+```
+Environment variables to pass your current user and home directory to container:
+```
+OMPP_USER=ompp   # default: ompp, container user name and HOME
+OMPP_GROUP=ompp  # default: ompp, container group name
+OMPP_UID=1999    # default: 1999, container user ID
+OMPP_GID=1999    # default: 1999, container group ID
+```
+
+To build only openM++ libraries and omc compiler do:
+```
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-openm
+```
+Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_MSG_USE`
+
+To build only models do:
+```
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-models
+```
+Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS`
+
+To build openM++ tools do any of:
+```
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-go # Go oms web-service and dbcopy utility
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-r  # openMpp R package
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-ui # openM++ UI
+```
+
+To create `openmpp_ubuntu_YYYYMMDD.tar.gz` archive:
+```
+sudo docker run .... openmpp/openmpp-build:ubuntu ./build-tar-gz
+```
+Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
+
+To start shell do:
+```
+sudo docker run .... -it openmpp/openmpp-build:ubuntu bash
 ```
 
 ## How to use `openmpp/openmpp-build:centos-8` image
