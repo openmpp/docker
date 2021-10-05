@@ -242,8 +242,8 @@ REM   copy OzProj/microdata sub-directory into bin/OzProj
 if exist %DEPLOY_DIR%\models\OzProjGen (
   del /f /q %DEPLOY_DIR%\models\bin\OzProjGen*.* >> log\build-zip.log 2>&1
   call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin
-  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProj\ompp\bin models\OzProjGen\ompp\bin "OzProjGen*.*"
-  call :rcopy_sub_dirs %DEPLOY_DIR%\bin\OzProj\microdata       models\OzProjGen          "microdata"
+  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin models\OzProjGen\ompp\bin "OzProjGen*.*"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\bin\OzProjGen\microdata       models\OzProjGen          "microdata"
 )
 
 if exist %DEPLOY_DIR%\models\OzProj (
