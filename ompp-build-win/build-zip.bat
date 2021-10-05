@@ -137,7 +137,6 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,etc,licenses,ompp,oms"
 REM copy template files to run models
 
 call :make_dir %DEPLOY_DIR%\etc
-call :make_dir %DEPLOY_DIR%\etc\scripts
 
 call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
 call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
