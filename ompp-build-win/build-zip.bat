@@ -142,13 +142,6 @@ call :make_dir %DEPLOY_DIR%\etc\scripts
 call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
 call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
 
-call :do_copy_files %DEPLOY_DIR%\etc\run.OzProj.template.txt          ompp-go\etc\runWindows.OzProj.template.txt
-call :do_copy_files %DEPLOY_DIR%\etc\run.OzProj.Debug.template.txt    ompp-go\etc\runWindows.OzProj.Debug.template.txt
-call :do_copy_files %DEPLOY_DIR%\etc\run.OzProjGen.template.txt       ompp-go\etc\runWindows.OzProjGen.template.txt
-call :do_copy_files %DEPLOY_DIR%\etc\run.OzProjGen.Debug.template.txt ompp-go\etc\runWindows.OzProjGen.Debug.template.txt
-
-call :do_copy_files %DEPLOY_DIR%\etc\scripts\oms-OzProj-run.bat ompp-go\etc\scripts\*.bat
-
 REM get Docker source code from git and copy Docker sources
 
 if not exist ompp-docker (
@@ -240,15 +233,24 @@ if not exist %DEPLOY_DIR%\models\Alpha2 (
   call :rcopy_sub_dirs %DEPLOY_DIR%\models models "Alpha2"
 )
 
-REM OzProj special case:
-REM   if OzProj included in the model build list then create ompp/bin sub-directory
-
-if exist %DEPLOY_DIR%\models\OzProj (
-  call :make_dir %DEPLOY_DIR%\models\OzProj\ompp\bin
-)
+REM OzProj and OzProjGen special case:
+REM   if OzProj included in the model build list then:
+REM   create models/bin/OzProj/ompp/bin sub-directory
+REM   copy OzProj*.* into bin/OzProj/ompp/bin
+REM   copy OzProj/microdata sub-directory into bin/OzProj
 
 if exist %DEPLOY_DIR%\models\OzProjGen (
-  call :make_dir %DEPLOY_DIR%\models\OzProjGen\ompp\bin
+  del /f /q %DEPLOY_DIR%\models\bin\OzProjGen*.* >> log\build-zip.log 2>&1
+  call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin
+  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProj\ompp\bin models\OzProjGen\ompp\bin "OzProjGen*.*"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\bin\OzProj\microdata       models\OzProjGen          "microdata"
+)
+
+if exist %DEPLOY_DIR%\models\OzProj (
+  del /f /q %DEPLOY_DIR%\models\bin\OzProj*.* >> log\build-zip.log 2>&1
+  call :make_dir       %DEPLOY_DIR%\models\bin\OzProj\ompp\bin
+  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProj\ompp\bin models\OzProj\ompp\bin "OzProj*.*"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\bin\OzProj\microdata       models\OzProj          "microdata"
 )
 
 REM add MacOS extra source code and documents
