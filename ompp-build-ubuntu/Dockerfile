@@ -45,7 +45,7 @@ RUN apt-get upgrade -y
 # install c++, Open MPI, build utils, git and SQLite
 RUN apt-get install -y g++ && \
   apt-get install -y make && \
-  apt-get install -y flex && \
+  apt-get install -y bison flex && \
   apt-get install -y git && \
   apt-get install -y sqlite3 && \
   apt-get install -y openmpi-bin libopenmpi-dev
@@ -53,21 +53,6 @@ RUN apt-get install -y g++ && \
 # install curl and xz packaging utils
 RUN apt-get install -y curl && \
   apt-get install -y xz-utils
-
-# download and install bison 2.7.x
-COPY fseterr.c.patch /patches/
-
-RUN BISON_VER=2.7.1; \
-  curl -L -o /tmp/bison-setup.tar.gz https://ftp.gnu.org/gnu/bison/bison-${BISON_VER}.tar.gz && \
-  tar -xzf /tmp/bison-setup.tar.gz -C /tmp && \
-  cd /tmp/bison-${BISON_VER} && \
-  ./configure && \
-  patch -b lib/fseterr.c -i /patches/fseterr.c.patch && \
-  make && \
-  make install && \
-  cd ~ && \
-  rm -rf /tmp/bison-${BISON_VER} && \
-  rm /tmp/bison-setup.tar.gz
 
 # download and install Go
 RUN GO_VER=1.16.4; \
