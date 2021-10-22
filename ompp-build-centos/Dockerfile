@@ -37,11 +37,30 @@ RUN dnf -y update && dnf clean all
 
 # install c++, Open MPI, build utils, git and SQLite
 RUN dnf -y --setopt=tsflags=nodocs install make && \
-  dnf -y --setopt=tsflags=nodocs install bison flex && \
+  dnf -y --setopt=tsflags=nodocs install flex && \
   dnf -y --setopt=tsflags=nodocs install git && \
   dnf -y --setopt=tsflags=nodocs install sqlite && \
   dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
   dnf -y --setopt=tsflags=nodocs install openmpi openmpi-devel
+
+# download and install bison 3.7.x
+#
+# install makeinfo from pwertools repository
+RUN dnf -y install dnf-plugins-core && \
+  dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+  dnf config-manager --set-enabled powertools && \
+  dnf -y install texinfo
+
+RUN BISON_VER=3.7.5; \
+  curl -L -o /tmp/bison-setup.tar.gz https://ftp.gnu.org/gnu/bison/bison-${BISON_VER}.tar.gz && \
+  tar -xzf /tmp/bison-setup.tar.gz -C /tmp && \
+  cd /tmp/bison-${BISON_VER} && \
+  ./configure --prefix=/usr && \
+  make && \
+  make install && \
+  cd ~ && \
+  rm -rf /tmp/bison-${BISON_VER} && \
+  rm /tmp/bison-setup.tar.gz
 
 # download and install Go
 RUN GO_VER=1.16.4; \
