@@ -55,7 +55,7 @@ RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/rele
 # set environment for openM++ build
 ENV BISON_FLEX_DIR=C:\bison_flex
 
-RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-v2.5.24.zip && `
+RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip && `
     C:\7zip\7z.exe x -o%BISON_FLEX_DIR% C:\Temp\winflexbison.zip && `
     del C:\Temp\winflexbison.zip
     
