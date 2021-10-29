@@ -46,7 +46,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/Git-2.31.1-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.33.1.windows.1/Git-2.33.1-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
