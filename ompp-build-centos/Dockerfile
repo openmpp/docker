@@ -63,7 +63,7 @@ RUN BISON_VER=3.7.5; \
   rm /tmp/bison-setup.tar.gz
 
 # download and install Go
-RUN GO_VER=1.16.4; \
+RUN GO_VER=1.17.2; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -89,7 +89,7 @@ RUN dnf -y --setopt=tsflags=nodocs install unixODBC && \
 RUN dnf clean all
 
 # download and install node.js
-RUN NODE_VER=v14.17.0; \
+RUN NODE_VER=v14.18.1; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
