@@ -8,6 +8,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-build:windows-20H2`
 - `openmpp/openmpp-build:debian`
+- `openmpp/openmpp-build:debian-10`
 - `openmpp/openmpp-build:ubuntu`
 - `openmpp/openmpp-build:centos-8`
 
@@ -28,6 +29,16 @@ Pull: `docker pull openmpp/openmpp-build:debian`
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian](https://github.com/openmpp/docker/tree/master/ompp-build-debian)
 
 From: `debian:stable`
+
+Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
+
+### `openmpp/openmpp-build:debian-10`
+
+Pull: `docker pull openmpp/openmpp-build:debian-10`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian-10](https://github.com/openmpp/docker/tree/master/ompp-build-debian-10)
+
+From: `debian:10`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
