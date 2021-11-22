@@ -157,6 +157,7 @@ if defined MDL_ONE_EXE (
   (%MDL_ONE_EXE% -OpenM.RunName Default && ^
 %MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
 %MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
+%MDL_ONE_EXE% -Parameter.baseSalary Full -OpenM.RunName "Default and Full base salary" && ^
 %MDL_ONE_EXE% -OpenM.SubValues 2 -SubFrom.salaryFull csv -OpenM.ParamDir ../../csv ^
   -OpenM.RunName "Sub-values_2_from_csv" ^
   -EN.RunDescription "Parameter sub-values 2 from csv" ^
