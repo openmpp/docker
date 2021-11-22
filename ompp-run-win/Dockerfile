@@ -19,12 +19,12 @@ ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
-# download and install VC2015, VC2017, VC2019 re-distributable runtimes
+# download and install VC2015, VC2017, VC2019, VC2022 re-distributable runtimes
 # according to Microsoft: VC2015, VC2017, VC2019 all share the same re-distributable runtime
-RUN curl -L -o C:\Temp\vc_redist.x86.exe https://aka.ms/vs/16/release/vc_redist.x86.exe && `
+RUN curl -L -o C:\Temp\vc_redist.x86.exe https://aka.ms/vs/17/release/vc_redist.x86.exe && `
     C:\Temp\vc_redist.x86.exe /install /quiet /norestart /log C:\Temp\log.x86.txt
 
-RUN curl -L -o C:\Temp\vc_redist.x64.exe https://aka.ms/vs/16/release/vc_redist.x64.exe && `
+RUN curl -L -o C:\Temp\vc_redist.x64.exe https://aka.ms/vs/17/release/vc_redist.x64.exe && `
     C:\Temp\vc_redist.x64.exe /install /quiet /norestart /log C:\Temp\log.x64.txt
 
 # download and install MS MPI runtime
@@ -44,7 +44,7 @@ USER ContainerUser
 LABEL name=openmpp/openmpp-run:windows-20H2
 LABEL os=Windows
 LABEL license=MIT
-LABEL description="OpenM++ runtime environemnt: VC++ 2015, VC++ 2017, VC++ 2019 runtime (Release only), MS MPI"
+LABEL description="OpenM++ runtime environemnt: VC++ 2015, VC++ 2017, VC++ 2019, VC++ 2022 runtime (Release only), MS MPI"
 
 # Done with installation
 # 

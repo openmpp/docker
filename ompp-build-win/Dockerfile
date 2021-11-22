@@ -26,7 +26,7 @@ ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
-# download and install v16 (latest) Microsoft MSBuild Tools and VC++
+# download and install v16 (VS-2019) Microsoft MSBuild Tools and VC++
 RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/16/release/vs_buildtools.exe && `
     ( C:\Temp\vs_buildtools.exe --quiet --wait --norestart --nocache --includeRecommended `
     --installPath C:\BuildTools `
