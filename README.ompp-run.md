@@ -9,7 +9,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 - `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:ubuntu`
-- `openmpp/openmpp-run:centos-8`
+- `openmpp/openmpp-run:redhat-8`
 
 ### `openmpp/openmpp-run:windows-20H2`
 
@@ -41,13 +41,13 @@ From: `ubuntu:20.04`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
-### `openmpp/openmpp-run:centos-8`
+### `openmpp/openmpp-run:redhat-8`
 
-Pull: `podman pull openmpp/openmpp-run:centos-8`
+Pull: `podman pull openmpp/openmpp-run:redhat-8`
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-centos](https://github.com/openmpp/docker/tree/master/ompp-run-centos)
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-redhat](https://github.com/openmpp/docker/tree/master/ompp-run-redhat)
 
-From: `centos:8`
+From: `redhat:8`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
@@ -140,11 +140,11 @@ To start shell do:
 sudo docker run -it openmpp/openmpp-run:ubuntu bash
 ```
 
-## How to use `openmpp/openmpp-run:centos-8` image
+## How to use `openmpp/openmpp-run:redhat-8` image
 
 To run openM++ model do:
 ```
-podman run ....options... openmpp/openmpp-run:centos-8 ./modelOne
+podman run ....options... openmpp/openmpp-run:redhat-8 ./modelOne
 ```
 
 Examples:
@@ -153,14 +153,14 @@ podman run \
   -userns=host \
   -v $HOME/models:/home/models:z \
   -e OMPP_USER=models \
-  openmpp/openmpp-run:centos-8 \
+  openmpp/openmpp-run:redhat-8 \
   ./modelOne
 
 podman run \
   -userns=host \
   -v $HOME/models:/home/models:z \
   -e OMPP_USER=models \
-  openmpp/openmpp-run:centos-8 \
+  openmpp/openmpp-run:redhat-8 \
   mpiexec -n 2 ./modelOne_mpi -OpenM.SubValues 16
 ```
 
@@ -171,7 +171,7 @@ OMPP_USER=ompp   # default: ompp, container user name and HOME dir
 
 To start shell do:
 ```
-podman run -it openmpp/openmpp-run:centos-8 bash
+podman run -it openmpp/openmpp-run:redhat-8 bash
 ```
 
 ## License: MIT
