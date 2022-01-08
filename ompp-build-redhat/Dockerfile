@@ -43,9 +43,12 @@ RUN dnf -y --setopt=tsflags=nodocs install make && \
   dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
   dnf -y --setopt=tsflags=nodocs install openmpi openmpi-devel
 
+# install extra utilities
+RUN dnf -y --setopt=tsflags=nodocs install xz
+
 # download and install bison 3.7.x
 #
-# install makeinfo from pwertools repository
+# install makeinfo from powertools repository
 RUN dnf -y install dnf-plugins-core && \
   dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
   dnf config-manager --set-enabled powertools && \
