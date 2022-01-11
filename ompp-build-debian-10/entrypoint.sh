@@ -24,8 +24,6 @@ cp -uv \
  /scripts/build-r \
  /scripts/build-ui \
  /scripts/build-tar-gz \
- /scripts/make-doc \
- /scripts/make-r \
  /scripts/README.txt \
  ${HOME}
 

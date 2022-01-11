@@ -1,5 +1,4 @@
 # Docker image to build openM++ latest version on Debian 10
-# It is also can make latest version of openM++ documentation
 #
 # Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:debian-10 .
@@ -31,22 +30,6 @@
 #   docker run ....user, group, home.... openmpp/openmpp-build:debian-10 ./build-tar-gz
 #
 #   docker run .... -it openmpp/openmpp-build:debian-10 bash
-#
-# To build openM++ documentation:
-#
-#   docker run \
-#     -v $HOME/build_doc:/home/build_doc \
-#     -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     openmpp/openmpp-build:debian-10 \
-#     ./make-doc
-#
-# To build openMpp R package:
-#
-#   docker run \
-#     -v $HOME/build_r:/home/build_r \
-#     -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     openmpp/openmpp-build:debian-10 \
-#     ./make-r
 #
 
 FROM debian:10
@@ -81,19 +64,19 @@ RUN GO_VER=1.17.5; \
 RUN apt-get install -y unixodbc unixodbc-dev
 
 # download and install R
-RUN apt-get install -y r-base-core
+#RUN apt-get install -y r-base-core
 
 # cleanup
 RUN apt-get autoclean
 
 # for documentation build: download and install Doxygen
-RUN apt-get install -y doxygen graphviz
-
+# RUN apt-get install -y doxygen graphviz
+#
 # for documentation build: download and install wkhtmltopdf
-RUN WKHPDF_VER=0.12.6-1; \
-  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
-  apt install -y /tmp/wkhtmltopdf_setup.deb && \
-  rm /tmp/wkhtmltopdf_setup.deb
+# RUN WKHPDF_VER=0.12.6-1; \
+#  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
+#  apt install -y /tmp/wkhtmltopdf_setup.deb && \
+#  rm /tmp/wkhtmltopdf_setup.deb
 
 # download and install node.js
 RUN NODE_VER=v14.18.2; \
@@ -115,8 +98,6 @@ COPY entrypoint.sh \
   build-r \
   build-ui \
   build-tar-gz \
-  make-doc \
-  make-r \
   README.txt \
   /scripts/
 
@@ -128,8 +109,6 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-r && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
-  chmod 755 /scripts/make-doc && \
-  chmod 755 /scripts/make-r && \
   chmod 744 /scripts/README.txt
 
 # describe image
@@ -137,7 +116,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
 LABEL name=openmpp/openmpp-build:debian-10
 LABEL os=Linux
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, R, node.js"
+LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, node.js"
 
 # Done with installation
 # set work directory argument
