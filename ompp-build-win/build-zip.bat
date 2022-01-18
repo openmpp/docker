@@ -138,8 +138,9 @@ REM copy template files to run models
 
 call :make_dir %DEPLOY_DIR%\etc
 
-call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\runWindows.Debug.template.txt
-call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpiWindows.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt    ompp-go\etc\run-Windows.Debug.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt ompp-go\etc\mpi-Windows.ModelRun.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\                          ompp-go\etc\run-options.any_model.1.Use_Defaults.json
 
 REM get Docker source code from git and copy Docker sources
 
