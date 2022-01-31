@@ -26,8 +26,8 @@ ADD https://www.7-zip.org/a/7z1900-x64.exe C:\Temp\7z_setup.exe
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
-# download and install v16 (VS-2019) Microsoft MSBuild Tools and VC++
-RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/16/release/vs_buildtools.exe && `
+# download and install v17 (VS-2022) Microsoft MSBuild Tools and VC++
+RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/17/release/vs_BuildTools.exe && `
     ( C:\Temp\vs_buildtools.exe --quiet --wait --norestart --nocache --includeRecommended `
     --installPath C:\BuildTools `
     --add Microsoft.VisualStudio.Workload.MSBuildTools `
@@ -130,7 +130,7 @@ USER ContainerUser
 LABEL name=openmpp/openmpp-build:windows-20H2
 LABEL os=Windows
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: VC++ 2019, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, R, node.js, Perl"
+LABEL description="OpenM++ build environemnt: VC++ 2022, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, node.js, Perl"
 
 # Done with installation
 # 

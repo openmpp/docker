@@ -123,7 +123,7 @@ REM build c++ run-time libraries and omc compiler
 pushd openm
 for %%c in (%OM_BLD_CFG%) do (
   for %%p in (%OM_BLD_PLT%) do (
-    call :make_openm_sln "%OM_P_MPI% -p:PLATFORM_TOOLSET=v142 -p:Configuration=%%c -p:Platform=%%p openm.sln"
+    call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p openm.sln"
   )
 )
 popd

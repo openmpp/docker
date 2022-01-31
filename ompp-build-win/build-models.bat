@@ -4,7 +4,7 @@ REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths,RiskPaths_csv
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
 
 setlocal enabledelayedexpansion
 
@@ -15,7 +15,7 @@ if defined OM_BUILD_CONFIGS   set OM_BLD_CFG=%OM_BUILD_CONFIGS%
 if defined OM_BUILD_PLATFORMS set OM_BLD_PLT=%OM_BUILD_PLATFORMS%
 if /I "%OM_MSG_USE%"=="MPI"   set OM_P_MPI=-p:OM_MSG_USE=MPI
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,NewTimeBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths,RiskPaths_csv
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
 if defined MODEL_DIRS         set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist
@@ -98,7 +98,7 @@ rem      if /i "%%p"=="x64" set MDL_EXE=!MDL_EXE!64
       
       REM build the model
       
-      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% -p:PLATFORM_TOOLSET=v142 !MDL_P_ARGS!"
+      call :make_model_sln %%m !MDL_LOG! "%OM_P_MPI% !MDL_P_ARGS!"
       
       REM run the model after first build, if not modelOne
       
