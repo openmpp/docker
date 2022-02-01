@@ -2,13 +2,13 @@
 REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_20180817.zip
 REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
 
 setlocal enabledelayedexpansion
 
 if /I "%OM_MSG_USE%"=="MPI" set OM_SFX_MPI=_mpi
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,OzProj,OzProjGen,RiskPaths
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
 if defined MODEL_DIRS       set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist
@@ -226,48 +226,13 @@ for %%m in (%OM_BLD_MDLS%) do (
     "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
 )
 
-REM Special case for models which are not included in the build list: 
-REM   Alpha2, NewTimeBased_bilingual, NewCaseBased_weighted, OzProj_extra, RiskPaths_csv
-REM   if Alpha2 was not included in the model build list then copy Alpha2 source files
+REM Special case for models which are not included in the build list: copy model source files
 
-if not exist %DEPLOY_DIR%\models\Alpha2 (
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models models Alpha2
-)
+for %%m in (Alpha2,NewTimeBased_bilingual,NewCaseBased_weighted,OzProj,OzProjGen,OzProj_extra,RiskPaths_csv) do (
 
-if not exist %DEPLOY_DIR%\models\NewTimeBased_bilingual (
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models models NewTimeBased_bilingual
-)
-
-if not exist %DEPLOY_DIR%\models\NewCaseBased_weighted (
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models models NewCaseBased_weighted
-)
-
-if not exist %DEPLOY_DIR%\models\OzProj_extra (
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models models OzProj_extra
-)
-
-if not exist %DEPLOY_DIR%\models\RiskPaths_csv (
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models models RiskPaths_csv
-)
-
-REM OzProj and OzProjGen special case:
-REM   if OzProj included in the model build list then:
-REM   create models/bin/OzProj/ompp/bin sub-directory
-REM   copy OzProj*.* into bin/OzProj/ompp/bin
-REM   copy OzProj/microdata sub-directory into bin/OzProj
-
-if exist %DEPLOY_DIR%\models\OzProjGen (
-  del /f /q %DEPLOY_DIR%\models\bin\OzProjGen*.* >> log\build-zip.log 2>&1
-  call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin
-  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin models\OzProjGen\ompp\bin "OzProjGen*.*"
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjGen          models\OzProjGen           "microdata"
-)
-
-if exist %DEPLOY_DIR%\models\OzProj (
-  del /f /q %DEPLOY_DIR%\models\bin\OzProj*.* >> log\build-zip.log 2>&1
-  call :make_dir       %DEPLOY_DIR%\models\bin\OzProj\ompp\bin
-  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProj\ompp\bin models\OzProj\ompp\bin "OzProj*.*"
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProj          models\OzProj          "microdata"
+  if not exist %DEPLOY_DIR%\models\%%m (
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models models %%m
+  )
 )
 
 REM add MacOS extra source code and documents
