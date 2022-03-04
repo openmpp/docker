@@ -183,7 +183,8 @@ call :make_dir %DEPLOY_DIR%\log
 call :make_dir %DEPLOY_DIR%\models\bin
 call :make_dir %DEPLOY_DIR%\models\sql
 call :make_dir %DEPLOY_DIR%\models\log
-call :make_dir %DEPLOY_DIR%\models\home\out\download
+call :make_dir %DEPLOY_DIR%\models\home\io\download
+call :make_dir %DEPLOY_DIR%\models\home\io\upload
 
 REM copy models
 REM modelOne special case:
