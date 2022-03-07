@@ -34,7 +34,7 @@ if not exist ompp-r (
 
 REM download latest release of openMpp R package
 pushd ompp-r
-call :do_cmd_line "curl -L -o openMpp_0.8.6.tar.gz https://github.com/openmpp/R/releases/download/0.8.6/openMpp_0.8.6.tar.gz"
+call :do_cmd_line "curl -L -o openMpp_0.8.7.tar.gz https://github.com/openmpp/R/releases/download/0.8.7/openMpp_0.8.7.tar.gz"
 popd
 
 REM build openMpp R package
