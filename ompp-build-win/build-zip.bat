@@ -121,12 +121,12 @@ call :rcopy_files %DEPLOY_DIR%\bin bin "ompp_ui.bat ompp_ui_linux.sh ompp_ui_mac
 call :rcopy_files ^
   %DEPLOY_DIR%\bin ^
   bin ^
-  "test_models.exe CsvToDat.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe"
+  "test_models.exe CsvToDat.exe create_import_set.exe ompp_create_scex.exe ompp_export_csv.exe ompp_export_excel.exe modgen_export_csv.exe patch_modgen11_outputs.exe patch_modgen12_outputs.exe patch_modgen12.1_outputs.exe"
 
 call :rcopy_files ^
   %DEPLOY_DIR%\bin ^
   bin ^
-  "test_models32.exe CsvToDat32.exe ompp_create_scex32.exe ompp_export_csv32.exe ompp_export_excel32.exe modgen_export_csv32.exe patch_modgen11_outputs32.exe patch_modgen12_outputs32.exe patch_modgen12.1_outputs32.exe"
+  "test_models32.exe CsvToDat32.exe create_import_set32.exe ompp_create_scex32.exe ompp_export_csv32.exe ompp_export_excel32.exe modgen_export_csv32.exe patch_modgen11_outputs32.exe patch_modgen12_outputs32.exe patch_modgen12.1_outputs32.exe"
 
 REM copy Go bin executables and source code
 

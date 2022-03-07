@@ -30,6 +30,7 @@ pushd Perl
 
 call :do_pp32_call "-o ../bin/test_models32.exe test_models.pl"
 call :do_pp32_call "-o ../bin/CsvToDat32.exe CsvToDat.pl"
+call :do_pp32_call "-o ../bin/create_import_set32.exe create_import_set.pl"
 call :do_pp32_call "-o ../bin/ompp_export_excel32.exe ompp_export_excel.pl"
 call :do_pp32_call "-o ../bin/ompp_export_csv32.exe ompp_export_csv.pl"
 call :do_pp32_call "-o ../bin/modgen_export_csv32.exe modgen_export_csv.pl"
@@ -37,10 +38,10 @@ call :do_pp32_call "-o ../bin/ompp_create_scex32.exe ompp_create_scex.pl"
 call :do_pp32_call "-o ../bin/patch_modgen11_outputs32.exe patch_modgen11_outputs.pl"
 call :do_pp32_call "-o ../bin/patch_modgen12_outputs32.exe patch_modgen12_outputs.pl"
 call :do_pp32_call "-o ../bin/patch_modgen12.1_outputs32.exe patch_modgen12.1_outputs.pl"
-call :do_pp32_call "-o ../bin/create_import_set32.exe create_import_set.pl"
 
 call :do_pp64_call "-o ../bin/test_models.exe test_models.pl"
 call :do_pp64_call "-o ../bin/CsvToDat.exe CsvToDat.pl"
+call :do_pp64_call "-o ../bin/create_import_set.exe create_import_set.pl"
 call :do_pp64_call "-o ../bin/ompp_export_excel.exe ompp_export_excel.pl"
 call :do_pp64_call "-o ../bin/ompp_export_csv.exe ompp_export_csv.pl"
 call :do_pp64_call "-o ../bin/modgen_export_csv.exe modgen_export_csv.pl"
@@ -48,7 +49,6 @@ call :do_pp64_call "-o ../bin/ompp_create_scex.exe ompp_create_scex.pl"
 call :do_pp64_call "-o ../bin/patch_modgen11_outputs.exe patch_modgen11_outputs.pl"
 call :do_pp64_call "-o ../bin/patch_modgen12_outputs.exe patch_modgen12_outputs.pl"
 call :do_pp64_call "-o ../bin/patch_modgen12.1_outputs.exe patch_modgen12.1_outputs.pl"
-call :do_pp64_call "-o ../bin/create_import_set.exe create_import_set.pl"
 
 popd
 
