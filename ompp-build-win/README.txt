@@ -13,7 +13,7 @@ To build openM++ do:
   set OM_BUILD_CONFIGS=Release,Debug (default: Release)
   set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
   set OM_MSG_USE=MPI                 (default: EMPTY)
-  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 To build openM++ libraries and omc compiler do:
 

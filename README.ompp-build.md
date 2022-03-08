@@ -81,7 +81,7 @@ Environment variables:
 set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
-set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 
 To build only openM++ libraries and omc compiler do:
@@ -162,7 +162,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
 ```
@@ -254,7 +254,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
 ```
@@ -325,7 +325,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
 ```

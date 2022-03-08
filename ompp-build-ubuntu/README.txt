@@ -29,7 +29,7 @@ Environment variables:
   OMPP_GID=1999                  # default: 1999, container group ID
   OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
   OM_MSG_USE=MPI                 # default: EMPTY
-  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths
+  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 To build openM++ libraries and omc compiler do:
 
