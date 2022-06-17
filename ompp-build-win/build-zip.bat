@@ -168,7 +168,7 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-python ompp-python "images"
 REM copy R package and source code
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp,oms-R,images"
 
 REM copy UI html build and source code
 
