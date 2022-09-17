@@ -16,7 +16,7 @@ cd ${HOME}
 export OM_ROOT=${HOME}
 
 source /usr/share/Modules/init/bash
-module load mpi/mpich-x86_64
+module load mpi/openmpi-x86_64
 
 # done: execute command line arguments
 #
