@@ -132,7 +132,7 @@ REM copy Go bin executables and source code
 
 call :rcopy_files    %DEPLOY_DIR%\bin     bin     "dbcopy.exe oms.exe"
 call :rcopy_files    %DEPLOY_DIR%\ompp-go ompp-go "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,etc,licenses,ompp,oms"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-go ompp-go "dbcopy,etc,job,licenses,models,ompp,oms"
 
 REM copy template files to run models
 
