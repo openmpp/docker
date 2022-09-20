@@ -9,7 +9,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 - `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:ubuntu`
-- `openmpp/openmpp-run:redhat-9`
+- `openmpp/openmpp-run:redhat`
 
 ### `openmpp/openmpp-run:windows-20H2`
 
@@ -41,9 +41,9 @@ From: `ubuntu:22.04`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
-### `openmpp/openmpp-run:redhat-9`
+### `openmpp/openmpp-run:redhat`
 
-Pull: `podman pull openmpp/openmpp-run:redhat-9`
+Pull: `podman pull openmpp/openmpp-run:redhat`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-redhat](https://github.com/openmpp/docker/tree/master/ompp-run-redhat)
 
@@ -140,11 +140,11 @@ To start shell do:
 sudo docker run -it openmpp/openmpp-run:ubuntu bash
 ```
 
-## How to use `openmpp/openmpp-run:redhat-9` image
+## How to use `openmpp/openmpp-run:redhat` image
 
 To run openM++ model do:
 ```
-podman run ....options... openmpp/openmpp-run:redhat-9 ./modelOne
+podman run ....options... openmpp/openmpp-run:redhat ./modelOne
 ```
 
 Examples:
@@ -153,14 +153,14 @@ podman run \
   -userns=host \
   -v $HOME/models:/home/models:z \
   -e OMPP_USER=models \
-  openmpp/openmpp-run:redhat-9 \
+  openmpp/openmpp-run:redhat \
   ./modelOne
 
 podman run \
   -userns=host \
   -v $HOME/models:/home/models:z \
   -e OMPP_USER=models \
-  openmpp/openmpp-run:redhat-9 \
+  openmpp/openmpp-run:redhat \
   mpiexec -n 2 ./modelOne_mpi -OpenM.SubValues 16
 ```
 
@@ -171,7 +171,7 @@ OMPP_USER=ompp   # default: ompp, container user name and HOME dir
 
 To start shell do:
 ```
-podman run -it openmpp/openmpp-run:redhat-9 bash
+podman run -it openmpp/openmpp-run:redhat bash
 ```
 
 ## License: MIT
