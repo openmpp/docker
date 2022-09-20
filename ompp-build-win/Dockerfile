@@ -51,7 +51,7 @@ RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/rele
     del C:\Temp\git_setup.exe
 
 # download and install flex and bison for Windows
-# using win_flex_bison-2.4.12.zip because bison must be: 2.5 <= version < 3.0
+# win_flex_bison-2.5.24 provides bison 3.7.4, flex 2.6.4
 # set environment for openM++ build
 ENV BISON_FLEX_DIR=C:\bison_flex
 
@@ -63,7 +63,7 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2021/sqlite-tools-win32-x86-3350500.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2022/sqlite-tools-win32-x86-3390300.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
