@@ -10,7 +10,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 - `openmpp/openmpp-build:debian`
 - `openmpp/openmpp-build:debian-10`
 - `openmpp/openmpp-build:ubuntu`
-- `openmpp/openmpp-build:redhat-8`
+- `openmpp/openmpp-build:redhat-9`
 
 ### `openmpp/openmpp-build:windows-20H2`
 
@@ -48,17 +48,17 @@ Pull: `docker pull openmpp/openmpp-build:ubuntu`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu)
 
-From: `ubuntu:20.04`
+From: `ubuntu:22.04`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
-### `openmpp/openmpp-build:redhat-8`
+### `openmpp/openmpp-build:redhat-9`
 
-Pull: `podman pull openmpp/openmpp-build:redhat-8`
+Pull: `podman pull openmpp/openmpp-build:redhat-9`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-redhat](https://github.com/openmpp/docker/tree/master/ompp-build-redhat)
 
-From: `rockylinux/rockylinux:8`
+From: `rockylinux/rockylinux:9`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
@@ -294,11 +294,11 @@ To start shell do:
 sudo docker run .... -it openmpp/openmpp-build:ubuntu bash
 ```
 
-## How to use `openmpp/openmpp-build:redhat-8` image
+## How to use `openmpp/openmpp-build:redhat-9` image
 
 To build openM++ do:
 ```
-podman run ....options... openmpp/openmpp-build:redhat-8 ./build-all
+podman run ....options... openmpp/openmpp-build:redhat-9 ./build-all
 ```
 Examples:
 ```
@@ -306,7 +306,7 @@ podman run \
   -userns=host \
   -v $HOME/build:/home/build:z \
   -e OMPP_USER=build \
-  openmpp/openmpp-build:redhat-8 \
+  openmpp/openmpp-build:redhat-9 \
   ./build-all
 
 podman run \
@@ -314,12 +314,12 @@ podman run \
   -v $HOME/build_mpi:/home/build_mpi:z \
   -e OMPP_USER=build_mpi \
   -e OM_MSG_USE=MPI \
-  openmpp/openmpp-build:redhat-8 \
+  openmpp/openmpp-build:redhat-9 \
   ./build-all
 
-podman run .... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:redhat-8 ./build-all
-podman run .... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:redhat-8 ./build-all
-podman run .... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:redhat-8 ./build-all
+podman run .... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:redhat-9 ./build-all
+podman run .... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:redhat-9 ./build-all
+podman run .... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:redhat-9 ./build-all
 ```
 Environment variables to control build:
 ```
@@ -334,32 +334,32 @@ OMPP_USER=ompp   # default: ompp, container user name and HOME dir
 
 To build only openM++ libraries and omc compiler do:
 ```
-podman run .... openmpp/openmpp-build:redhat-8 ./build-openm
+podman run .... openmpp/openmpp-build:redhat-9 ./build-openm
 ```
 Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_MSG_USE`
 
 To build only models do:
 ```
-podman run .... openmpp/openmpp-build:redhat-8 ./build-models
+podman run .... openmpp/openmpp-build:redhat-9 ./build-models
 ```
 Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS`
 
 To build openM++ tools do any of:
 ```
-podman run .... openmpp/openmpp-build:redhat-8 ./build-go   # Go oms web-service and dbcopy utility
-podman run .... openmpp/openmpp-build:redhat-8 ./build-r    # openMpp R package
-podman run .... openmpp/openmpp-build:redhat-8 ./build-ui   # openM++ UI
+podman run .... openmpp/openmpp-build:redhat-9 ./build-go   # Go oms web-service and dbcopy utility
+podman run .... openmpp/openmpp-build:redhat-9 ./build-r    # openMpp R package
+podman run .... openmpp/openmpp-build:redhat-9 ./build-ui   # openM++ UI
 ```
 
 To create `openmpp_redhat_YYYYMMDD.tar.gz` archive:
 ```
-podman run .... openmpp/openmpp-build:redhat-8 ./build-tar-gz
+podman run .... openmpp/openmpp-build:redhat-9 ./build-tar-gz
 ```
 Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
 
 To start shell do:
 ```
-podman run -it openmpp/openmpp-build:redhat-8 bash
+podman run -it openmpp/openmpp-build:redhat-9 bash
 ```
 
 ## License: MIT

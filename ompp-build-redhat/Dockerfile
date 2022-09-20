@@ -1,8 +1,8 @@
-# Docker image to build openM++ latest version on Rocky Linux 8
+# Docker image to build openM++ latest version on Rocky Linux 9
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-build:redhat-8 .
-#   podman build -t openmpp/openmpp-build:redhat-8 --build-arg OMPP_USER=ompp .
+#   podman build -t openmpp/openmpp-build:redhat-9 .
+#   podman build -t openmpp/openmpp-build:redhat-9 --build-arg OMPP_USER=ompp .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
@@ -10,7 +10,7 @@
 #     -userns=host \
 #     -v $HOME/build:/home/build:z \
 #     -e OMPP_USER=build \
-#     openmpp/openmpp-build:redhat-8 \
+#     openmpp/openmpp-build:redhat-9 \
 #     ./build-all
 #
 #   podman run \
@@ -18,19 +18,19 @@
 #     -v $HOME/build_mpi:/home/build_mpi:z \
 #     -e OMPP_USER=build_mpi \
 #     -e OM_MSG_USE=MPI \
-#     openmpp/openmpp-build:redhat-8 \
+#     openmpp/openmpp-build:redhat-9 \
 #     ./build-all
 #
-#   podman run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:redhat-8 ./build-openm
-#   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:redhat-8 ./build-models
-#   podman run .... openmpp/openmpp-build:redhat-8 ./build-go
-#   podman run .... openmpp/openmpp-build:redhat-8 ./build-r
-#   podman run .... openmpp/openmpp-build:redhat-8 ./build-ui
-#   podman run .... openmpp/openmpp-build:redhat-8 ./build-tar-gz
+#   podman run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:redhat-9 ./build-openm
+#   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:redhat-9 ./build-models
+#   podman run .... openmpp/openmpp-build:redhat-9 ./build-go
+#   podman run .... openmpp/openmpp-build:redhat-9 ./build-r
+#   podman run .... openmpp/openmpp-build:redhat-9 ./build-ui
+#   podman run .... openmpp/openmpp-build:redhat-9 ./build-tar-gz
 #
-#   podman run -it openmpp/openmpp-build:redhat-8 bash
+#   podman run -it openmpp/openmpp-build:redhat-9 bash
 
-FROM rockylinux/rockylinux:8
+FROM rockylinux/rockylinux:9
 
 # update base image
 RUN dnf -y update && dnf clean all
@@ -38,6 +38,7 @@ RUN dnf -y update && dnf clean all
 # install c++, Open MPI, build utils, git and SQLite
 RUN dnf -y --setopt=tsflags=nodocs install make && \
   dnf -y --setopt=tsflags=nodocs install flex && \
+  dnf -y --setopt=tsflags=nodocs install bison && \
   dnf -y --setopt=tsflags=nodocs install git && \
   dnf -y --setopt=tsflags=nodocs install sqlite && \
   dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
@@ -46,27 +47,8 @@ RUN dnf -y --setopt=tsflags=nodocs install make && \
 # install extra utilities
 RUN dnf -y --setopt=tsflags=nodocs install xz
 
-# download and install bison 3.7.x
-#
-# install makeinfo from powertools repository
-RUN dnf -y install dnf-plugins-core && \
-  dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-  dnf config-manager --set-enabled powertools && \
-  dnf -y install texinfo
-
-RUN BISON_VER=3.7.5; \
-  curl -L -o /tmp/bison-setup.tar.gz https://ftp.gnu.org/gnu/bison/bison-${BISON_VER}.tar.gz && \
-  tar -xzf /tmp/bison-setup.tar.gz -C /tmp && \
-  cd /tmp/bison-${BISON_VER} && \
-  ./configure --prefix=/usr && \
-  make && \
-  make install && \
-  cd ~ && \
-  rm -rf /tmp/bison-${BISON_VER} && \
-  rm /tmp/bison-setup.tar.gz
-
 # download and install Go
-RUN GO_VER=1.17.5; \
+RUN GO_VER=1.19.1; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -74,8 +56,9 @@ RUN GO_VER=1.17.5; \
   rm /tmp/go_setup.tar.gz
 
 # download and install unixODBC (optional)
-RUN dnf -y --setopt=tsflags=nodocs install unixODBC && \
-  dnf --setopt=tsflags=nodocs -y install unixODBC-devel
+RUN dnf -y --setopt=tsflags=nodocs install unixODBC
+
+RUN dnf -y --enablerepo=crb install unixODBC-devel
 
 # download and install R
 # RUN dnf install -y --setopt=tsflags=nodocs epel-release
@@ -92,7 +75,7 @@ RUN dnf -y --setopt=tsflags=nodocs install unixODBC && \
 RUN dnf clean all
 
 # download and install node.js
-RUN NODE_VER=v14.18.2; \
+RUN NODE_VER=v14.18.3; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \

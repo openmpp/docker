@@ -1,28 +1,28 @@
-# Docker image to run openM++ models on Rocky Linux 8
+# Docker image to run openM++ models on Rocky Linux 9
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-run:redhat-8 .
-#   podman build -t openmpp/openmpp-run:redhat-8 --build-arg OMPP_USER=ompp .
+#   podman build -t openmpp/openmpp-run:redhat-9 .
+#   podman build -t openmpp/openmpp-run:redhat-9 --build-arg OMPP_USER=ompp .
 #
 # Examples of run:
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-8 \
+#     openmpp/openmpp-run:redhat-9 \
 #     ./modelOne
 #
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-8 \
+#     openmpp/openmpp-run:redhat-9 \
 #     mpiexec --allow-run-as-root -n 2 modelOne_mpi -OpenM.SubValues 16
 #
-#   podman run -it openmpp/openmpp-run:redhat-8 bash
+#   podman run -it openmpp/openmpp-run:redhat-9 bash
 #
 
-FROM rockylinux/rockylinux:8
+FROM rockylinux/rockylinux:9
 
 # update base image
 RUN dnf -y update && dnf clean all

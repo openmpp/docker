@@ -28,7 +28,7 @@
 #     -it openmpp/openmpp-run:ubuntu \
 #     bash
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # disable debconf terminal input
 ARG DEBIAN_FRONTEND=noninteractive
