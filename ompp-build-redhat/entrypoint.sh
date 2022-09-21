@@ -26,6 +26,7 @@ cp -uv \
  ${HOME}
 
 # set environment: Open MPI, Go, node.js, R
+chown -R ${OMPP_UID}:${OMPP_GID} ${HOME}
 cd ${HOME}
 
 source /usr/share/Modules/init/bash
@@ -38,4 +39,8 @@ export PATH=${GOROOT}/bin:${GOPATH}/bin:/node/bin:${PATH}
 
 # done: execute command line arguments
 #
-${@}
+# ${@}
+#
+# step down from root to OMPP_USER and OMPP_GROUP
+#
+exec setpriv --reuid ${OMPP_UID} --regid ${OMPP_GID} --clear-groups "${@}"

@@ -10,7 +10,7 @@ if [ ! -d ${HOME} ]; then mkdir ${HOME}; fi
 
 cp -uv /scripts/README.txt ${HOME}
 
-# set environment and enable MPI CH
+# set environment and enable OpenMPI
 #
 cd ${HOME}
 export OM_ROOT=${HOME}
@@ -20,5 +20,7 @@ module load mpi/openmpi-x86_64
 
 # done: execute command line arguments
 #
-${@}
-
+# ${@}
+# step down from root to OMPP_USER
+#
+exec setpriv --reuid ${OMPP_UID} --regid ${OMPP_GID} --clear-groups "${@}"
