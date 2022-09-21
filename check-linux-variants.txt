@@ -1,0 +1,91 @@
+################
+# stable-debian:
+#
+# debian:stable
+# ubuntu:22.04
+# ubuntu:20.04
+# redhat/ubi9
+
+export RELEASE_DT=20220921
+
+# copy models
+
+cd ~
+rm -rf ~/models
+cp -pr ~/stable-debian/build/openmpp_debian_${RELEASE_DT}/models/bin ~/models
+
+# debian:stable
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it debian:stable \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
+# ubuntu:22.04
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it ubuntu:22.04 \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
+# ubuntu:20.04
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it ubuntu:20.04 \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
+# redhat/ubi9
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it redhat/ubi9 \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
+
+################
+# 10-debian:
+#
+# debian:10
+# redhat/ubi8
+
+export RELEASE_DT=20220921
+
+# copy models
+
+cd ~
+rm -rf ~/models
+cp -pr ~/10-debian/build/openmpp_debian-10_${RELEASE_DT}/models/bin ~/models
+
+# debian:10
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it debian:10 \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
+# redhat/ubi8
+
+docker run \
+--user "$(id -u):$(id -g)" \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/group:/etc/group:ro \
+-v ~/models:/tmp \
+-it redhat/ubi8 \
+bash -c 'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 ; done'
+
