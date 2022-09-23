@@ -28,6 +28,7 @@ Environment variables:
   OMPP_USER=ompp                 # default: ompp, container user name and HOME
   OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
   OM_MSG_USE=MPI                 # default: EMPTY
+  OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
   MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 To build openM++ libraries and omc compiler do:
@@ -52,7 +53,7 @@ To create openmpp_redhat_YYYYMMDD.tar.gz archive:
 
   podman run .... openmpp/openmpp-build:redhat ./build-tar-gz
   
-  Environment variables to control "build-tar-gz": OM_MSG_USE, MODEL_DIRS
+  Environment variables to control "build-tar-gz": OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP
 
 To open shell command prompt:
 

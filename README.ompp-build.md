@@ -81,6 +81,7 @@ Environment variables:
 set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
+set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 
@@ -108,7 +109,7 @@ To create `openmpp_win_YYYYMMDD.zip` archive:
 ```
 docker run .... openmpp/openmpp-build:windows-20H2 build-zip
 ```
-Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To open cmd command prompt or Perl command prompt:
 ```
@@ -162,6 +163,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
+OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
@@ -195,7 +197,7 @@ To create `openmpp_debian_YYYYMMDD.tar.gz` archive:
 ```
 docker run .... openmpp/openmpp-build:debian ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To create a new version of `openmpp_doc_YYYYMMDD.zip` documentation archive:
 ```
@@ -254,6 +256,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
+OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
@@ -287,7 +290,7 @@ To create `openmpp_ubuntu_YYYYMMDD.tar.gz` archive:
 ```
 sudo docker run .... openmpp/openmpp-build:ubuntu ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To start shell do:
 ```
@@ -325,6 +328,7 @@ Environment variables to control build:
 ```
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
+OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 ```
 Environment variables to pass your current user and home directory to container:
@@ -355,7 +359,7 @@ To create `openmpp_redhat_YYYYMMDD.tar.gz` archive:
 ```
 podman run .... openmpp/openmpp-build:redhat ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To start shell do:
 ```

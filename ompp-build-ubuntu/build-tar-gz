@@ -2,7 +2,8 @@
 #
 # create zip archive of openM++ build from ompp sub-directory: openmpp_ubuntu_YYYYMMDD.tar.gz
 # environmemnt variables:
-#  OM_MSG_USE=MPI                 (default: EMPTY)
+#  OM_MSG_USE=MPI                 default: EMPTY
+#  OM_DATE_STAMP=20220817         default: current date as YYYYMMDD
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 if [ -n "$OM_MSG_USE" ] && [ "$OM_MSG_USE" != 'EMPTY' ] && [ "$OM_MSG_USE" != 'MPI' ]; then
@@ -30,7 +31,7 @@ if [ ! -d log ]; then mkdir log; fi
 
 # get current date, UTC time zone and set archive name
 
-OM_DATE_STAMP=`date -u +%Y%m%d`
+[ -n "$OM_DATE_STAMP" ] || OM_DATE_STAMP=`date -u +%Y%m%d`
 
 DEPLOY_NAME=openmpp_ubuntu${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_DIR=../$DEPLOY_NAME
@@ -41,10 +42,11 @@ DEPLOY_GZ=$DEPLOY_NAME.tar.gz
 echo Log file: log/build-tar-gz.log
 echo `date` Pack openM++ build | tee log/build-tar-gz.log
 echo Environment: | tee -a log/build-tar-gz.log
-echo " OM_MSG_USE = $OM_MSG_USE" | tee -a log/build-tar-gz.log
-echo " OM_ROOT    = $OM_ROOT" | tee -a log/build-tar-gz.log
-echo " MODEL_DIRS = $MODEL_DIRS" | tee -a log/build-tar-gz.log
-echo " DEPLOY_DIR = $DEPLOY_DIR" | tee -a log/build-tar-gz.log
+echo " OM_MSG_USE    = $OM_MSG_USE" | tee -a log/build-tar-gz.log
+echo " OM_ROOT       = $OM_ROOT" | tee -a log/build-tar-gz.log
+echo " MODEL_DIRS    = $MODEL_DIRS" | tee -a log/build-tar-gz.log
+echo " OM_DATE_STAMP = $OM_DATE_STAMP" | tee -a log/build-tar-gz.log
+echo " DEPLOY_DIR    = $DEPLOY_DIR" | tee -a log/build-tar-gz.log
 echo Pack into: $DEPLOY_GZ | tee -a log/build-tar-gz.log
 
 # execute command, log results and exit on errors
@@ -245,7 +247,7 @@ do_cmd cp -pr ompp-mac/pictures $DEPLOY_DIR/ompp-mac/
 
 # build completed
 
-echo Build completed on:  ${OM_DATE_STAMP:0:4}-${OM_DATE_STAMP:4:2}-${OM_DATE_STAMP:6:2} > $DEPLOY_DIR/build_date.txt
+echo Build completed on:  `date` > $DEPLOY_DIR/build_date.txt
 
 popd
 

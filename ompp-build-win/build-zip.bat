@@ -2,6 +2,7 @@
 REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_20180817.zip
 REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
+REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 setlocal enabledelayedexpansion
@@ -23,15 +24,16 @@ set   OM_ROOT=%CD%
 
 if not exist log mkdir log
 
-REM get current UTC date
+REM if OM_DATE_STAMP is not defined then use current UTC date
 
 for /F "tokens=1,2 delims==" %%G in ('wmic path Win32_UTCTime get Year^,Month^,Day /value ^| find "="') do (
   set utc_%%G=%%H
 )
 
-set /A OM_DATE_STAMP= 10000 * %utc_Year% + 100 * %utc_Month% + %utc_Day%
+set /A utc_stamp= 10000 * %utc_Year% + 100 * %utc_Month% + %utc_Day%
 
-set OM_DATE_STAMP=%OM_DATE_STAMP:~0,8%
+if not defined OM_DATE_STAMP set OM_DATE_STAMP=%utc_stamp:~0,8%
+
 set DEPLOY_DIR=..\openmpp_win%OM_SFX_MPI%_%OM_DATE_STAMP%
 set DEPLOY_ZIP=%DEPLOY_DIR%.zip
 
@@ -39,18 +41,20 @@ REM log build environment
 
 @echo %DATE% %TIME% Pack openM++ build
 @echo Environment:
-@echo  OM_MSG_USE = %OM_MSG_USE%
-@echo  OM_ROOT    = %OM_ROOT%
-@echo  MODEL_DIRS = %MODEL_DIRS%
-@echo  DEPLOY_DIR = %DEPLOY_DIR%
+@echo  OM_MSG_USE    = %OM_MSG_USE%
+@echo  OM_ROOT       = %OM_ROOT%
+@echo  MODEL_DIRS    = %MODEL_DIRS%
+@echo  OM_DATE_STAMP = %OM_DATE_STAMP%
+@echo  DEPLOY_DIR    = %DEPLOY_DIR%
 @echo Pack into: %DEPLOY_ZIP%
 
 @echo Log file: log\build-zip.log
 @echo %DATE% %TIME% Pack openM++ build > log\build-zip.log
-@echo  OM_MSG_USE = %OM_MSG_USE% >> log\build-zip.log
-@echo  OM_ROOT    = %OM_ROOT% >> log\build-zip.log
-@echo  MODEL_DIRS = %MODEL_DIRS% >> log\build-zip.log
-@echo  DEPLOY_DIR = %DEPLOY_DIR% >> log\build-zip.log
+@echo  OM_MSG_USE    = %OM_MSG_USE% >> log\build-zip.log
+@echo  OM_ROOT       = %OM_ROOT% >> log\build-zip.log
+@echo  MODEL_DIRS    = %MODEL_DIRS% >> log\build-zip.log
+@echo  OM_DATE_STAMP = %OM_DATE_STAMP% >> log\build-zip.log
+@echo  DEPLOY_DIR    = %DEPLOY_DIR% >> log\build-zip.log
 @echo Pack into: %DEPLOY_ZIP% >> log\build-zip.log
 
 REM delete existing pack directory and zip file
@@ -267,7 +271,7 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-mac ompp-mac "pictures"
 
 REM create zip archive from deployment directory
 
-@echo Build completed on: %OM_DATE_STAMP:~0,4%-%OM_DATE_STAMP:~4,2%-%OM_DATE_STAMP:~6,2% > %DEPLOY_DIR%\build_date.txt
+@echo Build completed on: %DATE% %TIME% > %DEPLOY_DIR%\build_date.txt
 
 @echo Create %DEPLOY_ZIP%
 @echo Create %DEPLOY_ZIP% >> log\build-zip.log

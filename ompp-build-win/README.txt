@@ -13,6 +13,7 @@ To build openM++ do:
   set OM_BUILD_CONFIGS=Release,Debug (default: Release)
   set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
   set OM_MSG_USE=MPI                 (default: EMPTY)
+  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
   set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
 To build openM++ libraries and omc compiler do:
@@ -38,7 +39,7 @@ To create openmpp_win_YYYYMMDD.zip archive:
 
   docker run .... openmpp/openmpp-build:windows-20H2 build-zip
   
-  Environment variables to control "build-zip": OM_MSG_USE, MODEL_DIRS
+  Environment variables to control "build-zip": OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP
 
 To open cmd command prompt or Perl command prompt:
 
