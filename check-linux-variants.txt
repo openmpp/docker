@@ -5,8 +5,14 @@
 # ubuntu:22.04
 # ubuntu:20.04
 # redhat/ubi9
+#
+# optional:
+#
+# opensuse/leap:latest
+# opensuse/tumbleweed:latest
+# registry.suse.com/bci/bci-base:latest
 
-export OMPP_STAMP=20220921
+export OMPP_STAMP=20220923
 
 # copy models
 
@@ -14,49 +20,11 @@ cd ~
 rm -rf ~/models
 cp -pr ~/stable-debian/build/openmpp_debian_${OMPP_STAMP}/models/bin ~/models
 
-# debian:stable
+# create check-ompp-lx.sh (see below)
 
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it debian:stable \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
+export OMPP_LX="debian:stable ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
 
-# ubuntu:22.04
-
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it ubuntu:22.04 \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
-
-# ubuntu:20.04
-
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it ubuntu:20.04 \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
-
-# redhat/ubi9
-
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it redhat/ubi9 \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
+# ./check-ompp-lx.sh
 
 
 ############
@@ -65,7 +33,7 @@ bash -c \
 # debian:10
 # redhat/ubi8
 
-export OMPP_STAMP=20220921
+export OMPP_STAMP=20220923
 
 # copy models
 
@@ -73,25 +41,44 @@ cd ~
 rm -rf ~/models
 cp -pr ~/10-debian/build/openmpp_debian-10_${OMPP_STAMP}/models/bin ~/models
 
-# debian:10
+# create check-ompp-lx.sh (see below)
 
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it debian:10 \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
+export OMPP_LX="debian:10 redhat/ubi8"
 
-# redhat/ubi8
+# ./check-ompp-lx.sh
 
-docker run \
---user "$(id -u):$(id -g)" \
--v /etc/passwd:/etc/passwd:ro \
--v /etc/group:/etc/group:ro \
--v ~/models:/tmp \
--it redhat/ubi8 \
-bash -c \
-'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
+####
+# create check-ompp-lx.sh
+#
+# cd ~
+# nano check-ompp-lx.sh
+# chmod a+x check-ompp-lx.sh
+#
 
+#/bin/bash
+#
+# check model runs using Linux images
+
+set -e
+
+[ -n "${OMPP_LX}" ] || echo 'Error: OMPP_LX is empty, do export OMPP_LX="Linux:1 Linux:2"' || exit 1
+
+for C in ${OMPP_LX} ; do
+
+  echo "================ $C"
+
+  docker run \
+  --user "$(id -u):$(id -g)" \
+  -v /etc/passwd:/etc/passwd:ro \
+  -v /etc/group:/etc/group:ro \
+  -v ~/models:/tmp \
+  -it "$C" \
+  bash -c \
+  'set -e && cd /tmp && for m in modelOne IDMM RiskPaths ; do echo "==== $m:" && ./$m -OpenM.ProgressPercent 50 || exit 1 ; done && echo "**** OK"'
+
+  if [ ! $? ] ;
+  then
+    echo FAILED: $C
+    exit 1
+  fi
+done
