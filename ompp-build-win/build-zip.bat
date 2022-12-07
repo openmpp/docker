@@ -233,7 +233,7 @@ for %%m in (%OM_BLD_MDLS%) do (
 
 REM Special case for models which are not included in the build list: copy model source files
 
-for %%m in (Alpha2,NewTimeBased_bilingual,NewCaseBased_weighted,OzProj_extra,RiskPaths_csv) do (
+for %%m in (Align1,Alpha2,NewTimeBased_bilingual,NewCaseBased_weighted,OzProj_extra,RiskPaths_csv,PA1) do (
 
   if not exist %DEPLOY_DIR%\models\%%m (
     call :rcopy_sub_dirs %DEPLOY_DIR%\models models %%m
