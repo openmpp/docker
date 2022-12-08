@@ -181,7 +181,31 @@ if defined MDL_ONE_EXE (
 %MDL_ONE_EXE% -OpenM.RunName "Base_run_and_partial_input_set" ^
   -OpenM.BaseRunName "Sub-values_2_from_csv" ^
   -OpenM.SetName modelOne_partial ^
-  -EN.RunDescription "Parameters from base run and from partial input set") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -EN.RunDescription "Parameters from base run and from partial input set" && ^
+%MDL_ONE_EXE% -OpenM.TaskRunName "Task Run with Suppressed Tables" ^
+  -OpenM.TaskName taskOne ^
+  -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Tables.Suppress ageSexIncome,AdditionalTables && ^
+%MDL_ONE_EXE% -OpenM.TaskName taskOne ^
+  -OpenM.TaskRunName "Task Run with NotSuppressed Tables" ^
+  -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Tables.Retain ageSexIncome,AdditionalTables && ^
+%MDL_ONE_EXE% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.All ^
+  -Microdata.ToDb ^
+  -OpenM.RunName "Microdata in database" ^
+  -EN.RunDescription "Write microdata into database" && ^
+%MDL_ONE_EXE% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.All ^
+  -Microdata.ToCsv ^
+  -Microdata.CsvDir ^
+  -Microdata.Events All ^
+  -OpenM.RunName "Microdata in CSV" ^
+  -EN.RunDescription "Write microdata into CSV files") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
