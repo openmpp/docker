@@ -203,7 +203,7 @@ if defined MDL_ONE_EXE (
   -Microdata.All ^
   -Microdata.ToCsv ^
   -Microdata.CsvDir ^
-  -Microdata.Events All ^
+  -Microdata.Events Birth,Retire,Death ^
   -OpenM.RunName "Microdata in CSV" ^
   -EN.RunDescription "Write microdata into CSV files") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
