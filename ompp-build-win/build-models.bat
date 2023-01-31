@@ -143,6 +143,7 @@ if defined MDL_ONE_EXE (
 %SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\..\..\sql\insert_default.sql && ^
 %SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\..\..\sql\sqlite\optional_meta_views_sqlite.sql && ^
 %SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\modelOne_create_model.sql && ^
+%SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\modelOne_create_entity.sql && ^
 %SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\modelOne_insert_param.sql && ^
 %SQLITE_EXE_DIR%\sqlite3 modelOne.sqlite < ..\..\modelOne_optional_views.sql) >> ..\..\..\..\log\build-models.log 2>&1
   if ERRORLEVEL 1 (
