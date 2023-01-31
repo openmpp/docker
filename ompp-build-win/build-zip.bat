@@ -179,7 +179,8 @@ REM copy UI html build and source code
 call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist\spa "css,fonts,icons,js,public"
 call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist\spa "*.*"
 call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui          "*.*"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui          ".quasar,.vscode,licenses,public,src"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui          ".vscode,licenses,public,src"
+call :do_cmd_line_log log\build-zip.log "del /f /q %DEPLOY_DIR%\ompp-ui\package-lock.json"
 
 REM create log directories and models directories
 

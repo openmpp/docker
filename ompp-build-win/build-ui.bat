@@ -39,7 +39,7 @@ REM build openM++ UI: node, npm, vue.js
 
 pushd ompp-ui
 
-set npm_config_cache=%OM_ROOT%\build\npm-cache
+REM set npm_config_cache=%OM_ROOT%\build\npm-cache
 
 call :do_npm_call "install"
 
