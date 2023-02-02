@@ -66,6 +66,8 @@ REM build models, log files: models\log\ModelName-configuration-platform.log
 
 pushd models
 
+set MDL_OPTS=-OpenM.LogToFile false -OpenM.LogToStampedFile -OpenM.LogUseTimeStamp
+
 for %%m in (%OM_BLD_MDLS%) do (
 
   @echo Build: %%m
@@ -108,7 +110,7 @@ rem      if /i "%%p"=="x64" set MDL_EXE=!MDL_EXE!64
         
         @echo Run: !MDL_EXE! -OpenM.ProgressPercent 25
         @echo Run: !MDL_EXE! -OpenM.ProgressPercent 25 >> ..\..\..\..\log\build-models.log
-        !MDL_EXE! -OpenM.ProgressPercent 25 > ..\..\..\log\!MDL_EXE!.log 2>&1
+        !MDL_EXE! -OpenM.ProgressPercent 25 %MDL_OPTS% > ..\..\..\log\!MDL_EXE!.log 2>&1
         if ERRORLEVEL 1 (
           @echo FAILED.
           @echo FAILED. >> ..\..\..\..\log\build-models.log
@@ -155,51 +157,51 @@ if defined MDL_ONE_EXE (
   @echo Run: %MDL_ONE_EXE%
   @echo Run: %MDL_ONE_EXE% >> ..\..\..\..\log\build-models.log
   
-  (%MDL_ONE_EXE% -OpenM.RunName Default && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
-%MDL_ONE_EXE% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
-%MDL_ONE_EXE% -Parameter.baseSalary Full -OpenM.RunName "Default and Full base salary" && ^
-%MDL_ONE_EXE% -OpenM.SubValues 2 -SubFrom.salaryFull csv -OpenM.ParamDir ../../csv ^
+  (%MDL_ONE_EXE% %MDL_OPTS% -OpenM.RunName Default && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 -OpenM.Threads 4 -OpenM.Profile modelOne -OpenM.RunName "Default-4" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.TaskName taskOne -OpenM.TaskRunName "First Task Run" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -Parameter.baseSalary Full -OpenM.RunName "Default and Full base salary" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 2 -SubFrom.salaryFull csv -OpenM.ParamDir ../../csv ^
   -OpenM.RunName "Sub-values_2_from_csv" ^
   -EN.RunDescription "Parameter sub-values 2 from csv" ^
   -EN.RunNotesPath ../../run_notes-en.md ^
   -FR.RunNotesPath ../../run_notes-fr.md && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 -SubFrom.baseSalary db -SubFrom.salaryFull db -SubFrom.filePath db -SubFrom.isOldAge db ^
   -OpenM.RunName "Sub-values_4" ^
   -EN.RunDescription "Parameter sub-values 4" && ^
-%MDL_ONE_EXE% -OpenM.SubValues 2 ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 2 ^
   -SubFrom.AgeSexParameters csv -SubValues.AgeSexParameters 2,3 -OpenM.ParamDir ../../csv -SubFrom.salaryFull db ^
   -OpenM.RunName "Group_sub-values_2_from_csv" ^
   -EN.RunDescription "Parameter group sub-values 2 from csv" && ^
-%MDL_ONE_EXE% -ImportRunName.modelOne Default ^
+%MDL_ONE_EXE% %MDL_OPTS% -ImportRunName.modelOne Default ^
   -OpenM.RunName "Import_from_Default_run" ^
   -EN.RunDescription "Import parameters from Default run" && ^
-%MDL_ONE_EXE% -OpenM.RunName "Base_run_is_Sub-values_2_from_csv" ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.RunName "Base_run_is_Sub-values_2_from_csv" ^
   -OpenM.BaseRunName "Sub-values_2_from_csv" ^
   -OpenM.SubValues 2 -SubFrom.salaryFull db ^
   -EN.RunDescription "Parameters from base run Sub-values_2_from_csv" && ^
-%MDL_ONE_EXE% -OpenM.RunName "Base_run_and_partial_input_set" ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.RunName "Base_run_and_partial_input_set" ^
   -OpenM.BaseRunName "Sub-values_2_from_csv" ^
   -OpenM.SetName modelOne_partial ^
   -EN.RunDescription "Parameters from base run and from partial input set" && ^
-%MDL_ONE_EXE% -OpenM.TaskRunName "Task Run with Suppressed Tables" ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.TaskRunName "Task Run with Suppressed Tables" ^
   -OpenM.TaskName taskOne ^
   -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
   -Tables.Suppress ageSexIncome,AdditionalTables && ^
-%MDL_ONE_EXE% -OpenM.TaskName taskOne ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.TaskName taskOne ^
   -OpenM.TaskRunName "Task Run with NotSuppressed Tables" ^
   -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
   -Tables.Retain ageSexIncome,AdditionalTables && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
   -Microdata.All ^
   -Microdata.ToDb ^
   -OpenM.RunName "Microdata in database" ^
   -EN.RunDescription "Write microdata into database" && ^
-%MDL_ONE_EXE% -OpenM.SubValues 4 ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
   -Microdata.All ^
   -Microdata.ToCsv ^

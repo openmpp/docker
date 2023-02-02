@@ -230,6 +230,8 @@ for %%m in (%OM_BLD_MDLS%) do (
     %DEPLOY_DIR%\models\bin ^
     models\%%m\ompp\bin ^
     "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
+
+  call :rcopy_files %DEPLOY_DIR%\models\log models\%%m\ompp\bin "!MDL_DIR!.*.log"
 )
 
 REM Special case for models which are not included in the build list: copy model source files
