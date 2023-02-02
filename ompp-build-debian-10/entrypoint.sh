@@ -24,6 +24,7 @@ cp -uv \
  /scripts/build-r \
  /scripts/build-ui \
  /scripts/build-tar-gz \
+ /scripts/model.ini \
  /scripts/README.txt \
  ${HOME}
 

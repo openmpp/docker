@@ -115,6 +115,7 @@ COPY entrypoint.sh \
   build-r \
   build-ui \
   build-tar-gz \
+  model.ini \
   make-doc \
   make-r \
   README.txt \
@@ -130,6 +131,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 755 /scripts/make-doc && \
   chmod 755 /scripts/make-r && \
+  chmod 744 /scripts/model.ini && \
   chmod 744 /scripts/README.txt
 
 # describe image
