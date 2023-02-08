@@ -14,7 +14,7 @@ if not defined OM_ROOT (
   pause
   EXIT 1
 )
-if not exist %OM_ROOT% (
+if not exist "%OM_ROOT%" (
   @echo ERROR: destination directory not exist: %OM_ROOT%
   @echo        may be you want to do:
   @echo .
@@ -26,39 +26,39 @@ if not exist %OM_ROOT% (
 
 REM create destination directories, if not exist
 
-if not exist %OM_ROOT%\etc                     call :make_dir %OM_ROOT%\etc
-if not exist %OM_ROOT%\log                     call :make_dir %OM_ROOT%\log
-if not exist %OM_ROOT%\models\bin              call :make_dir %OM_ROOT%\models\bin
-if not exist %OM_ROOT%\models\log              call :make_dir %OM_ROOT%\models\log
-if not exist %OM_ROOT%\models\home\io\download call :make_dir %OM_ROOT%\models\home\io\download
-if not exist %OM_ROOT%\models\home\io\upload   call :make_dir %OM_ROOT%\models\home\io\upload
+if not exist "%OM_ROOT%\etc"                     call :make_dir "%OM_ROOT%\etc"
+if not exist "%OM_ROOT%\log"                     call :make_dir "%OM_ROOT%\log"
+if not exist "%OM_ROOT%\models\bin"              call :make_dir "%OM_ROOT%\models\bin"
+if not exist "%OM_ROOT%\models\log"              call :make_dir "%OM_ROOT%\models\log"
+if not exist "%OM_ROOT%\models\home\io\download" call :make_dir "%OM_ROOT%\models\home\io\download"
+if not exist "%OM_ROOT%\models\home\io\upload"   call :make_dir "%OM_ROOT%\models\home\io\upload"
 
 
 REM copy bin utilities
 
-call :rcopy_files %OM_ROOT%\bin bin "dbcopy.* oms.* ompp_ui.bat sqlite3.exe"
+call :rcopy_files "%OM_ROOT%\bin" bin "dbcopy.* oms.* ompp_ui.bat sqlite3.exe"
 
 REM copy etc templates
 
-call :rcopy_files %OM_ROOT%\etc etc "*.*"
+call :rcopy_files "%OM_ROOT%\etc" etc "*.*"
 
 REM delete existing html directory
 
-if exist %OM_ROOT%\html (
+if exist "%OM_ROOT%\html" (
 
   @echo Remove existing: %OM_ROOT%\html
   
   for /L %%k in (1,1,8) do (
-    if exist %OM_ROOT%\html (
-      rd /s /q %OM_ROOT%\html
+    if exist "%OM_ROOT%\html" (
+      rd /s /q "%OM_ROOT%\html"
     )
-    if exist %OM_ROOT%\html (
+    if exist "%OM_ROOT%\html" (
       ping 127.0.0.1 -n 2 -w 500 >nul
     )
   )
 
-  if exist %OM_ROOT%\html (
-    @echo FAILED to delete directory: %OM_ROOT%\html
+  if exist "%OM_ROOT%\html" (
+    @echo FAILED to delete directory: "%OM_ROOT%\html"
     pause
     EXIT 1
   )
@@ -66,7 +66,7 @@ if exist %OM_ROOT%\html (
 
 REM copy new html directory
 
-call :rcopy_sub_dirs %OM_ROOT% . html
+call :rcopy_sub_dirs "%OM_ROOT%" . html
 
 REM
 
