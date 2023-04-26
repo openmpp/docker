@@ -123,7 +123,26 @@ REM build c++ run-time libraries and omc compiler
 pushd openm
 for %%c in (%OM_BLD_CFG%) do (
   for %%p in (%OM_BLD_PLT%) do (
-    call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p openm.sln"
+
+    REM build model runtime libraries
+
+    call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p openm.sln /target:libsqlite:Rebuild"
+    call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p openm.sln /target:libopenm:Rebuild"
+
+    REM build omc model compiler
+
+    if /i "%%c"=="Release" (
+      if /i "%%p"=="Win32" (
+        call :make_openm_sln "-p:Configuration=%%c -p:Platform=%%p openm.sln /target:libopenm_omc_db:Rebuild"
+        call :make_openm_sln "-p:Configuration=%%c -p:Platform=%%p openm.sln /target:omc:Rebuild"
+      )
+    )
+
+    REM build libopenmD_disable_iterator_debug: non-default iterator debug level
+
+    if /i "%%c"=="Debug" (
+      call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p -p:DISABLE_ITERATOR_DEBUG=true openm.sln /target:libopenm:Rebuild"
+    )
   )
 )
 popd
