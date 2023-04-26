@@ -141,7 +141,7 @@ for %%c in (%OM_BLD_CFG%) do (
     REM build libopenmD_disable_iterator_debug: non-default iterator debug level
 
     if /i "%%c"=="Debug" (
-      call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p -p:DISABLE_ITERATOR_DEBUG=true openm.sln /target:libopenm:Rebuild"
+      call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p -p:DISABLE_ITERATOR_DEBUG=true openm.sln /target:libopenm"
     )
   )
 )
