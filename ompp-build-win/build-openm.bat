@@ -141,6 +141,26 @@ for %%c in (%OM_BLD_CFG%) do (
     REM build libopenmD_disable_iterator_debug: non-default iterator debug level
 
     if /i "%%c"=="Debug" (
+
+      if exist ..\build\libopenm (
+
+        @echo Remove ..\build\libopenm >> ..\log\build-openm.log
+
+        for /L %%k in (1,1,8) do (
+          if exist ..\build\libopenm (
+            rd /s /q ..\build\libopenm >> ..\log\build-openm.log 2>&1
+          )
+          if exist ..\build\libopenm (
+            ping 127.0.0.1 -n 2 -w 500 >nul
+          )
+        )
+        if exist ..\build\libopenm (
+          @echo FAILED to delete: ..\build\libopenm
+          @echo FAILED to delete: ..\build\libopenm >> ..\log\build-openm.log
+          EXIT 1
+        )
+      )
+
       call :make_openm_sln "%OM_P_MPI% -p:Configuration=%%c -p:Platform=%%p -p:DISABLE_ITERATOR_DEBUG=true openm.sln /target:libopenm"
     )
   )
