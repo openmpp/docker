@@ -182,6 +182,15 @@ REM copy R package and source code
 call :rcopy_files    %DEPLOY_DIR%\ompp-r ompp-r "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp,oms-R,images"
 
+REM copy additional sources from openmpp/other repository
+
+if not exist ompp-other (
+  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/other ompp-other"
+)
+
+call :rcopy_files    %DEPLOY_DIR%\ompp-other ompp-other "*.*"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-other ompp-other "azure_cloud,google_cloud"
+
 REM copy UI html build and source code
 
 call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist\spa "css,fonts,icons,js,public"
