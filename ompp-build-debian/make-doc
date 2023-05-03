@@ -177,7 +177,7 @@ popd
 # make documentation archive
 # get current date, UTC time zone and set archive name
 
-OM_DATE_STAMP=`date -u +%Y%m%d`
+OM_DATE_STAMP=`date +%Y%m%d`
 
 DEPLOY_NAME=openmpp_doc_${OM_DATE_STAMP}
 DEPLOY_DIR=../$DEPLOY_NAME

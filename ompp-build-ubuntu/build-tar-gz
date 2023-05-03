@@ -31,7 +31,7 @@ if [ ! -d log ]; then mkdir log; fi
 
 # get current date, UTC time zone and set archive name
 
-[ -n "$OM_DATE_STAMP" ] || OM_DATE_STAMP=`date -u +%Y%m%d`
+[ -n "$OM_DATE_STAMP" ] || OM_DATE_STAMP=`date +%Y%m%d`
 
 DEPLOY_NAME=openmpp_ubuntu${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_DIR=../$DEPLOY_NAME

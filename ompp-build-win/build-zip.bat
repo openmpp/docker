@@ -24,15 +24,12 @@ set   OM_ROOT=%CD%
 
 if not exist log mkdir log
 
-REM if OM_DATE_STAMP is not defined then use current UTC date
-
-for /F "tokens=1,2 delims==" %%G in ('wmic path Win32_UTCTime get Year^,Month^,Day /value ^| find "="') do (
-  set utc_%%G=%%H
+REM if OM_DATE_STAMP is not defined then use current local date
+for /f "tokens=2 delims==." %%G in ('wmic OS Get localdatetime /value') do (
+  set local_ts=%%G
 )
 
-set /A utc_stamp= 10000 * %utc_Year% + 100 * %utc_Month% + %utc_Day%
-
-if not defined OM_DATE_STAMP set OM_DATE_STAMP=%utc_stamp:~0,8%
+if not defined OM_DATE_STAMP set OM_DATE_STAMP=%local_ts:~0,8%
 
 set DEPLOY_DIR=..\openmpp_win%OM_SFX_MPI%_%OM_DATE_STAMP%
 set DEPLOY_ZIP=%DEPLOY_DIR%.zip

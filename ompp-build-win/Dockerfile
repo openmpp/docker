@@ -103,6 +103,9 @@ RUN C:\perl32\portableshell /SETENV && `
 RUN C:\perl64\portableshell /SETENV && `
     SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
 
+# set local openM++ timezone
+RUN tzutil /s "Eastern Standard Time"
+
 # copy build scripts
 COPY copy_scripts.bat `
     build-all.bat `
