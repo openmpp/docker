@@ -48,6 +48,8 @@ RUN apt-get install -y unixodbc && \
   apt-get autoclean
 
 # set local openM++ timezone
+RUN apt-get install -y tzdata
+
 RUN rm -f /etc/localtime && \
   ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 

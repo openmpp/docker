@@ -76,6 +76,8 @@ RUN NODE_VER=v18.13.0; \
   rm /tmp/node.tar.xz
 
 # set local openM++ timezone
+RUN apt-get install -y tzdata
+
 RUN rm -f /etc/localtime && \
   ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
