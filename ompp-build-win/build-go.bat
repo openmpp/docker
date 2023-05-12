@@ -28,8 +28,8 @@ if not exist ompp-go (
 
 pushd ompp-go
 
-call :do_cmd_line "go install -tags odbc ./dbcopy"
-call :do_cmd_line "go install -tags odbc ./oms"
+call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
+call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
 
 popd
 
