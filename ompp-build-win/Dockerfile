@@ -21,7 +21,7 @@
 FROM mcr.microsoft.com/windows/servercore:20H2
 
 # download and install 7zip, curl expected to be included in servercore
-ADD https://www.7-zip.org/a/7z2107-x64.exe C:\Temp\7z_setup.exe
+ADD https://www.7-zip.org/a/7z2301-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
@@ -46,7 +46,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.34.1.windows.1/Git-2.34.1-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.42.0.2.windows.1/Git-2.42.0.2-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
@@ -63,12 +63,12 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2023/sqlite-tools-win32-x86-3410000.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2023/sqlite-tools-win32-x86-3430100.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.20.3.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.21.1.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
@@ -82,13 +82,13 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-18.0-
 #    del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v18.16.0/node-v18.16.0-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v20.8.0/node-v20.8.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
     rename C:\node-v18.16.0-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
-RUN curl -L -o C:\Temp\perl32_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip && `
+RUN curl -L -o C:\Temp\perl32_setup.zip https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl32 C:\Temp\perl32_setup.zip && `
     del C:\Temp\perl32_setup.zip
 
