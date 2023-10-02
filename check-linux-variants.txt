@@ -2,6 +2,7 @@
 # stable-debian:
 #
 # debian:stable
+# debian:11
 # ubuntu:22.04
 # ubuntu:20.04
 # redhat/ubi9
@@ -12,7 +13,7 @@
 # opensuse/tumbleweed:latest
 # registry.suse.com/bci/bci-base:latest
 
-export OMPP_STAMP=20220923
+export OMPP_STAMP=20230803
 
 # copy models
 
@@ -22,7 +23,7 @@ cp -pr ~/stable-debian/build/openmpp_debian_${OMPP_STAMP}/models/bin ~/models
 
 # create check-ompp-lx.sh (see below)
 
-export OMPP_LX="debian:stable ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
+export OMPP_LX="debian:stable debian:11 ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
 
 # ./check-ompp-lx.sh
 
@@ -33,7 +34,7 @@ export OMPP_LX="debian:stable ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
 # debian:10
 # redhat/ubi8
 
-export OMPP_STAMP=20220923
+export OMPP_STAMP=20230803
 
 # copy models
 
