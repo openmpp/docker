@@ -90,8 +90,8 @@ RUN apt-get autoclean
 RUN apt-get install -y doxygen graphviz
 
 # for documentation build: download and install wkhtmltopdf
-RUN WKHPDF_VER=0.12.6-1; \
-  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
+RUN WKHPDF_VER=0.12.6.1-3; \
+  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.bookworm_amd64.deb && \
   apt install -y /tmp/wkhtmltopdf_setup.deb && \
   rm /tmp/wkhtmltopdf_setup.deb
 
