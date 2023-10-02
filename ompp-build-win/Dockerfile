@@ -46,7 +46,7 @@ RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/r
     del C:\Temp\msmpisdk.log
 
 # download and install git
-RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.42.0.2.windows.1/Git-2.42.0.2-64-bit.exe && `
+RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/releases/download/v2.41.0.windows.3/Git-2.41.0.3-64-bit.exe && `
     C:\Temp\git_setup.exe /SILENT /SUPPRESSMSGBOXES /DIR=C:\Git /LOG && `
     del C:\Temp\git_setup.exe
 
@@ -84,7 +84,7 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-18.0-
 # download and install node.js
 RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v20.8.0/node-v20.8.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v18.16.0-win-x64 node && `
+    rename C:\node-v20.8.0-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
