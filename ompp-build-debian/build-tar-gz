@@ -5,6 +5,7 @@
 #  OM_MSG_USE=MPI                 default: EMPTY
 #  OM_DATE_STAMP=20220817         default: current date as YYYYMMDD
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+#  OMPP_BUILD_TAG                 default: build from latest git
 
 if [ -n "$OM_MSG_USE" ] && [ "$OM_MSG_USE" != 'EMPTY' ] && [ "$OM_MSG_USE" != 'MPI' ]; then
   echo Error: incorrect value: $OM_MSG_USE, must be one of: MPI or EMPTY
@@ -77,6 +78,22 @@ do_cp_all()
   fi
 }
 
+do_git_tag_checkout()
+{
+  if [ [ ! -d $1 ] && [ -n $2 ]; then
+
+    pushd $1
+
+    if ! git checkout $2 >> $LOG_PATH 2>&1;
+    then
+      echo FAILED git checkout $2 | tee -a $LOG_PATH
+      exit 1
+    fi
+
+    popd
+  fi
+}
+
 # delete existing pack directory and zip file
 
 if [ -e $DEPLOY_DIR ]; then do_cmd rm -rf $DEPLOY_DIR; fi
@@ -144,6 +161,7 @@ do_cmd cp -p ompp-go/etc/run-options.any_model.1.Use_Defaults.json $DEPLOY_DIR/e
 
 if [ ! -d ompp-docker ]; then
   do_cmd git clone https://github.com/openmpp/docker ompp-docker
+  do_git_tag_checkout ompp-docker $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-docker
@@ -164,6 +182,7 @@ do_cmd cp -pr ompp-docker/ompp-run-redhat      $DEPLOY_DIR/ompp-docker
 
 if [ ! -d ompp-python ]; then
   do_cmd git clone https://github.com/openmpp/python ompp-python
+  do_git_tag_checkout ompp-python $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-python
@@ -186,6 +205,7 @@ do_cmd cp -pr ompp-r/images  $DEPLOY_DIR/ompp-r
 
 if [ ! -d ompp-other ]; then
   do_cmd git clone https://github.com/openmpp/other ompp-other
+  do_git_tag_checkout ompp-other $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-other
@@ -248,6 +268,7 @@ done
 
 if [ ! -d ompp-mac ]; then
   do_cmd git clone https://github.com/openmpp/mac.git ompp-mac
+  do_git_tag_checkout ompp-mac $OMPP_BUILD_TAG
   do_cmd chmod a+x "ompp-mac/build/build-*"
 fi
 

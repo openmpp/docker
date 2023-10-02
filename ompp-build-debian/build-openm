@@ -4,6 +4,7 @@
 # environmemnt variables:
 #  OM_BUILD_CONFIGS=RELEASE,DEBUG (default: RELEASE,DEBUG)
 #  OM_MSG_USE=MPI                 (default: EMPTY)
+#  OMPP_BUILD_TAG                 (default: build from latest git)
 
 OM_BLD_CFG=${OM_BUILD_CONFIGS:-RELEASE,DEBUG}
 
@@ -70,6 +71,18 @@ if [ -z "$OM_P_MPI" ]; then
 else
   echo Build cluster version: using MPI >> log/build-openm.log
 fi;
+
+# if OMPP_BUILD_TAG is set then build from that git tag
+
+if [ -n "$OMPP_BUILD_TAG" ]; then
+  echo " OMPP_BUILD_TAG     = $OMPP_BUILD_TAG" | tee -a log/build-openm.log
+
+  if ! git checkout "$OMPP_BUILD_TAG" >> log/build-openm.log 2>&1;
+  then
+    echo FAILED git checkout "$OMPP_BUILD_TAG" | tee -a log/build-openm.log
+    exit 1
+  fi
+fi
 
 # find openM++ version commit and use commit tag, if tagged
 

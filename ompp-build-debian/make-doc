@@ -8,6 +8,8 @@
 # create zip archive of openM++ documenation: openmpp_doc_YYYYMMDD.zip
 # update local copy of GitHub pages git repository with new documentation
 #
+# environmemnt variables:
+#  OMPP_BUILD_TAG   (default: build from latest git)
 
 # push into ompp-make-doc root and make log directory if not exist
 
@@ -48,13 +50,26 @@ do_git_clone()
       echo FAILED git clone $2 | tee -a $LOG_PATH
       exit 1
     fi
+    
+    if [ -n $3 ]; then
+      
+      pushd $2
+      
+      if ! git checkout $3 >> $LOG_PATH 2>&1;
+      then
+        echo FAILED git checkout $3 | tee -a $LOG_PATH
+        exit 1
+      fi
+
+      popd
+    fi
   else
     echo Skip: git clone $2
   fi
 }
 
 #
-do_git_clone https://github.com/openmpp/main.git ompp-main 
+do_git_clone https://github.com/openmpp/main.git ompp-main $OMPP_BUILD_TAG
 
 # make doxygen documenation for libopenm and omc
 
@@ -120,7 +135,7 @@ popd
 # make new version of wiki as single file HTML and PDF
 WIKI_FILE_NAME=openmpp-wiki
 
-do_git_clone https://github.com/openmpp/openmpp.github.io.wiki.git ompp-wiki
+do_git_clone https://github.com/openmpp/openmpp.github.io.wiki.git ompp-wiki $OMPP_BUILD_TAG
 
 echo node $GWTC -v --disable-highlight-auto -f all -t "OpenM++ wiki" -n $WIKI_FILE_NAME ./ompp-wiki | tee -a $LOG_PATH
   

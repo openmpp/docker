@@ -13,12 +13,14 @@
 #   docker run \
 #     -v $HOME/build:/home/build \
 #     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./build-all
 #
 #   docker run \
 #     -v $HOME/build_mpi:/home/build_mpi \
 #     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     -e OM_MSG_USE=MPI \
 #     openmpp/openmpp-build:debian \
 #     ./build-all
@@ -37,6 +39,7 @@
 #   docker run \
 #     -v $HOME/build_doc:/home/build_doc \
 #     -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./make-doc
 #
@@ -45,6 +48,7 @@
 #   docker run \
 #     -v $HOME/build_r:/home/build_r \
 #     -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./make-r
 #
