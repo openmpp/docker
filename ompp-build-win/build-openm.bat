@@ -69,6 +69,21 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-openm.log
 )
 
+REM if OMPP_BUILD_TAG is set then build from that git tag
+
+if defined OMPP_BUILD_TAG (
+
+  @echo git checkout %OMPP_BUILD_TAG%
+  @echo git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
+
+  git checkout %OMPP_BUILD_TAG%
+  if ERRORLEVEL 1 (
+    @echo FAILED: git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
+    @echo FAILED.
+    EXIT
+  )
+)
+
 REM find openM++ version commit and use commit tag, if tagged
 
 @echo git log -n 1 --date=short --format.... >> log\build-openm.log
@@ -81,20 +96,21 @@ for /F "usebackq tokens=* delims=" %%i in (`git log -n 1 --date^=short --format^
   set OM_RUNTIME_VERSION=%%i
 )
 
-@echo git log --tags -n 1 --date=short --format.... >> log\build-openm.log
+if defined OMPP_BUILD_TAG (
 
-for /F "usebackq tokens=* delims=" %%i in (`git log --tags -n 1 --date^=short --format^="%%cd %%H %%S"`) do (
-  if ERRORLEVEL 1 (
-    @echo FAILED.
-    EXIT
+  for /F "usebackq tokens=* delims=" %%i in (`git tag -l %OMPP_BUILD_TAG%`) do (
+    if ERRORLEVEL 1 (
+      @echo FAILED: git tag -l %OMPP_BUILD_TAG%
+      @echo FAILED: git tag -l %OMPP_BUILD_TAG% >> log\build-openm.log
+      @echo FAILED.
+      EXIT
+    )
+    if /i "%%i"=="%OMPP_BUILD_TAG%" (
+      set OM_RUNTIME_VERSION=%OM_RUNTIME_VERSION% %OMPP_BUILD_TAG%
+    )
   )
-  set OM_LAST_TAG=%%i
 )
-@echo  OM_LAST_TAG        = %OM_LAST_TAG% >> log\build-openm.log
 
-if  "%OM_LAST_TAG:~0,51%"=="%OM_RUNTIME_VERSION%" (
-  set OM_RUNTIME_VERSION=%OM_LAST_TAG%
-)
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION% >> log\build-openm.log
 @echo  OM_RUNTIME_VERSION = %OM_RUNTIME_VERSION%
 
