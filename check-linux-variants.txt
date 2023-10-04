@@ -1,5 +1,5 @@
 ##############
-# stable-debian:
+# use debian-11 to check:
 #
 # debian:stable
 # debian:11
@@ -19,7 +19,7 @@ export OMPP_STAMP=20230803
 
 cd ~
 rm -rf ~/models
-cp -pr ~/stable-debian/build/openmpp_debian_${OMPP_STAMP}/models/bin ~/models
+cp -pr ~/11-debian/build/openmpp_debian-11_${OMPP_STAMP}/models/bin ~/models
 
 # create check-ompp-lx.sh (see below)
 
@@ -29,7 +29,7 @@ export OMPP_LX="debian:stable debian:11 ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
 
 
 ############
-# 10-debian:
+# use debian-10 to check:
 #
 # debian:10
 # redhat/ubi8
