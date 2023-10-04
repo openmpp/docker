@@ -1,5 +1,7 @@
 @echo off
 REM build openM++ Go oms web-service and dbcopy utility
+REM environmemnt variables:
+REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
@@ -32,6 +34,25 @@ REM 2023-10-04 unexpected go issue: error obtaining VCS status: exit status 128
 REM fix by using -buildvcs=false
 
 pushd ompp-go
+
+REM if OMPP_BUILD_TAG is set then build from that git tag
+
+if defined OMPP_BUILD_TAG (
+
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG%
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG% >> ..\log\build-go.log
+  @echo git checkout %OMPP_BUILD_TAG%
+  @echo git checkout %OMPP_BUILD_TAG% >> ..\log\build-go.log
+
+  git checkout %OMPP_BUILD_TAG%
+  if ERRORLEVEL 1 (
+    @echo FAILED: git checkout %OMPP_BUILD_TAG% >> ..\log\build-go.log
+    @echo FAILED.
+    EXIT
+  )
+)
+
+REM do build
 
 call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
 call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"

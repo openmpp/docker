@@ -1,5 +1,7 @@
 @echo off
 REM build openM++ UI
+REM environmemnt variables:
+REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
@@ -42,6 +44,23 @@ if not exist ompp-ui (
 REM build openM++ UI: node, npm, vue.js
 
 pushd ompp-ui
+
+REM if OMPP_BUILD_TAG is set then build from that git tag
+
+if defined OMPP_BUILD_TAG (
+
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG%
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG% >> ..\log\build-ui.log
+  @echo git checkout %OMPP_BUILD_TAG%
+  @echo git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
+
+  git checkout %OMPP_BUILD_TAG%
+  if ERRORLEVEL 1 (
+    @echo FAILED: git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
+    @echo FAILED.
+    EXIT
+  )
+)
 
 REM set npm_config_cache=%OM_ROOT%\build\npm-cache
 

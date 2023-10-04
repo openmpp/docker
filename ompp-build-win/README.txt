@@ -10,6 +10,7 @@ To build openM++ do:
   docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-20H2 build-all
 
   Environment variables:
+  set OMPP_BUILD_TAG=v1.2.3          (default: build from latest git)
   set OM_BUILD_CONFIGS=Release,Debug (default: Release)
   set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
   set OM_MSG_USE=MPI                 (default: EMPTY)

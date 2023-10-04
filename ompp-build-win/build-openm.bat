@@ -4,6 +4,7 @@ REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release,Debug)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32,x64)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
+REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
@@ -85,6 +86,8 @@ REM if OMPP_BUILD_TAG is set then build from that git tag
 
 if defined OMPP_BUILD_TAG (
 
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG%
+  @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG% >> log\build-openm.log
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
 

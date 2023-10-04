@@ -4,6 +4,7 @@ REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
@@ -155,6 +156,7 @@ REM get Docker source code from git and copy Docker sources
 
 if not exist ompp-docker (
   call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/docker ompp-docker"
+  call :do_git_tag_checkout ompp-docker
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
@@ -168,6 +170,7 @@ REM get Python source code from git and copy Python sources
 
 if not exist ompp-python (
   call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/python ompp-python"
+  call :do_git_tag_checkout ompp-python
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-python ompp-python "*.*"
@@ -182,6 +185,7 @@ REM copy additional sources from openmpp/other repository
 
 if not exist ompp-other (
   call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/other ompp-other"
+  call :do_git_tag_checkout ompp-other
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-other ompp-other "*.*"
@@ -279,6 +283,7 @@ REM add MacOS extra source code and documents
 
 if not exist ompp-mac (
   call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/mac ompp-mac"
+  call :do_git_tag_checkout ompp-mac
 )
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-mac ompp-mac "*.*"
@@ -393,6 +398,26 @@ if ERRORLEVEL 1 (
   @echo FAIL to create: %dst_dir%
   @echo FAIL to create: %dst_dir% >> log\build-zip.log
   EXIT
+)
+exit /b
+
+REM if OMPP_BUILD_TAG defined then pushd to git directory and checkout OMPP_BUILD_TAG
+REM arguments:
+REM  1 = directory of git repository
+
+:do_git_tag_checkout()
+
+set dst_dir=%1
+
+if defined OMPP_BUILD_TAG (
+
+  pushd %dst_dir%
+
+  @echo %dst_dir% %OMPP_BUILD_TAG%
+  @echo %dst_dir% %OMPP_BUILD_TAG% >> log\build-zip.log
+
+  call :do_cmd_line_log ..log\build-zip.log "git checkout %OMPP_BUILD_TAG%"
+  popd
 )
 exit /b
 
