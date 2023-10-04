@@ -405,18 +405,16 @@ REM if OMPP_BUILD_TAG defined then pushd to git directory and checkout OMPP_BUIL
 REM arguments:
 REM  1 = directory of git repository
 
-:do_git_tag_checkout()
+:do_git_tag_checkout
 
 set dst_dir=%1
+
 
 if defined OMPP_BUILD_TAG (
 
   pushd %dst_dir%
 
-  @echo %dst_dir% %OMPP_BUILD_TAG%
-  @echo %dst_dir% %OMPP_BUILD_TAG% >> log\build-zip.log
-
-  call :do_cmd_line_log ..log\build-zip.log "git checkout %OMPP_BUILD_TAG%"
+  call :do_cmd_line_log ..\log\build-zip.log "git checkout %OMPP_BUILD_TAG%"
   popd
 )
 exit /b
