@@ -1,33 +1,35 @@
-# Docker image to build openM++ latest version on Debian 10
+# Docker image to build openM++ latest version for Debian 10
 #
 # Examples of build and arguments default values:
-#   docker build -t openmpp/openmpp-build:debian-10 .
-#   docker build -t openmpp/openmpp-build:debian-10 --build-arg OMPP_USER=ompp .
-#   docker build -t openmpp/openmpp-build:debian-10 --build-arg OMPP_GROUP=ompp .
-#   docker build -t openmpp/openmpp-build:debian-10 --build-arg OMPP_UID=1999 .
-#   docker build -t openmpp/openmpp-build:debian-10 --build-arg OMPP_GID=1999 .
+#   docker build -t openmpp/openmpp-build:debian-10 -f debian-10.dockerfile .
+#   docker build -t openmpp/openmpp-build:debian-10 -f debian-10.dockerfile --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:debian-10 -f debian-10.dockerfile --build-arg OMPP_GROUP=ompp .
+#   docker build -t openmpp/openmpp-build:debian-10 -f debian-10.dockerfile --build-arg OMPP_UID=1999 .
+#   docker build -t openmpp/openmpp-build:debian-10 -f debian-10.dockerfile --build-arg OMPP_GID=1999 .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
 #   docker run \
 #     -v $HOME/build:/home/build \
 #     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian-10 \
 #     ./build-all
 #
 #   docker run \
 #     -v $HOME/build_mpi:/home/build_mpi \
 #     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     -e OM_MSG_USE=MPI \
 #     openmpp/openmpp-build:debian-10 \
 #     ./build-all
 #
-#   docker run ....user, group, home.... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian-10 ./build-openm
-#   docker run ....user, group, home.... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian-10 ./build-models
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian-10 ./build-go
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian-10 ./build-r
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian-10 ./build-ui
-#   docker run ....user, group, home.... openmpp/openmpp-build:debian-10 ./build-tar-gz
+#   docker run .... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian-10 ./build-openm
+#   docker run .... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian-10 ./build-models
+#   docker run .... openmpp/openmpp-build:debian-10 ./build-go
+#   docker run .... openmpp/openmpp-build:debian-10 ./build-r
+#   docker run .... openmpp/openmpp-build:debian-10 ./build-ui
+#   docker run .... openmpp/openmpp-build:debian-10 ./build-tar-gz
 #
 #   docker run .... -it openmpp/openmpp-build:debian-10 bash
 #
@@ -90,7 +92,7 @@ RUN rm -f /etc/localtime && \
   ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 # copy entry point and build scripts
-COPY entrypoint.sh \
+COPY debian-10.entrypoint.sh \
   build-all \
   build-openm \
   build-models \
@@ -99,10 +101,10 @@ COPY entrypoint.sh \
   build-ui \
   build-tar-gz \
   model.ini \
-  README.txt \
+  README.debian-10.txt \
   /scripts/
 
-RUN chmod 755 /scripts/entrypoint.sh && \
+RUN chmod 755 /scripts/debian-10.entrypoint.sh && \
   chmod 755 /scripts/build-all && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
@@ -111,7 +113,7 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 744 /scripts/model.ini && \
-  chmod 744 /scripts/README.txt
+  chmod 744 /scripts/README.debian-10.txt
 
 # describe image
 #
@@ -126,11 +128,12 @@ LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, b
 ARG OMPP_USER=ompp
 
 ENV OMPP_USER  ${OMPP_USER}
+ENV OMPP_LINUX debian-10
 
 # actual home directory is set by entrypoint.sh
 #
 # WORKDIR /home/${OMPP_USER}
 #
-ENTRYPOINT ["/scripts/entrypoint.sh"]
+ENTRYPOINT ["/scripts/debian-10.entrypoint.sh"]
 
-CMD ["cat", "/scripts/README.txt"]
+CMD ["cat", "/scripts/README.debian-10.txt"]

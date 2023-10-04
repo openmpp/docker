@@ -1,34 +1,39 @@
-# Docker image to build openM++ latest version on Rocky Linux 9
+# Docker image to build openM++ latest version for Rocky Linux 9
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-build:redhat-9 .
-#   podman build -t openmpp/openmpp-build:redhat-9 --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile .
+#   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile --build-arg OMPP_GROUP=ompp .
+#   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile --build-arg OMPP_UID=1999 .
+#   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile --build-arg OMPP_GID=1999 .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
-#   podman run \
+#   docker run \
 #     -userns=host \
 #     -v $HOME/build:/home/build:z \
 #     -e OMPP_USER=build \
-#     openmpp/openmpp-build:redhat-9 \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
+#     openmpp/openmpp-build:redhat \
 #     ./build-all
 #
-#   podman run \
+#   docker run \
 #     -userns=host \
 #     -v $HOME/build_mpi:/home/build_mpi:z \
 #     -e OMPP_USER=build_mpi \
+#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     -e OM_MSG_USE=MPI \
-#     openmpp/openmpp-build:redhat-9 \
+#     openmpp/openmpp-build:redhat \
 #     ./build-all
 #
-#   podman run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:redhat-9 ./build-openm
-#   podman run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:redhat-9 ./build-models
-#   podman run .... openmpp/openmpp-build:redhat-9 ./build-go
-#   podman run .... openmpp/openmpp-build:redhat-9 ./build-r
-#   podman run .... openmpp/openmpp-build:redhat-9 ./build-ui
-#   podman run .... openmpp/openmpp-build:redhat-9 ./build-tar-gz
+#   docker run .... -e OM_MSG_USE=MPI      openmpp/openmpp-build:redhat ./build-openm
+#   docker run .... -e MODEL_DIRS=modelOne openmpp/openmpp-build:redhat ./build-models
+#   docker run .... openmpp/openmpp-build:redhat ./build-go
+#   docker run .... openmpp/openmpp-build:redhat ./build-r
+#   docker run .... openmpp/openmpp-build:redhat ./build-ui
+#   docker run .... openmpp/openmpp-build:redhat ./build-tar-gz
 #
-#   podman run -it openmpp/openmpp-build:redhat-9 bash
+#   docker run -it openmpp/openmpp-build:redhat bash
 
 FROM rockylinux/rockylinux:9
 
@@ -86,7 +91,7 @@ RUN rm -f /etc/localtime && \
   ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 # copy entry point and build scripts
-COPY entrypoint.sh \
+COPY redhat.entrypoint.sh \
   build-all \
   build-openm \
   build-models \
@@ -95,10 +100,10 @@ COPY entrypoint.sh \
   build-ui \
   build-tar-gz \
   model.ini \
-  README.txt \
+  README.redhat.txt \
   /scripts/
 
-RUN chmod 755 /scripts/entrypoint.sh && \
+RUN chmod 755 /scripts/redhat.entrypoint.sh && \
   chmod 755 /scripts/build-all && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
@@ -107,11 +112,11 @@ RUN chmod 755 /scripts/entrypoint.sh && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 744 /scripts/model.ini && \
-  chmod 744 /scripts/README.txt
+  chmod 744 /scripts/README.redhat.txt
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:redhat-8
+LABEL name=openmpp/openmpp-build:redhat
 LABEL os=Linux
 LABEL license=MIT
 LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, node.js"
@@ -122,11 +127,12 @@ LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, b
 ARG OMPP_USER=ompp
 
 ENV OMPP_USER  ${OMPP_USER}
+ENV OMPP_LINUX redhat
 
 # actual home directory is set by entrypoint.sh
 #
 # WORKDIR /home/${OMPP_USER}
 #
-ENTRYPOINT ["/scripts/entrypoint.sh"]
+ENTRYPOINT ["/scripts/redhat.entrypoint.sh"]
 
-CMD ["cat", "/scripts/README.txt"]
+CMD ["cat", "/scripts/README.redhat.txt"]

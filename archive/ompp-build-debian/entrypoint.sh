@@ -25,13 +25,15 @@ cp -uv \
  /scripts/build-ui \
  /scripts/build-tar-gz \
  /scripts/model.ini \
+ /scripts/make-doc \
+ /scripts/make-r \
  /scripts/README.txt \
  ${HOME}
 
 chown -R ${OMPP_UID}:${OMPP_GID} ${HOME}
 cd ${HOME}
 
-# set environment: open MPI, Go, node.js, R
+# set environment: Open MPI, Go, node.js, R
 #
 export GOROOT=/go
 export GOPATH=${HOME}/ompp

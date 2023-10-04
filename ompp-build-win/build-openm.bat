@@ -23,7 +23,7 @@ set START_DT=%DATE% %TIME%
 @echo  OM_BUILD_PLATFORMS = %OM_BUILD_PLATFORMS%
 @echo  OM_MSG_USE         = %OM_MSG_USE%
 @echo Build configurations: %OM_BLD_CFG%
-@echo Build paltforms:      %OM_BLD_PLT%
+@echo Build platforms:      %OM_BLD_PLT%
 if defined OM_P_MPI (
   @echo Build cluster version: using MPI
 ) else (
@@ -62,7 +62,7 @@ REM log build environment
 @echo  OM_MSG_USE         = %OM_MSG_USE% >> log\build-openm.log
 @echo  OM_ROOT            = %OM_ROOT% >> log\build-openm.log
 @echo Build configurations: %OM_BLD_CFG% >> log\build-openm.log
-@echo Build paltforms:      %OM_BLD_PLT% >> log\build-openm.log
+@echo Build platforms:      %OM_BLD_PLT% >> log\build-openm.log
 if defined OM_P_MPI (
   @echo Build cluster version: using MPI >> log\build-openm.log
 ) else (

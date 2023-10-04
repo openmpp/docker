@@ -55,7 +55,7 @@ if defined OM_P_MPI (
 @echo  OM_ROOT            = %OM_ROOT% >> log\build-models.log
 @echo  MODEL_DIRS         = %MODEL_DIRS% >> log\build-models.log
 @echo Build configurations: %OM_BLD_CFG% >> log\build-models.log
-@echo Build paltforms:      %OM_BLD_PLT% >> log\build-models.log
+@echo Build platforms:      %OM_BLD_PLT% >> log\build-models.log
 if defined OM_P_MPI (
   @echo Build cluster version: using MPI >> log\build-models.log
 ) else (
