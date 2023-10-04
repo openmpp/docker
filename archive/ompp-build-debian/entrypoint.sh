@@ -33,7 +33,7 @@ cp -uv \
 chown -R ${OMPP_UID}:${OMPP_GID} ${HOME}
 cd ${HOME}
 
-# set environment: Open MPI, Go, node.js, R
+# set environment: open MPI, Go, node.js, R
 #
 export GOROOT=/go
 export GOPATH=${HOME}/ompp

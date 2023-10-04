@@ -48,7 +48,7 @@ RUN dnf -y --setopt=tsflags=nodocs install make && \
 RUN dnf -y --setopt=tsflags=nodocs install xz
 
 # download and install Go
-RUN GO_VER=1.21.1; \
+RUN GO_VER=1.20.3; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -75,7 +75,7 @@ RUN dnf -y --enablerepo=crb install unixODBC-devel
 RUN dnf clean all
 
 # download and install node.js
-RUN NODE_VER=v18.18.0; \
+RUN NODE_VER=v18.16.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
@@ -127,6 +127,6 @@ ENV OMPP_USER  ${OMPP_USER}
 #
 # WORKDIR /home/${OMPP_USER}
 #
-ENTRYPOINT ["/scripts/entrypoint-redhat.sh"]
+ENTRYPOINT ["/scripts/entrypoint.sh"]
 
 CMD ["cat", "/scripts/README.txt"]

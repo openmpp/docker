@@ -11,6 +11,9 @@ fi
 export HOME=/home/${OMPP_USER}
 
 # copy build scripts
+# if no volume mounted then make build directory
+if [ ! -d ${HOME} ]; then mkdir ${HOME}; fi
+
 cp -uv \
  /scripts/build-all \
  /scripts/build-openm \
@@ -23,11 +26,9 @@ cp -uv \
  /scripts/README.txt \
  ${HOME}
 
+# set environment: Open MPI, Go, node.js, R
 chown -R ${OMPP_UID}:${OMPP_GID} ${HOME}
 cd ${HOME}
-
-# set environment: Open MPI, Go, node.js, R
-#
 
 source /usr/share/Modules/init/bash
 module load mpi/openmpi-x86_64
@@ -37,6 +38,10 @@ export GOPATH=${HOME}/ompp
 
 export PATH=${GOROOT}/bin:${GOPATH}/bin:/node/bin:${PATH}
 
+# done: execute command line arguments
+#
+# ${@}
+#
 # step down from root to OMPP_USER and OMPP_GROUP
 #
 exec setpriv --reuid ${OMPP_UID} --regid ${OMPP_GID} --clear-groups "${@}"

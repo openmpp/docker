@@ -5,11 +5,10 @@
 #  OM_MSG_USE=MPI                 default: EMPTY
 #  OM_DATE_STAMP=20220817         default: current date as YYYYMMDD
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
-#  OMPP_BUILD_TAG                 default: build from latest git
 
 if [ -n "$OM_MSG_USE" ] && [ "$OM_MSG_USE" != 'EMPTY' ] && [ "$OM_MSG_USE" != 'MPI' ]; then
   echo Error: incorrect value: $OM_MSG_USE, must be one of: MPI or EMPTY
-  exit 1
+  exit 1    
 fi
 
 [ "$OM_MSG_USE" = 'MPI' ] && OM_SFX_MPI=_mpi || OM_SFX_MPI=
@@ -38,7 +37,7 @@ DEPLOY_NAME=openmpp_debian${OM_SFX_MPI}_${OM_DATE_STAMP}
 DEPLOY_DIR=../$DEPLOY_NAME
 DEPLOY_GZ=$DEPLOY_NAME.tar.gz
 
-# log build environment
+# log build environment 
 
 echo Log file: log/build-tar-gz.log
 echo `date` Pack openM++ build | tee log/build-tar-gz.log
@@ -54,7 +53,7 @@ echo Pack into: $DEPLOY_GZ | tee -a log/build-tar-gz.log
 do_cmd()
 {
   echo $@ | tee -a log/build-tar-gz.log
-
+  
   if ! $@ >> log/build-tar-gz.log 2>&1;
   then
     echo FAILED. | tee -a log/build-tar-gz.log
@@ -70,27 +69,11 @@ do_cp_all()
     for f in $1/*; do
       if [ -f $f ]; then do_cmd cp -p $f $2/ || exit 1; fi
     done
-  )
-  if [ $? -ne 0 ]; then
+  ) 
+  if [ $? -ne 0 ]; 
+  then
     echo FAILED on file copy.
     exit 1
-  fi
-}
-
-do_git_tag_checkout()
-{
-  if [ -d $1 ] && [ -n $2 ]; then
-    echo $@ | tee -a log/build-tar-gz.log
-
-    pushd $1
-
-    if ! git checkout $2 >> ../log/build-tar-gz.log 2>&1;
-    then
-      echo FAILED git checkout $2 | tee -a ../log/build-tar-gz.log
-      exit 1
-    fi
-
-    popd
   fi
 }
 
@@ -161,7 +144,6 @@ do_cmd cp -p ompp-go/etc/run-options.any_model.1.Use_Defaults.json $DEPLOY_DIR/e
 
 if [ ! -d ompp-docker ]; then
   do_cmd git clone https://github.com/openmpp/docker ompp-docker
-  do_git_tag_checkout ompp-docker $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-docker
@@ -182,7 +164,6 @@ do_cmd cp -pr ompp-docker/ompp-run-redhat      $DEPLOY_DIR/ompp-docker
 
 if [ ! -d ompp-python ]; then
   do_cmd git clone https://github.com/openmpp/python ompp-python
-  do_git_tag_checkout ompp-python $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-python
@@ -205,7 +186,6 @@ do_cmd cp -pr ompp-r/images  $DEPLOY_DIR/ompp-r
 
 if [ ! -d ompp-other ]; then
   do_cmd git clone https://github.com/openmpp/other ompp-other
-  do_git_tag_checkout ompp-other $OMPP_BUILD_TAG
 fi
 
 do_cmd mkdir $DEPLOY_DIR/ompp-other
@@ -248,7 +228,7 @@ for M in $OM_BLD_MDLS; do
 
   do_cmd rm -rf $DEPLOY_DIR/models/$M/ompp-linux
   do_cmd rm -rf $DEPLOY_DIR/models/$M/ompp-mac
-
+  
 done
 
 # copy additional models source code
@@ -268,7 +248,6 @@ done
 
 if [ ! -d ompp-mac ]; then
   do_cmd git clone https://github.com/openmpp/mac.git ompp-mac
-  do_git_tag_checkout ompp-mac $OMPP_BUILD_TAG
   do_cmd chmod a+x "ompp-mac/build/build-*"
 fi
 
@@ -289,7 +268,7 @@ popd
 
 echo Create $DEPLOY_GZ | tee -a ompp/log/build-tar-gz.log
 echo tar czf $DEPLOY_GZ $DEPLOY_NAME | tee -a ompp/log/build-tar-gz.log
-
+  
 if ! tar czf $DEPLOY_GZ $DEPLOY_NAME >> ompp/log/build-tar-gz.log 2>&1;
 then
   echo FAILED. | tee -a ompp/log/build-tar-gz.log

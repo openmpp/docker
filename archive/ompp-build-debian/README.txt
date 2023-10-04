@@ -8,14 +8,12 @@ Examples:
   docker run \
     -v $HOME/build:/home/build \
     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-    -e OMPP_BUILD_TAG=v1.2.3 \
     openmpp/openmpp-build:debian \
     ./build-all
 
   docker run \
     -v $HOME/build_mpi:/home/build_mpi \
     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-    -e OMPP_BUILD_TAG=v1.2.3 \
     -e OM_MSG_USE=MPI \
     openmpp/openmpp-build:debian \
     ./build-all
@@ -29,7 +27,6 @@ Environment variables:
   OMPP_GROUP=ompp                # default: ompp, container group name
   OMPP_UID=1999                  # default: 1999, container user ID
   OMPP_GID=1999                  # default: 1999, container group ID
-  OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
   OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
   OM_MSG_USE=MPI                 # default: EMPTY
   OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD

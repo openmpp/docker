@@ -13,14 +13,12 @@
 #   docker run \
 #     -v $HOME/build:/home/build \
 #     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./build-all
 #
 #   docker run \
 #     -v $HOME/build_mpi:/home/build_mpi \
 #     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     -e OM_MSG_USE=MPI \
 #     openmpp/openmpp-build:debian \
 #     ./build-all
@@ -39,7 +37,6 @@
 #   docker run \
 #     -v $HOME/build_doc:/home/build_doc \
 #     -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./make-doc
 #
@@ -48,7 +45,6 @@
 #   docker run \
 #     -v $HOME/build_r:/home/build_r \
 #     -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-#     -e OMPP_BUILD_TAG=v1.2.3 \
 #     openmpp/openmpp-build:debian \
 #     ./make-r
 #
@@ -74,7 +70,7 @@ RUN apt-get install -y g++ && \
   apt-get install -y xz-utils
 
 # download and install Go
-RUN GO_VER=1.21.1; \
+RUN GO_VER=1.20.3; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -94,13 +90,13 @@ RUN apt-get autoclean
 RUN apt-get install -y doxygen graphviz
 
 # for documentation build: download and install wkhtmltopdf
-RUN WKHPDF_VER=0.12.6.1-3; \
-  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.bookworm_amd64.deb && \
+RUN WKHPDF_VER=0.12.6-1; \
+  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
   apt install -y /tmp/wkhtmltopdf_setup.deb && \
   rm /tmp/wkhtmltopdf_setup.deb
 
 # download and install node.js
-RUN NODE_VER=v18.18.0; \
+RUN NODE_VER=v18.16.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
@@ -156,6 +152,6 @@ ENV OMPP_USER  ${OMPP_USER}
 #
 # WORKDIR /home/${OMPP_USER}
 #
-ENTRYPOINT ["/scripts/entrypoint-debian.sh"]
+ENTRYPOINT ["/scripts/entrypoint.sh"]
 
 CMD ["cat", "/scripts/README.txt"]
