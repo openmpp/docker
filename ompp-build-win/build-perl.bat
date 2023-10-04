@@ -5,8 +5,6 @@ setlocal enabledelayedexpansion
 
 REM push into ompp root and make log directory if not exist
 
-if not exist ompp mkdir ompp
-
 if not exist ompp (
   @echo ERROR: missing source code directory: ompp
   EXIT 1

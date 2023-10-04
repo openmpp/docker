@@ -28,10 +28,13 @@ if not exist ompp-go (
   call :do_cmd_line_log log\build-go.log "git clone https://github.com/openmpp/go ompp-go"
 )
 
+REM 2023-10-04 unexpected go issue: error obtaining VCS status: exit status 128
+REM fix by using -buildvcs=false
+
 pushd ompp-go
 
-call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
-call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
+call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
+call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
 
 popd
 

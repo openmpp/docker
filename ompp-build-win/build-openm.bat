@@ -45,6 +45,18 @@ if not exist ompp (
   @echo Skip: git clone
 )
 
+REM 2023-10-04 unexpected git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+REM fixing by git config --global --add safe.directory C:/build/ompp
+
+@echo git config --global --add safe.directory C:/build/ompp
+
+git config --global --add safe.directory C:/build/ompp
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
+
 REM push into ompp root and make log directory if not exist
 
 pushd ompp
