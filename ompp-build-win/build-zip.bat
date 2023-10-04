@@ -159,9 +159,8 @@ if not exist ompp-docker (
 
 call :rcopy_files    %DEPLOY_DIR%\ompp-docker ompp-docker "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-win,ompp-run-win"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-debian,ompp-build-debian-10,ompp-run-debian"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-ubuntu,ompp-run-ubuntu"
-call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-redhat,ompp-run-redhat"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-build-linux"
+call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-docker ompp-docker "ompp-run-debian,ompp-run-ubuntu,ompp-run-redhat"
 
 call :rcopy_files    %DEPLOY_DIR%\bin ompp-docker\ompp-build-win "copy-ui-to-om_root.bat"
 
