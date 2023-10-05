@@ -30,8 +30,15 @@ if not exist ompp-go (
   call :do_cmd_line_log log\build-go.log "git clone https://github.com/openmpp/go ompp-go"
 )
 
-REM 2023-10-04 unexpected go issue: error obtaining VCS status: exit status 128
-REM fix by using -buildvcs=false
+REM fix git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+@echo git config --global --add safe.directory *
+
+git config --global --add safe.directory * >> log\build-go.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
 
 pushd ompp-go
 
@@ -44,7 +51,7 @@ if defined OMPP_BUILD_TAG (
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> ..\log\build-go.log
 
-  git checkout %OMPP_BUILD_TAG%
+  git checkout %OMPP_BUILD_TAG% >> ..\log\build-go.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED: git checkout %OMPP_BUILD_TAG% >> ..\log\build-go.log
     @echo FAILED.
@@ -54,8 +61,8 @@ if defined OMPP_BUILD_TAG (
 
 REM do build
 
-call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
-call :do_cmd_line "go install -buildvcs=false -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
+call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
+call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
 
 popd
 

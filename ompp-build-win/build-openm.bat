@@ -46,18 +46,6 @@ if not exist ompp (
   @echo Skip: git clone
 )
 
-REM 2023-10-04 unexpected git clone issue:
-REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
-REM fixing by git config --global --add safe.directory C:/build/ompp
-
-@echo git config --global --add safe.directory C:/build/ompp
-
-git config --global --add safe.directory C:/build/ompp
-if ERRORLEVEL 1 (
-  @echo FAILED.
-  EXIT
-) 
-
 REM push into ompp root and make log directory if not exist
 
 pushd ompp
@@ -82,6 +70,17 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-openm.log
 )
 
+REM fix git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+
+@echo git config --global --add safe.directory *
+
+git config --global --add safe.directory * >> log\build-openm.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
+
 REM if OMPP_BUILD_TAG is set then build from that git tag
 
 if defined OMPP_BUILD_TAG (
@@ -91,7 +90,7 @@ if defined OMPP_BUILD_TAG (
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
 
-  git checkout %OMPP_BUILD_TAG%
+  git checkout %OMPP_BUILD_TAG% >> log\build-openm.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED: git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
     @echo FAILED.

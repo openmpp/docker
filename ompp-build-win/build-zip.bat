@@ -55,6 +55,17 @@ REM log build environment
 @echo  DEPLOY_DIR    = %DEPLOY_DIR% >> log\build-zip.log
 @echo Pack into: %DEPLOY_ZIP% >> log\build-zip.log
 
+REM fix git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+
+@echo git config --global --add safe.directory *
+
+git config --global --add safe.directory * >> log\build-zip.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
+
 REM delete existing pack directory and zip file
 
 if exist %DEPLOY_DIR% (
@@ -413,7 +424,6 @@ set dst_dir=%1
 if defined OMPP_BUILD_TAG (
 
   pushd %dst_dir%
-
   call :do_cmd_line_log ..\log\build-zip.log "git checkout %OMPP_BUILD_TAG%"
   popd
 )

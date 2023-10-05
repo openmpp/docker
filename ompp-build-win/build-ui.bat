@@ -41,7 +41,16 @@ if not exist ompp-ui (
   @echo Skip: git clone >> log\build-ui.log
 )
 
-REM build openM++ UI: node, npm, vue.js
+REM fix git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+
+@echo git config --global --add safe.directory *
+
+git config --global --add safe.directory * >> log\build-ui.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+) 
 
 pushd ompp-ui
 
@@ -54,7 +63,7 @@ if defined OMPP_BUILD_TAG (
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
 
-  git checkout %OMPP_BUILD_TAG%
+  git checkout %OMPP_BUILD_TAG% >>  ..\log\build-ui.log >> 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED: git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
     @echo FAILED.

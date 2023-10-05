@@ -72,7 +72,7 @@ if defined OMPP_BUILD_TAG (
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> log\build-models.log
 
-  git checkout %OMPP_BUILD_TAG%
+  git checkout %OMPP_BUILD_TAG% >> log\build-models.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED: git checkout %OMPP_BUILD_TAG% >> log\build-models.log
     @echo FAILED.
