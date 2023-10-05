@@ -30,17 +30,17 @@ if not exist ompp-go (
   call :do_cmd_line_log log\build-go.log "git clone https://github.com/openmpp/go ompp-go"
 )
 
+pushd ompp-go
+
 REM fix git clone issue:
 REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
 @echo git config --global --add safe.directory *
 
-git config --global --add safe.directory * >> log\build-go.log 2>&1
+git config --global --add safe.directory * >> ..\log\build-go.log 2>&1
 if ERRORLEVEL 1 (
   @echo FAILED.
   EXIT
 ) 
-
-pushd ompp-go
 
 REM if OMPP_BUILD_TAG is set then build from that git tag
 

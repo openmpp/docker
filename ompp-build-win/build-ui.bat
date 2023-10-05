@@ -41,18 +41,18 @@ if not exist ompp-ui (
   @echo Skip: git clone >> log\build-ui.log
 )
 
+pushd ompp-ui
+
 REM fix git clone issue:
 REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
 
 @echo git config --global --add safe.directory *
 
-git config --global --add safe.directory * >> log\build-ui.log 2>&1
+git config --global --add safe.directory * >> ..\log\build-ui.log 2>&1
 if ERRORLEVEL 1 (
   @echo FAILED.
   EXIT
 ) 
-
-pushd ompp-ui
 
 REM if OMPP_BUILD_TAG is set then build from that git tag
 
@@ -63,7 +63,7 @@ if defined OMPP_BUILD_TAG (
   @echo git checkout %OMPP_BUILD_TAG%
   @echo git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
 
-  git checkout %OMPP_BUILD_TAG% >>  ..\log\build-ui.log >> 2>&1
+  git checkout %OMPP_BUILD_TAG% >>  ..\log\build-ui.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED: git checkout %OMPP_BUILD_TAG% >> ..\log\build-ui.log
     @echo FAILED.
