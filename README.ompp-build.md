@@ -8,7 +8,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-build:windows-20H2`
 - `openmpp/openmpp-build:debian`
-- `openmpp/openmpp-build:debian-10`
+- `openmpp/openmpp-build:debian-11`
 - `openmpp/openmpp-build:ubuntu`
 - `openmpp/openmpp-build:redhat`
 
@@ -26,19 +26,19 @@ Installed: `Visual C++ 2019 development tools and MSBuild, Microsoft MPI and SDK
 
 Pull: `docker pull openmpp/openmpp-build:debian`
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian](https://github.com/openmpp/docker/tree/master/ompp-build-debian)
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
 From: `debian:stable`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
-### `openmpp/openmpp-build:debian-10`
+### `openmpp/openmpp-build:debian-11`
 
-Pull: `docker pull openmpp/openmpp-build:debian-10`
+Pull: `docker pull openmpp/openmpp-build:debian-11`
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-debian-10](https://github.com/openmpp/docker/tree/master/ompp-build-debian-10)
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
-From: `debian:10`
+From: `debian:11`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
@@ -46,7 +46,7 @@ Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, 
 
 Pull: `docker pull openmpp/openmpp-build:ubuntu`
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-build-ubuntu)
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
 From: `ubuntu:22.04`
 
@@ -54,9 +54,9 @@ Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, 
 
 ### `openmpp/openmpp-build:redhat`
 
-Pull: `podman pull openmpp/openmpp-build:redhat`
+Pull: `docker pull openmpp/openmpp-build:redhat`
 
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-redhat](https://github.com/openmpp/docker/tree/master/ompp-build-redhat)
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
 From: `rockylinux/rockylinux:9`
 
@@ -78,6 +78,7 @@ docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-bui
 ```
 Environment variables:
 ```
+set OMPP_BUILD_TAG=v1.2.3          (default: build from latest git)
 set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
@@ -132,12 +133,14 @@ Examples:
 docker run \
   -v $HOME/build:/home/build \
   -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   openmpp/openmpp-build:debian \
   ./build-all
 
 docker run \
   -v $HOME/build_mpi:/home/build_mpi \
   -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   -e OM_MSG_USE=MPI \
   openmpp/openmpp-build:debian \
   ./build-all
@@ -145,12 +148,14 @@ docker run \
 docker run \
   -v $HOME/build_doc:/home/build_doc \
   -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   openmpp/openmpp-build:debian \
   ./make-doc
 
 docker run \
   -v $HOME/build_r:/home/build_r \
   -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   openmpp/openmpp-build:debian \
   ./make-r
 
@@ -161,6 +166,7 @@ docker run ....user, group, home.... -e OM_MSG_USE=MPI                 openmpp/o
 ```
 Environment variables to control build:
 ```
+OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
@@ -178,7 +184,7 @@ To build only openM++ libraries and omc compiler do:
 ```
 docker run .... openmpp/openmpp-build:debian ./build-openm
 ```
-Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_MSG_USE`
+Environment variables to control `build-openm`: `OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE`
 
 To build only models do:
 ```
@@ -197,7 +203,7 @@ To create `openmpp_debian_YYYYMMDD.tar.gz` archive:
 ```
 docker run .... openmpp/openmpp-build:debian ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
+Environment variables to control `build-tar-gz`: `OMPP_BUILD_TAG, OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To create a new version of `openmpp_doc_YYYYMMDD.zip` documentation archive:
 ```
@@ -225,27 +231,17 @@ Examples:
 sudo docker run \
   -v $HOME/build:/home/build \
   -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   openmpp/openmpp-build:ubuntu \
   ./build-all
 
 sudo docker run \
   -v $HOME/build_mpi:/home/build_mpi \
   -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   -e OM_MSG_USE=MPI \
   openmpp/openmpp-build:ubuntu \
   ./build-all
-
-sudo docker run \
-  -v $HOME/build_doc:/home/build_doc \
-  -e OMPP_USER=build_doc -e OMPP_GROUP=build_doc -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-  openmpp/openmpp-build:ubuntu \
-  ./make-doc
-
-sudo docker run \
-  -v $HOME/build_r:/home/build_r \
-  -e OMPP_USER=build_r -e OMPP_GROUP=build_r -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
-  openmpp/openmpp-build:ubuntu \
-  ./make-r
 
 sudo docker run ....user, group, home.... -e MODEL_DIRS=RiskPaths,IDMM      openmpp/openmpp-build:ubuntu ./build-all
 sudo docker run ....user, group, home.... -e OM_BUILD_CONFIGS=RELEASE,DEBUG openmpp/openmpp-build:ubuntu ./build-all
@@ -254,6 +250,7 @@ sudo docker run ....user, group, home.... -e OM_MSG_USE=MPI                 open
 ```
 Environment variables to control build:
 ```
+OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
@@ -271,7 +268,7 @@ To build only openM++ libraries and omc compiler do:
 ```
 sudo docker run .... openmpp/openmpp-build:ubuntu ./build-openm
 ```
-Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_MSG_USE`
+Environment variables to control `build-openm`: `OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE`
 
 To build only models do:
 ```
@@ -290,7 +287,7 @@ To create `openmpp_ubuntu_YYYYMMDD.tar.gz` archive:
 ```
 sudo docker run .... openmpp/openmpp-build:ubuntu ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
+Environment variables to control `build-tar-gz`: `OMPP_BUILD_TAG, OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To start shell do:
 ```
@@ -309,6 +306,7 @@ podman run \
   -userns=host \
   -v $HOME/build:/home/build:z \
   -e OMPP_USER=build \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   openmpp/openmpp-build:redhat \
   ./build-all
 
@@ -316,6 +314,7 @@ podman run \
   -userns=host \
   -v $HOME/build_mpi:/home/build_mpi:z \
   -e OMPP_USER=build_mpi \
+  -e OMPP_BUILD_TAG=v1.2.3 \
   -e OM_MSG_USE=MPI \
   openmpp/openmpp-build:redhat \
   ./build-all
@@ -326,6 +325,7 @@ podman run .... -e OM_MSG_USE=MPI                 openmpp/openmpp-build:redhat .
 ```
 Environment variables to control build:
 ```
+OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
@@ -340,7 +340,7 @@ To build only openM++ libraries and omc compiler do:
 ```
 podman run .... openmpp/openmpp-build:redhat ./build-openm
 ```
-Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_MSG_USE`
+Environment variables to control `build-openm`: `OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE`
 
 To build only models do:
 ```
@@ -359,7 +359,7 @@ To create `openmpp_redhat_YYYYMMDD.tar.gz` archive:
 ```
 podman run .... openmpp/openmpp-build:redhat ./build-tar-gz
 ```
-Environment variables to control `build-tar-gz`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
+Environment variables to control `build-tar-gz`: `OMPP_BUILD_TAG, OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To start shell do:
 ```

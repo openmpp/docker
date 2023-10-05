@@ -8,6 +8,7 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
+- `openmpp/openmpp-run:debian-11`
 - `openmpp/openmpp-run:ubuntu`
 - `openmpp/openmpp-run:redhat`
 
@@ -26,6 +27,16 @@ Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft
 Pull: `docker pull openmpp/openmpp-run:debian`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian](https://github.com/openmpp/docker/tree/master/ompp-run-debian)
+
+From: `debian:stable`
+
+Installed: `Open MPI, SQLite, unixODBC`
+
+### `openmpp/openmpp-run:debian-11`
+
+Pull: `docker pull openmpp/openmpp-run:debian-11`
+
+GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian-11](https://github.com/openmpp/docker/tree/master/ompp-run-debian-11)
 
 From: `debian:stable`
 
@@ -67,7 +78,7 @@ docker run -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:wi
   
 To start command prompt do:
 ```
-docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-20H2
+docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-20H2 cmd /K
 ```
 
 ## How to use `openmpp/openmpp-run:debian` image
