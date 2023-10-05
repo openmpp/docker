@@ -80,18 +80,6 @@ if defined OMPP_BUILD_TAG (
   )
 )
 
-REM if OMPP_BUILD_TAG is set then build from that git tag
-
-if [ -n "$OMPP_BUILD_TAG" ]; then
-  echo " OMPP_BUILD_TAG     = $OMPP_BUILD_TAG" | tee -a log/build-models.log
-
-  if ! git checkout "$OMPP_BUILD_TAG" >> log/build-models.log 2>&1;
-  then
-    echo FAILED git checkout "$OMPP_BUILD_TAG" | tee -a log/build-models.log
-    exit 1
-  fi
-fi
-
 REM build models, log files: models\log\ModelName-configuration-platform.log
 
 pushd models
