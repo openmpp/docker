@@ -226,7 +226,15 @@ if defined MDL_ONE_EXE (
   -Microdata.CsvDir ^
   -Microdata.Events Birth,Retire,Death ^
   -OpenM.RunName "Microdata in CSV" ^
-  -EN.RunDescription "Write microdata into CSV files") > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -EN.RunDescription "Write microdata into CSV files") && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.SetName modelOne_other ^
+  -Parameter.StartingSeed 8191 ^
+  -OpenM.Threads 4 ^
+  -Microdata.All ^
+  -Microdata.ToDb ^
+  -OpenM.RunName "Microdata other in database" ^
+  -EN.RunDescription "Write other microdata into database" > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log
