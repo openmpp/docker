@@ -229,7 +229,6 @@ if defined MDL_ONE_EXE (
   -EN.RunDescription "Write microdata into CSV files") && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.SetName modelOne_other ^
-  -Parameter.StartingSeed 8191 ^
   -OpenM.Threads 4 ^
   -Microdata.All ^
   -Microdata.ToDb ^
