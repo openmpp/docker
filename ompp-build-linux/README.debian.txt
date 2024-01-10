@@ -36,17 +36,22 @@ Examples:
     OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
     MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 
+Additional environment variable for build-open and build-model:
+  OMPP_CPP_BUILD_TAG=test_branch   # default: build from latest git
+
+If both OMPP_BUILD_TAG and OMPP_CPP_BUILD_TAG specified then OMPP_CPP_BUILD_TAG take precedence
+
 To build openM++ libraries and omc compiler do:
 
   docker run .... openmpp/openmpp-build:debian ./build-openm
   
-  Environment variables to control "build-openm": OM_BUILD_CONFIGS, OM_MSG_USE
+  Environment variables to control "build-openm": OM_BUILD_CONFIGS, OM_MSG_USE, OMPP_BUILD_TAG, OMPP_CPP_BUILD_TAG
 
 To build models do:
 
   docker run .... openmpp/openmpp-build:debian ./build-models
   
-  Environment variables to control "build-models": OMPP_LINUX, OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS
+  Environment variables to control "build-models": OMPP_LINUX, OMPP_BUILD_TAG, OMPP_CPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS
 
 To build openM++ tools do any of:
 
