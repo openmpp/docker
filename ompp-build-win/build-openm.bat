@@ -4,7 +4,10 @@ REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release,Debug)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32,x64)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
+REM  set OMPP_CPP_BUILD_TAG             (default: build from latest git)
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM
+REM  OMPP_CPP_BUILD_TAG has higher priority over OMPP_BUILD_TAG
 
 setlocal enabledelayedexpansion
 
@@ -81,18 +84,27 @@ if ERRORLEVEL 1 (
   EXIT
 ) 
 
-REM if OMPP_BUILD_TAG is set then build from that git tag
+REM if OMPP_CPP_BUILD_TAG or OMPP_BUILD_TAG is set then build from that git tag or branch
 
 if defined OMPP_BUILD_TAG (
-
+  set OM_BLD_TAG=%OMPP_BUILD_TAG%
   @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG%
   @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG% >> log\build-openm.log
-  @echo git checkout %OMPP_BUILD_TAG%
-  @echo git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
+)
+if defined OMPP_CPP_BUILD_TAG (
+  set OM_BLD_TAG=%OMPP_CPP_BUILD_TAG%
+  @echo  OMPP_CPP_BUILD_TAG = %OMPP_CPP_BUILD_TAG%
+  @echo  OMPP_CPP_BUILD_TAG = %OMPP_CPP_BUILD_TAG% >> log\build-openm.log
+)
 
-  git checkout %OMPP_BUILD_TAG% >> log\build-openm.log 2>&1
+if defined OM_BLD_TAG (
+
+  @echo git checkout %OM_BLD_TAG%
+  @echo git checkout %OM_BLD_TAG% >> log\build-openm.log
+
+  git checkout %OM_BLD_TAG% >> log\build-openm.log 2>&1
   if ERRORLEVEL 1 (
-    @echo FAILED: git checkout %OMPP_BUILD_TAG% >> log\build-openm.log
+    @echo FAILED: git checkout %OM_BLD_TAG% >> log\build-openm.log
     @echo FAILED.
     EXIT
   )
@@ -110,17 +122,17 @@ for /F "usebackq tokens=* delims=" %%i in (`git log -n 1 --date^=short --format^
   set OM_RUNTIME_VERSION=%%i
 )
 
-if defined OMPP_BUILD_TAG (
+if defined OM_BLD_TAG (
 
-  for /F "usebackq tokens=* delims=" %%i in (`git tag -l %OMPP_BUILD_TAG%`) do (
+  for /F "usebackq tokens=* delims=" %%i in (`git tag -l %OM_BLD_TAG%`) do (
     if ERRORLEVEL 1 (
-      @echo FAILED: git tag -l %OMPP_BUILD_TAG%
-      @echo FAILED: git tag -l %OMPP_BUILD_TAG% >> log\build-openm.log
+      @echo FAILED: git tag -l %OM_BLD_TAG%
+      @echo FAILED: git tag -l %OM_BLD_TAG% >> log\build-openm.log
       @echo FAILED.
       EXIT
     )
-    if /i "%%i"=="%OMPP_BUILD_TAG%" (
-      set OM_RUNTIME_VERSION=%OM_RUNTIME_VERSION% %OMPP_BUILD_TAG%
+    if /i "%%i"=="%OM_BLD_TAG%" (
+      set OM_RUNTIME_VERSION=%OM_RUNTIME_VERSION% %OM_BLD_TAG%
     )
   )
 )
