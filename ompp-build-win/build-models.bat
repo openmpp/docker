@@ -5,7 +5,10 @@ REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+REM  set OMPP_CPP_BUILD_TAG             (default: build from latest git)
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM
+REM  OMPP_CPP_BUILD_TAG has higher priority over OMPP_BUILD_TAG
 
 setlocal enabledelayedexpansion
 
@@ -63,18 +66,27 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-models.log
 )
 
-REM if OMPP_BUILD_TAG is set then build from that git tag
+REM if OMPP_CPP_BUILD_TAG or OMPP_BUILD_TAG is set then build from that git tag or branch
 
 if defined OMPP_BUILD_TAG (
-
+  set OM_BLD_TAG=%OMPP_BUILD_TAG%
   @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG%
   @echo  OMPP_BUILD_TAG     = %OMPP_BUILD_TAG% >> log\build-models.log
-  @echo git checkout %OMPP_BUILD_TAG%
-  @echo git checkout %OMPP_BUILD_TAG% >> log\build-models.log
+)
+if defined OMPP_CPP_BUILD_TAG (
+  set OM_BLD_TAG=%OMPP_CPP_BUILD_TAG%
+  @echo  OMPP_CPP_BUILD_TAG = %OMPP_CPP_BUILD_TAG%
+  @echo  OMPP_CPP_BUILD_TAG = %OMPP_CPP_BUILD_TAG% >> log\build-models.log
+)
 
-  git checkout %OMPP_BUILD_TAG% >> log\build-models.log 2>&1
+if defined OM_BLD_TAG (
+
+  @echo git checkout %OM_BLD_TAG%
+  @echo git checkout %OM_BLD_TAG% >> log\build-models.log
+
+  git checkout %OM_BLD_TAG% >> log\build-models.log 2>&1
   if ERRORLEVEL 1 (
-    @echo FAILED: git checkout %OMPP_BUILD_TAG% >> log\build-models.log
+    @echo FAILED: git checkout %OM_BLD_TAG% >> log\build-models.log
     @echo FAILED.
     EXIT
   )

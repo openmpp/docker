@@ -6,6 +6,9 @@
 #  OM_MSG_USE=MPI                 (default: EMPTY)
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
 #  OMPP_BUILD_TAG                 (default: build from latest git)
+#  OMPP_CPP_BUILD_TAG             (default: build from latest git)
+#
+#  OMPP_CPP_BUILD_TAG has higher priority over OMPP_BUILD_TAG
 
 OM_BLD_MDLS=${MODEL_DIRS:-modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen}
 
@@ -53,14 +56,21 @@ else
   echo Build cluster version: using MPI | tee -a log/build-models.log 
 fi;
 
-# if OMPP_BUILD_TAG is set then build from that git tag
+# if OMPP_CPP_BUILD_TAG or OMPP_BUILD_TAG is set then build from that git tag
 
 if [ -n "$OMPP_BUILD_TAG" ]; then
+  OM_BLD_TAG="$OMPP_BUILD_TAG"
   echo " OMPP_BUILD_TAG     = $OMPP_BUILD_TAG" | tee -a log/build-models.log
+fi
+if [ -n "$OMPP_CPP_BUILD_TAG" ]; then
+  OM_BLD_TAG="$OMPP_CPP_BUILD_TAG"
+  echo " OMPP_CPP_BUILD_TAG = $OMPP_CPP_BUILD_TAG" | tee -a log/build-models.log
+fi
 
-  if ! git checkout "$OMPP_BUILD_TAG" >> log/build-models.log 2>&1;
+if [ -n "$OM_BLD_TAG" ]; then
+  if ! git checkout "$OM_BLD_TAG" >> log/build-models.log 2>&1;
   then
-    echo FAILED git checkout "$OMPP_BUILD_TAG" | tee -a log/build-models.log
+    echo FAILED git checkout "$OM_BLD_TAG" | tee -a log/build-models.log
     exit 1
   fi
 fi
