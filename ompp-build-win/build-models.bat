@@ -66,6 +66,17 @@ if defined OM_P_MPI (
   @echo Build desktop version: non-MPI >> log\build-models.log
 )
 
+REM fix git clone issue:
+REM ....fatal: detected dubious ownership in repository at 'C:/build/ompp'
+
+@echo git config --global --add safe.directory *
+
+git config --global --add safe.directory * >> log\build-openm.log 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  EXIT
+)
+
 REM if OMPP_CPP_BUILD_TAG or OMPP_BUILD_TAG is set then build from that git tag or branch
 
 if defined OMPP_BUILD_TAG (
