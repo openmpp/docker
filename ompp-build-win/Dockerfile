@@ -72,7 +72,7 @@ RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.21.6.windows-am
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
-RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-18.0-without-git.exe && `
+RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-19.0.exe && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\mingw_setup.exe && `
     del C:\Temp\mingw_setup.exe
 
