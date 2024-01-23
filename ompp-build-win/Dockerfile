@@ -63,7 +63,7 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2023/sqlite-tools-win32-x86-3430100.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2024/sqlite-tools-win-x64-3450000.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
@@ -88,6 +88,7 @@ RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v20.11.0/node-v20.11.0-w
     del C:\Temp\node.zip
 
 # download and install portable Perl
+# 5.32.1.1 is the last 32bit version, after that only 64bit available
 RUN curl -L -o C:\Temp\perl32_setup.zip https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip && `
     C:\7zip\7z.exe x -oC:\perl32 C:\Temp\perl32_setup.zip && `
     del C:\Temp\perl32_setup.zip
