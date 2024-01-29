@@ -107,6 +107,9 @@ REM build models, log files: models\log\ModelName-configuration-platform.log
 
 pushd models
 
+set OMC_MODEL_DOC_OPT=true
+set OMC_MODEL_DEVDOC_OPT=true
+
 set MDL_OPTS=-OpenM.LogToFile false -OpenM.LogToStampedFile -OpenM.LogUseTimeStamp
 
 for %%m in (%OM_BLD_MDLS%) do (

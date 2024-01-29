@@ -216,6 +216,7 @@ call :make_dir %DEPLOY_DIR%\log
 call :make_dir %DEPLOY_DIR%\models\bin
 call :make_dir %DEPLOY_DIR%\models\sql
 call :make_dir %DEPLOY_DIR%\models\log
+call :make_dir %DEPLOY_DIR%\models\doc
 call :make_dir %DEPLOY_DIR%\models\home\io\download
 call :make_dir %DEPLOY_DIR%\models\home\io\upload
 
@@ -244,7 +245,10 @@ for %%m in (%OM_BLD_MDLS%) do (
     if exist models\%%m\code_original (
       call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "code_original"
     )
-    
+    if exist models\%%m\ompp\bin\doc (
+      call :rcopy_files %DEPLOY_DIR%\models\doc  models\%%m\ompp\bin\doc  "*.html"
+    )
+
   ) else (
   
     call :rcopy_files    %DEPLOY_DIR%\models\%%m models\%%m  "*.*"
