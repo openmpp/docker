@@ -246,7 +246,7 @@ for %%m in (%OM_BLD_MDLS%) do (
       call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "code_original"
     )
     if exist models\%%m\ompp\bin\doc (
-      call :do_copy_files  %DEPLOY_DIR%\models\doc   models\%%m\ompp\bin\doc\*.html
+      call :do_copy_files  %DEPLOY_DIR%\models\doc   models\%%m\ompp\bin\doc\*.*
     )
 
   ) else (
