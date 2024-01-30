@@ -28,8 +28,15 @@ FROM rockylinux/rockylinux:9
 RUN dnf -y update && dnf clean all
 
 # install Open MPI and SQLite
-RUN dnf -y --setopt=tsflags=nodocs install openmpi && \
-  dnf -y --setopt=tsflags=nodocs install sqlite
+#
+# 2024-01-30:
+# remove SQLite update to the current  sqlite-libs-3.34.1-7
+# openMPI broken dependency,it require sqlite-libs-3.34.1-6
+RUN dnf -y --setopt=tsflags=nodocs install openmpi
+
+# install Open MPI and SQLite
+# RUN dnf -y --setopt=tsflags=nodocs install openmpi && \
+#  dnf -y --setopt=tsflags=nodocs install sqlite
 
 # download and install unixODBC (optional)
 RUN dnf -y --setopt=tsflags=nodocs install unixODBC
