@@ -126,12 +126,12 @@ set DID_SFX=_disable_iterator_debug
 call :rcopy_files ^
   %DEPLOY_DIR%\lib ^
   lib ^
-  "libsqlite.lib libsqlite64.lib libsqliteD.lib libsqlite64D.lib"
+  "libsqlite.lib libsqlite32.lib libsqliteD.lib libsqlite32D.lib"
 
 call :rcopy_files ^
   %DEPLOY_DIR%\lib ^
   lib ^
-  "libopenm%OM_SFX_MPI%.lib libopenm64%OM_SFX_MPI%.lib libopenmD%OM_SFX_MPI%.lib libopenm64D%OM_SFX_MPI%.lib libopenmD%OM_SFX_MPI%%DID_SFX%.lib libopenm64D%OM_SFX_MPI%%DID_SFX%.lib"
+  "libopenm%OM_SFX_MPI%.lib libopenm32%OM_SFX_MPI%.lib libopenmD%OM_SFX_MPI%.lib libopenm32D%OM_SFX_MPI%.lib libopenmD%OM_SFX_MPI%%DID_SFX%.lib libopenm32D%OM_SFX_MPI%%DID_SFX%.lib"
 
 REM copy bin directory executables
 

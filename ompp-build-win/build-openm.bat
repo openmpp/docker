@@ -174,7 +174,7 @@ for %%c in (%OM_BLD_CFG%) do (
     REM build omc model compiler
 
     if /i "%%c"=="Release" (
-      if /i "%%p"=="Win32" (
+      if /i "%%p"=="x64" (
         call :make_openm_sln "-p:Configuration=%%c -p:Platform=%%p openm.sln /target:libopenm_omc_db:Rebuild"
         call :make_openm_sln "-p:Configuration=%%c -p:Platform=%%p openm.sln /target:omc:Rebuild"
       )
