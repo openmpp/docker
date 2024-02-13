@@ -30,6 +30,7 @@ if not exist "%OM_ROOT%\etc"                     call :make_dir "%OM_ROOT%\etc"
 if not exist "%OM_ROOT%\log"                     call :make_dir "%OM_ROOT%\log"
 if not exist "%OM_ROOT%\models\bin"              call :make_dir "%OM_ROOT%\models\bin"
 if not exist "%OM_ROOT%\models\log"              call :make_dir "%OM_ROOT%\models\log"
+if not exist "%OM_ROOT%\models\doc"              call :make_dir "%OM_ROOT%\models\doc"
 if not exist "%OM_ROOT%\models\home\io\download" call :make_dir "%OM_ROOT%\models\home\io\download"
 if not exist "%OM_ROOT%\models\home\io\upload"   call :make_dir "%OM_ROOT%\models\home\io\upload"
 
