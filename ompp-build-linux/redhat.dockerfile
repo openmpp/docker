@@ -40,18 +40,14 @@ FROM rockylinux/rockylinux:9
 # update base image
 RUN dnf -y update && dnf clean all
 
-# install c++, Open MPI, build utils, git
-#
-# 2024-01-30:
-# SQLite is installed into the base image, update SQLite breaks git
-#
+# install c++, Open MPI, build utils, git and SQLite
 RUN dnf -y --setopt=tsflags=nodocs install make && \
   dnf -y --setopt=tsflags=nodocs install flex && \
   dnf -y --setopt=tsflags=nodocs install bison && \
+  dnf -y --setopt=tsflags=nodocs install sqlite && \
   dnf -y --setopt=tsflags=nodocs install git && \
   dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
   dnf -y --setopt=tsflags=nodocs install openmpi openmpi-devel
-
 
 # install extra utilities
 RUN dnf -y --setopt=tsflags=nodocs install xz
