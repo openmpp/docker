@@ -3,14 +3,14 @@ REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_201
 REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
 if /I "%OM_MSG_USE%"=="MPI" set OM_SFX_MPI=_mpi
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 if defined MODEL_DIRS       set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist
@@ -276,23 +276,23 @@ for %%m in (Align1,Alpha2,NewTimeBased_bilingual,NewCaseBased_weighted,OzProj_ex
   )
 )
 
-REM OzProj and OzProjGen special case:
-REM   create models/bin/OzProj/ompp/bin sub-directory
-REM   copy OzProj*.* into bin/OzProj/ompp/bin
-REM   copy OzProj/microdata sub-directory into bin/OzProj
+REM OzProjX and OzProjGenX special case:
+REM   create models/bin/OzProjX/ompp/bin sub-directory
+REM   copy OzProjX*.* into bin/OzProjX/ompp/bin
+REM   copy OzProjX/microdata sub-directory into bin/OzProjX
 
-if exist %DEPLOY_DIR%\models\OzProjGen (
-  del /f /q %DEPLOY_DIR%\models\bin\OzProjGen*.* >> log\build-zip.log 2>&1
-  call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin
-  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjGen\ompp\bin models\OzProjGen\ompp\bin "OzProjGen*.*"
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjGen          models\OzProjGen           "microdata"
+if exist %DEPLOY_DIR%\models\OzProjGenX (
+  del /f /q %DEPLOY_DIR%\models\bin\OzProjGenX*.* >> log\build-zip.log 2>&1
+  call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin
+  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin models\OzProjGenX\ompp\bin "OzProjGenX*.*"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjGenX          models\OzProjGenX           "microdata"
 )
 
-if exist %DEPLOY_DIR%\models\OzProj (
-  del /f /q %DEPLOY_DIR%\models\bin\OzProj*.* >> log\build-zip.log 2>&1
-  call :make_dir       %DEPLOY_DIR%\models\bin\OzProj\ompp\bin
-  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProj\ompp\bin models\OzProj\ompp\bin "OzProj*.*"
-  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProj          models\OzProj          "microdata"
+if exist %DEPLOY_DIR%\models\OzProjX (
+  del /f /q %DEPLOY_DIR%\models\bin\OzProjX*.* >> log\build-zip.log 2>&1
+  call :make_dir       %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin
+  call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin models\OzProjX\ompp\bin "OzProjX*.*"
+  call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjX          models\OzProjX          "microdata"
 )
 
 REM add MacOS extra source code and documents

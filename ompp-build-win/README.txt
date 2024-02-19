@@ -15,7 +15,7 @@ To build openM++ do:
   set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
   set OM_MSG_USE=MPI                 (default: EMPTY)
   set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 
 Additional environment variable for build-open and build-model:
   OMPP_CPP_BUILD_TAG=test_branch     (default: build from latest git)

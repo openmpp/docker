@@ -83,7 +83,7 @@ set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
 set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 ```
 
 To build only openM++ libraries and omc compiler do:
@@ -170,7 +170,7 @@ OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 ```
 Environment variables to pass your current user and home directory to container:
 ```
@@ -254,7 +254,7 @@ OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 ```
 Environment variables to pass your current user and home directory to container:
 ```
@@ -329,7 +329,7 @@ OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProj,OzProjGen
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
 ```
 Environment variables to pass your current user and home directory to container:
 ```
