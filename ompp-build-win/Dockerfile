@@ -36,11 +36,11 @@ RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/17/release/vs_BuildTo
     del C:\Temp\vs_buildtools.exe
 
 # download and install MS MPI runtime and SDK
-RUN curl -L -o C:\Temp\msmpisetup.exe https://github.com/microsoft/Microsoft-MPI/releases/download/v10.1.1/msmpisetup.exe && `
+RUN curl -L -o C:\Temp\msmpisetup.exe https://download.microsoft.com/download/7/2/7/72731ebb-b63c-4170-ade7-836966263a8f/msmpisetup.exe && `
     C:\Temp\msmpisetup.exe && `
     del C:\Temp\msmpisetup.exe
 
-RUN curl -L -o C:\Temp\msmpisdk.msi https://github.com/microsoft/Microsoft-MPI/releases/download/v10.1.1/msmpisdk.msi && `
+RUN curl -L -o C:\Temp\msmpisdk.msi https://download.microsoft.com/download/7/2/7/72731ebb-b63c-4170-ade7-836966263a8f/msmpisdk.msi && `
     msiexec /i C:\Temp\msmpisdk.msi /q /norestart /L* C:\Temp\msmpisdk.log &&`
     del C:\Temp\msmpisdk.msi && `
     del C:\Temp\msmpisdk.log
