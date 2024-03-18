@@ -4,7 +4,7 @@ REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
 REM  set OMPP_CPP_BUILD_TAG             (default: build from latest git)
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 REM
@@ -19,7 +19,7 @@ if defined OM_BUILD_CONFIGS   set OM_BLD_CFG=%OM_BUILD_CONFIGS%
 if defined OM_BUILD_PLATFORMS set OM_BLD_PLT=%OM_BUILD_PLATFORMS%
 if /I "%OM_MSG_USE%"=="MPI"   set OM_P_MPI=-p:OM_MSG_USE=MPI
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
 if defined MODEL_DIRS         set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist

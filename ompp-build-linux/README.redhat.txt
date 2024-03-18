@@ -57,7 +57,7 @@ Examples:
     OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
     OM_MSG_USE=MPI                 # default: EMPTY
     OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-    MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
+    MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
 
 Additional environment variable for build-open and build-model:
   OMPP_CPP_BUILD_TAG=test_branch   # default: build from latest git
