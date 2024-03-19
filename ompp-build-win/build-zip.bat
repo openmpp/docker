@@ -286,6 +286,8 @@ if exist %DEPLOY_DIR%\models\OzProjGenX (
   call :make_dir       %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin
   call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin models\OzProjGenX\ompp\bin "OzProjGenX*.*"
   call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjGenX          models\OzProjGenX           "microdata"
+  del /f /q            %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin\*.log    >> log\build-zip.log 2>&1
+  del /f /q            %DEPLOY_DIR%\models\bin\OzProjGenX\ompp\bin\*.tickle >> log\build-zip.log 2>&1
 )
 
 if exist %DEPLOY_DIR%\models\OzProjX (
@@ -293,6 +295,8 @@ if exist %DEPLOY_DIR%\models\OzProjX (
   call :make_dir       %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin
   call :rcopy_files    %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin models\OzProjX\ompp\bin "OzProjX*.*"
   call :rcopy_sub_dirs %DEPLOY_DIR%\models\bin\OzProjX          models\OzProjX          "microdata"
+  del /f /q            %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin\*.log    >> log\build-zip.log 2>&1
+  del /f /q            %DEPLOY_DIR%\models\bin\OzProjX\ompp\bin\*.tickle >> log\build-zip.log 2>&1
 )
 
 REM add MacOS extra source code and documents
