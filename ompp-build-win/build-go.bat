@@ -1,5 +1,5 @@
 @echo off
-REM build openM++ Go oms web-service and dbcopy utility
+REM build openM++ Go oms web-service and dbcopy, dbget utilities
 REM environmemnt variables:
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
@@ -20,11 +20,11 @@ if not exist log mkdir log
 
 REM log build environment 
 
-@echo %DATE% %TIME% Build Go oms web-service and dbcopy utility
+@echo %DATE% %TIME% Build Go oms web-service and dbcopy, dbget utilities
 @echo Log file: log\build-go.log
-@echo %DATE% %TIME% Build Go oms web-service and dbcopy utility > log\build-go.log
+@echo %DATE% %TIME% Build Go oms web-service and dbcopy, dbget utilities > log\build-go.log
 
-REM build go oms web-service and dbcopy database utility
+REM build go oms web-service and dbcopy, dbget utilities
 
 if not exist ompp-go (
   call :do_cmd_line_log log\build-go.log "git clone https://github.com/openmpp/go ompp-go"
@@ -62,6 +62,7 @@ if defined OMPP_BUILD_TAG (
 REM do build
 
 call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbcopy"
+call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./dbget"
 call :do_cmd_line "go install -tags odbc,sqlite_math_functions,sqlite_omit_load_extension ./oms"
 
 popd
