@@ -37,7 +37,7 @@ if not exist "%OM_ROOT%\models\home\io\upload"   call :make_dir "%OM_ROOT%\model
 
 REM copy bin utilities
 
-call :rcopy_files "%OM_ROOT%\bin" bin "dbcopy.* oms.* ompp_ui.bat sqlite3.exe"
+call :rcopy_files "%OM_ROOT%\bin" bin "dbcopy.* oms.* dbget.* ompp_ui.bat sqlite3.exe"
 
 REM copy etc templates
 
