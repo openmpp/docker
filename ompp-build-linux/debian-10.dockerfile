@@ -81,7 +81,7 @@ RUN apt-get autoclean
 #  rm /tmp/wkhtmltopdf_setup.deb
 
 # download and install node.js
-RUN NODE_VER=v20.11.0; \
+RUN NODE_VER=v22.2.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
