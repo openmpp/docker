@@ -1,11 +1,11 @@
-# Docker image to build openM++ latest version for Ubuntu LTS
+# Docker image to build openM++ latest version for Debian 11
 #
 # Examples of build and arguments default values:
-#   docker build -t openmpp/openmpp-build:ubuntu -f ubuntu.dockerfile .
-#   docker build -t openmpp/openmpp-build:ubuntu -f ubuntu.dockerfile --build-arg OMPP_USER=ompp .
-#   docker build -t openmpp/openmpp-build:ubuntu -f ubuntu.dockerfile --build-arg OMPP_GROUP=ompp .
-#   docker build -t openmpp/openmpp-build:ubuntu -f ubuntu.dockerfile --build-arg OMPP_UID=1999 .
-#   docker build -t openmpp/openmpp-build:ubuntu -f ubuntu.dockerfile --build-arg OMPP_GID=1999 .
+#   docker build -t openmpp/openmpp-build:debian-11 -f debian-11.dockerfile .
+#   docker build -t openmpp/openmpp-build:debian-11 -f debian-11.dockerfile --build-arg OMPP_USER=ompp .
+#   docker build -t openmpp/openmpp-build:debian-11 -f debian-11.dockerfile --build-arg OMPP_GROUP=ompp .
+#   docker build -t openmpp/openmpp-build:debian-11 -f debian-11.dockerfile --build-arg OMPP_UID=1999 .
+#   docker build -t openmpp/openmpp-build:debian-11 -f debian-11.dockerfile --build-arg OMPP_GID=1999 .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
@@ -13,7 +13,7 @@
 #     -v $HOME/build:/home/build \
 #     -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
 #     -e OMPP_BUILD_TAG=v1.2.3 \
-#     openmpp/openmpp-build:ubuntu \
+#     openmpp/openmpp-build:debian-11 \
 #     ./build-all
 #
 #   docker run \
@@ -21,20 +21,20 @@
 #     -e OMPP_USER=build_mpi -e OMPP_GROUP=build_mpi -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
 #     -e OMPP_BUILD_TAG=v1.2.3 \
 #     -e OM_MSG_USE=MPI \
-#     openmpp/openmpp-build:ubuntu \
+#     openmpp/openmpp-build:debian-11 \
 #     ./build-all
 #
-#   docker run .... -e OM_MSG_USE=MPI     openmpp/openmpp-build:ubuntu ./build-openm
-#   docker run .... -e MODEL_DIRS=MyModel openmpp/openmpp-build:ubuntu ./build-models
-#   docker run .... openmpp/openmpp-build:ubuntu ./build-go
-#   docker run .... openmpp/openmpp-build:ubuntu ./build-r
-#   docker run .... openmpp/openmpp-build:ubuntu ./build-ui
-#   docker run .... openmpp/openmpp-build:ubuntu ./build-tar-gz
+#   docker run .... -e OM_MSG_USE=MPI     openmpp/openmpp-build:debian-11 ./build-openm
+#   docker run .... -e MODEL_DIRS=MyModel openmpp/openmpp-build:debian-11 ./build-models
+#   docker run .... openmpp/openmpp-build:debian-11 ./build-go
+#   docker run .... openmpp/openmpp-build:debian-11 ./build-r
+#   docker run .... openmpp/openmpp-build:debian-11 ./build-ui
+#   docker run .... openmpp/openmpp-build:debian-11 ./build-tar-gz
 #
-#   sudo docker run .... -it openmpp/openmpp-build:ubuntu bash
+#   docker run .... -it openmpp/openmpp-build:debian-11 bash
 #
 
-FROM ubuntu:24.04
+FROM debian:11
 
 # disable debconf terminal input
 ARG DEBIAN_FRONTEND=noninteractive
@@ -50,10 +50,8 @@ RUN apt-get install -y g++ && \
   apt-get install -y bison flex && \
   apt-get install -y git && \
   apt-get install -y sqlite3 && \
-  apt-get install -y openmpi-bin libopenmpi-dev
-
-# install curl and xz packaging utils
-RUN apt-get install -y curl && \
+  apt-get install -y openmpi-bin libopenmpi-dev && \
+  apt-get install -y curl && \
   apt-get install -y xz-utils
 
 # download and install Go
@@ -67,8 +65,20 @@ RUN GO_VER=1.22.1; \
 # download and install unixODBC (optional)
 RUN apt-get install -y unixodbc unixodbc-dev
 
+# download and install R
+#RUN apt-get install -y r-base-core
+
 # cleanup
 RUN apt-get autoclean
+
+# for documentation build: download and install Doxygen
+# RUN apt-get install -y doxygen graphviz
+#
+# for documentation build: download and install wkhtmltopdf
+# RUN WKHPDF_VER=0.12.6-1; \
+#  curl -L -o /tmp/wkhtmltopdf_setup.deb https://github.com/wkhtmltopdf/packaging/releases/download/${WKHPDF_VER}/wkhtmltox_${WKHPDF_VER}.buster_amd64.deb && \
+#  apt install -y /tmp/wkhtmltopdf_setup.deb && \
+#  rm /tmp/wkhtmltopdf_setup.deb
 
 # download and install node.js
 RUN NODE_VER=v22.2.0; \
@@ -78,13 +88,11 @@ RUN NODE_VER=v22.2.0; \
   rm /tmp/node.tar.xz
 
 # set local openM++ timezone
-RUN apt-get install -y tzdata
-
 RUN rm -f /etc/localtime && \
   ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 # copy entry point and build scripts
-COPY ubuntu.entrypoint.sh \
+COPY debian-11.entrypoint.sh \
   build-all \
   build-openm \
   build-models \
@@ -93,10 +101,10 @@ COPY ubuntu.entrypoint.sh \
   build-ui \
   build-tar-gz \
   model.ini \
-  README.ubuntu.txt \
+  README.debian-11.txt \
   /scripts/
 
-RUN chmod 755 /scripts/ubuntu.entrypoint.sh && \
+RUN chmod 755 /scripts/debian-11.entrypoint.sh && \
   chmod 755 /scripts/build-all && \
   chmod 755 /scripts/build-openm && \
   chmod 755 /scripts/build-models && \
@@ -105,14 +113,14 @@ RUN chmod 755 /scripts/ubuntu.entrypoint.sh && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 744 /scripts/model.ini && \
-  chmod 744 /scripts/README.ubuntu.txt
+  chmod 744 /scripts/README.debian-11.txt
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:ubuntu
+LABEL name=openmpp/openmpp-build:debian-11
 LABEL os=Linux
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, node.js"
+LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, R, node.js"
 
 # Done with installation
 # set work directory argument
@@ -120,12 +128,12 @@ LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, b
 ARG OMPP_USER=ompp
 
 ENV OMPP_USER  ${OMPP_USER}
-ENV OMPP_LINUX ubuntu
+ENV OMPP_LINUX debian-11
 
 # actual home directory is set by entrypoint.sh
 #
 # WORKDIR /home/${OMPP_USER}
 #
-ENTRYPOINT ["/scripts/ubuntu.entrypoint.sh"]
+ENTRYPOINT ["/scripts/debian-11.entrypoint.sh"]
 
-CMD ["cat", "/scripts/README.ubuntu.txt"]
+CMD ["cat", "/scripts/README.debian-11.txt"]

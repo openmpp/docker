@@ -3,8 +3,8 @@
 #
 # debian:stable
 # debian:11
+# ubuntu:24.04
 # ubuntu:22.04
-# ubuntu:20.04
 # redhat/ubi9
 #
 # optional:
@@ -23,7 +23,7 @@ cp -pr ~/11-debian/build/openmpp_debian-11_${OMPP_STAMP}/models/bin ~/models
 
 # create check-ompp-lx.sh (see below)
 
-export OMPP_LX="debian:stable debian:11 ubuntu:22.04 ubuntu:20.04 redhat/ubi9"
+export OMPP_LX="debian:stable debian:11 ubuntu:24.04 ubuntu:22.04 redhat/ubi9"
 
 # ./check-ompp-lx.sh
 
