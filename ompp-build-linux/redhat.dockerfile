@@ -53,7 +53,7 @@ RUN dnf -y --setopt=tsflags=nodocs install make && \
 RUN dnf -y --setopt=tsflags=nodocs install xz
 
 # download and install Go
-RUN GO_VER=1.22.1; \
+RUN GO_VER=1.22.5; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \

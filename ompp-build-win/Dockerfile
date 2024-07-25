@@ -68,7 +68,7 @@ RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2024/sqlite-tools-w
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.22.1.windows-amd64.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.22.5.windows-amd64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
     del C:\Temp\go_setup.zip
 
