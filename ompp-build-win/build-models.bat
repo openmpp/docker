@@ -259,7 +259,43 @@ if defined MDL_ONE_EXE (
   -Microdata.All ^
   -Microdata.ToDb ^
   -OpenM.RunName "Microdata other in database" ^
-  -EN.RunDescription "Write other microdata into database" > ..\..\..\log\%MDL_ONE_EXE%.log 2>&1
+  -EN.RunDescription "Write other microdata into database" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.All ^
+  -Microdata.ToDb ^
+  -Parameter.StartingSeed 2047 ^
+  -OpenM.RunName "Microdata version in database" ^
+  -EN.RunDescription "Write another microdata version into database" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -SubFrom.AllParameters csv ^
+  -OpenM.ParamDir ../csv ^
+  -OpenM.RunName "All_4_Sub-values_from_csv" ^
+  -EN.RunDescription "All parameters from csv, 4 sub-values" ^
+  -FR.RunDescription "Tous les paramètres du csv, 4 sous-valeurs" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -SubFrom.AllParameters csv ^
+  -OpenM.ParamDir ../tsv ^
+  -OpenM.RunName "All_4_Sub-values_from_TSV" ^
+  -EN.RunDescription "All parameters from TSV, 4 sub-values" ^
+  -FR.RunDescription "Tous les paramètres du TSV, 4 sous-valeurs" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -SubFrom.AllParameters csv ^
+  -OpenM.ParamDir ../csv_id ^
+  -OpenM.IdCsv ^
+  -OpenM.RunName "All_4_Sub-values_from_Id_csv" ^
+  -EN.RunDescription "All parameters from id.csv, 4 sub-values" ^
+  -FR.RunDescription "Tous les paramètres du id.csv, 4 sous-valeurs" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -SubFrom.AllParameters csv ^
+  -OpenM.ParamDir ../tsv_id ^
+  -OpenM.RunName "All_4_Sub-values_from_Id_TSV" ^
+  -EN.RunDescription "All parameters from id.TSV, 4 sub-values" ^
+  -FR.RunDescription "Tous les paramètres du id.TSV, 4 sous-valeurs" > ..\..\..\log\%MDL_ONE_EXE%.log && ^
   if ERRORLEVEL 1 (
     @echo FAILED.
     @echo FAILED. >> ..\..\..\..\log\build-models.log

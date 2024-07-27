@@ -253,7 +253,7 @@ for %%m in (%OM_BLD_MDLS%) do (
   ) else (
   
     call :rcopy_files    %DEPLOY_DIR%\models\%%m models\%%m  "*.*"
-    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m models\%%m  "csv"
+    call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m models\%%m  "csv,tsv,csv_id,tsv_id"
     call :do_copy_files  %DEPLOY_DIR%\models\sql models\%%m\*.sql
   )
   
