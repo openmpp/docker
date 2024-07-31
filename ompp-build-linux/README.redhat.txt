@@ -59,7 +59,7 @@ Examples:
     OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
     MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
 
-Additional environment variable for build-open and build-model:
+Additional environment variable for build-open and build-models:
   OMPP_CPP_BUILD_TAG=test_branch   # default: build from latest git
 
 If both OMPP_BUILD_TAG and OMPP_CPP_BUILD_TAG specified then OMPP_CPP_BUILD_TAG take precedence
