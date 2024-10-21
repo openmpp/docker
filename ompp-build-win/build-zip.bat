@@ -161,6 +161,9 @@ call :make_dir %DEPLOY_DIR%\etc
 call :do_copy_files %DEPLOY_DIR%\etc\run.Debug.template.txt      ompp-go\etc\run-Windows.Debug.template.txt
 call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt   ompp-go\etc\mpi-Windows.ModelRun.template.txt
 call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelDebug.template.txt ompp-go\etc\mpi-Windows.ModelDebug.template.txt
+call :do_copy_files %DEPLOY_DIR%\etc\disk.ini                    ompp-go\etc\disk_win.ini
+call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\db-cleanup.bat
+call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\ui.extra.json
 call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\run-options.any_model.1.Use_Defaults.json
 
 REM get Docker source code from git and copy Docker sources

@@ -71,7 +71,7 @@ RUN apt-get install -y unixodbc unixodbc-dev
 RUN apt-get autoclean
 
 # download and install node.js
-RUN NODE_VER=v22.2.0; \
+RUN NODE_VER=v22.10.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
