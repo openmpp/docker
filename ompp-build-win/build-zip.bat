@@ -248,6 +248,9 @@ for %%m in (%OM_BLD_MDLS%) do (
     if exist models\%%m\code_original (
       call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "code_original"
     )
+    if exist models\%%m\doc (
+      call :rcopy_sub_dirs %DEPLOY_DIR%\models\%%m  models\%%m  "doc"
+    )
     if exist models\%%m\ompp\bin\doc (
       call :do_copy_files  %DEPLOY_DIR%\models\doc   models\%%m\ompp\bin\doc\*.*
       call :do_copy_files  %DEPLOY_DIR%\models\bin   models\%%m\ompp\bin\%%m.extra.json
