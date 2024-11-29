@@ -241,32 +241,50 @@ if defined MDL_ONE_EXE (
   -Tables.Retain ageSexIncome,AdditionalTables && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
-  -Microdata.All ^
   -Microdata.ToDb ^
+  -Microdata.All ^
   -OpenM.RunName "Microdata in database" ^
   -EN.RunDescription "Write microdata into database" && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
-  -Microdata.All ^
   -Microdata.ToCsv ^
-  -Microdata.CsvDir ^
+  -Microdata.All ^
   -Microdata.Events Birth,Retire,Death ^
   -OpenM.RunName "Microdata in CSV" ^
   -EN.RunDescription "Write microdata into CSV files") && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.SetName modelOne_other ^
   -OpenM.Threads 4 ^
-  -Microdata.All ^
   -Microdata.ToDb ^
+  -Microdata.All ^
   -OpenM.RunName "Microdata other in database" ^
   -EN.RunDescription "Write other microdata into database" && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
-  -Microdata.All ^
   -Microdata.ToDb ^
+  -Microdata.All ^
   -Parameter.StartingSeed 2047 ^
   -OpenM.RunName "Microdata version in database" ^
   -EN.RunDescription "Write another microdata version into database" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.ToDb ^
+  -Microdata.Person Sex,Age,Income ^
+  -OpenM.RunName "Microdata Person Age,Sex,Income in database" ^
+  -EN.RunDescription "Write Person Age,Sex,Income microdata into database" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.ToDb ^
+  -Microdata.Person crc,Sex,Age,Age,Income ^
+  -Microdata.UseInternal ^
+  -OpenM.RunName "Microdata Person Age,Sex,Income,crc in database" ^
+  -EN.RunDescription "Write Person Age,Sex,Income,crc microdata into database" && ^
+%MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
+  -OpenM.Threads 4 ^
+  -Microdata.ToDb ^
+  -Microdata.Person Sex,Age,Income,OldAge,AgeSex,Internal ^
+  -OpenM.RunName "Microdata Person Age,Sex,Income,OldAge,AgeSex in database" ^
+  -EN.RunDescription "Write microdata Person Age,Sex,Income and OldAge,AgeSex groups into database" && ^
 %MDL_ONE_EXE% %MDL_OPTS% -OpenM.SubValues 4 ^
   -OpenM.Threads 4 ^
   -SubFrom.AllParameters csv ^
