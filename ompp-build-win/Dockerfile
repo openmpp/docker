@@ -27,6 +27,10 @@ RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
 
 # download and install v17 (VS-2022) Microsoft MSBuild Tools and VC++
+#
+# download and install old version of MSBuild Tools:
+#     https://aka.ms/vs/17/release.ltsc.17.4/vs_buildtools.exe
+#
 RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/17/release/vs_BuildTools.exe && `
     ( C:\Temp\vs_buildtools.exe --quiet --wait --norestart --nocache --includeRecommended `
     --installPath C:\BuildTools `
