@@ -8,8 +8,8 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-build:windows-20H2`
 - `openmpp/openmpp-build:debian`
-- `openmpp/openmpp-build:debian-11`
 - `openmpp/openmpp-build:ubuntu`
+- `openmpp/openmpp-build:ubuntu-2204`
 - `openmpp/openmpp-build:redhat`
 
 ### `openmpp/openmpp-build:windows-20H2`
@@ -29,16 +29,6 @@ Pull: `docker pull openmpp/openmpp-build:debian`
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
 From: `debian:stable`
-
-Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
-
-### `openmpp/openmpp-build:debian-11`
-
-Pull: `docker pull openmpp/openmpp-build:debian-11`
-
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
-
-From: `debian:11`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
@@ -83,7 +73,7 @@ set OM_BUILD_CONFIGS=Release,Debug (default: Release)
 set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
 set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
+set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
 ```
 
 To build only openM++ libraries and omc compiler do:
@@ -254,7 +244,7 @@ OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
 ```
 Environment variables to pass your current user and home directory to container:
 ```
@@ -329,7 +319,7 @@ OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
 OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
-MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
+MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
 ```
 Environment variables to pass your current user and home directory to container:
 ```

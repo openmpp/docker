@@ -3,14 +3,14 @@ REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_201
 REM environmemnt variables:
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
+REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX,SM1
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 
 setlocal enabledelayedexpansion
 
 if /I "%OM_MSG_USE%"=="MPI" set OM_SFX_MPI=_mpi
 
-set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX
+set OM_BLD_MDLS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX,SM1
 if defined MODEL_DIRS       set OM_BLD_MDLS=%MODEL_DIRS%
 
 REM push into ompp root and make log directory if not exist

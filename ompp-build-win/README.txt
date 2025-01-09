@@ -5,9 +5,9 @@ To build openM++ do:
   docker run .... openmpp/openmpp-build:windows-20H2 build-all
 
   Examples:
-  docker run --isolation process -v C:\my\build:C:\build openmpp/openmpp-build:windows-20H2 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-20H2 build-all
-  docker run --isolation process -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-20H2 build-all
+  docker run -v C:\my\build:C:\build openmpp/openmpp-build:windows-20H2 build-all
+  docker run -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-20H2 build-all
+  docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-20H2 build-all
 
   Environment variables:
   set OMPP_BUILD_TAG=v1.2.3          (default: build from latest git)
@@ -15,7 +15,7 @@ To build openM++ do:
   set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
   set OM_MSG_USE=MPI                 (default: EMPTY)
   set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
-  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
+  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
 
 Additional environment variable for build-open and build-model:
   OMPP_CPP_BUILD_TAG=test_branch     (default: build from latest git)
