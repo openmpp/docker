@@ -1,8 +1,7 @@
 ##############
-# use debian-11 to check:
+# use ubuntu 22.04 to check:
 #
 # debian:stable
-# debian:11
 # ubuntu:24.04
 # ubuntu:22.04
 # redhat/ubi9
@@ -13,40 +12,20 @@
 # opensuse/tumbleweed:latest
 # registry.suse.com/bci/bci-base:latest
 
-export OMPP_STAMP=20230803
+export OMPP_STAMP=20250122
 
 # copy models
 
 cd ~
 rm -rf ~/models
-cp -pr ~/11-debian/build/openmpp_debian-11_${OMPP_STAMP}/models/bin ~/models
+cp -pr ~/ubuntu-2204/build/openmpp_ubuntu-2204_${OMPP_STAMP}/models/bin ~/models
 
 # create check-ompp-lx.sh (see below)
 
-export OMPP_LX="debian:stable debian:11 ubuntu:24.04 ubuntu:22.04 redhat/ubi9"
+export OMPP_LX="debian:stable ubuntu:24.04 ubuntu:22.04 redhat/ubi9"
 
 # ./check-ompp-lx.sh
 
-
-############
-# use debian-10 to check:
-#
-# debian:10
-# redhat/ubi8
-
-export OMPP_STAMP=20230803
-
-# copy models
-
-cd ~
-rm -rf ~/models
-cp -pr ~/10-debian/build/openmpp_debian-10_${OMPP_STAMP}/models/bin ~/models
-
-# create check-ompp-lx.sh (see below)
-
-export OMPP_LX="debian:10 redhat/ubi8"
-
-# ./check-ompp-lx.sh
 
 ####
 # create check-ompp-lx.sh
