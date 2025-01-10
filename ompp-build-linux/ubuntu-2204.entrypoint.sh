@@ -8,8 +8,17 @@ fi
 
 # add OMPP_USER and group
 #
-groupadd -g ${OMPP_GID} ${OMPP_GROUP}
-useradd --no-log-init -g ${OMPP_GROUP} -u ${OMPP_UID} ${OMPP_USER}
+if ! getent group ${OMPP_GID} >/dev/null 2>&1;
+then
+  groupadd -g ${OMPP_GID} ${OMPP_GROUP}
+fi
+
+if ! getent passwd ${OMPP_UID} >/dev/null 2>&1;
+then
+  useradd --no-log-init --gid ${OMPP_GID} -u ${OMPP_UID} ${OMPP_USER}
+fi
+
+OMPP_USER=`id -nu ${OMPP_UID}`
 
 # set environment: home directory
 #
