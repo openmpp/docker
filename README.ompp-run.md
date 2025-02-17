@@ -8,7 +8,6 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-run:windows-20H2`
 - `openmpp/openmpp-run:debian`
-- `openmpp/openmpp-run:debian-11`
 - `openmpp/openmpp-run:ubuntu`
 - `openmpp/openmpp-run:redhat`
 
@@ -32,23 +31,13 @@ From: `debian:stable`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
-### `openmpp/openmpp-run:debian-11`
-
-Pull: `docker pull openmpp/openmpp-run:debian-11`
-
-GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-debian-11](https://github.com/openmpp/docker/tree/master/ompp-run-debian-11)
-
-From: `debian:stable`
-
-Installed: `Open MPI, SQLite, unixODBC`
-
 ### `openmpp/openmpp-run:ubuntu`
 
 Pull: `docker pull openmpp/openmpp-run:ubuntu`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu)
 
-From: `ubuntu:22.04`
+From: `ubuntu:24.04`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
