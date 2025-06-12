@@ -1,4 +1,4 @@
-# Docker image to build openM++ latest version for Rocky Linux 9
+# Docker image to build openM++ latest version for Alma Linux 10
 #
 # Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:redhat -f redhat.dockerfile .
@@ -35,7 +35,7 @@
 #
 #   docker run -it openmpp/openmpp-build:redhat bash
 
-FROM rockylinux/rockylinux:9
+FROM almalinux:10
 
 # update base image
 RUN dnf -y update && dnf clean all
@@ -48,9 +48,6 @@ RUN dnf -y --setopt=tsflags=nodocs install make && \
   dnf -y --setopt=tsflags=nodocs install git && \
   dnf -y --setopt=tsflags=nodocs install gcc-c++ && \
   dnf -y --setopt=tsflags=nodocs install openmpi openmpi-devel
-
-# install extra utilities
-RUN dnf -y --setopt=tsflags=nodocs install xz
 
 # download and install Go
 RUN GO_VER=1.24.3; \
@@ -65,17 +62,6 @@ RUN dnf -y --setopt=tsflags=nodocs install unixODBC
 
 RUN dnf -y --enablerepo=crb install unixODBC-devel
 
-# download and install R
-# RUN dnf install -y --setopt=tsflags=nodocs epel-release
-#
-# RUN dnf install -y --setopt=tsflags=nodocs dnf-plugins-core
-#
-# RUN dnf config-manager --set-enabled powertools
-#
-# RUN dnf -y --setopt=tsflags=nodocs install cups
-#
-# RUN dnf -y --setopt=tsflags=nodocs install R-core
-
 # cleanup
 RUN dnf clean all
 
@@ -88,7 +74,7 @@ RUN NODE_VER=v22.15.1; \
 
 # set local openM++ timezone
 RUN rm -f /etc/localtime && \
-  ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+    ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 # copy entry point and build scripts
 COPY redhat.entrypoint.sh \

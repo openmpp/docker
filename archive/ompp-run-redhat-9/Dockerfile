@@ -1,45 +1,48 @@
-# Docker image to run openM++ models on Alma Linux 10
+# Docker image to run openM++ models on RedHat (Rocky Linux) 9
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-run:redhat-10 .
-#   podman build -t openmpp/openmpp-run:redhat-10 --build-arg OMPP_USER=ompp .
+#   podman build -t openmpp/openmpp-run:redhat-9 .
+#   podman build -t openmpp/openmpp-run:redhat-9 --build-arg OMPP_USER=ompp .
 #
 # Examples of run:
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-10 \
+#     openmpp/openmpp-run:redhat-9 \
 #     ./modelOne
 #
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-10 \
+#     openmpp/openmpp-run:redhat-9 \
 #     mpiexec --allow-run-as-root -n 2 modelOne_mpi -OpenM.SubValues 16
 #
-#   podman run -it openmpp/openmpp-run:redhat-10 bash
+#   podman run -it openmpp/openmpp-run:redhat-9 bash
 #
 
-FROM almalinux:10
+FROM rockylinux/rockylinux:9
 
 # update base image
 RUN dnf -y update && dnf clean all
 
 # install Open MPI
+#
+# 2024-01-30:
+# SQLite is installed into the base image, update SQLite breaks openMPI
+#
 RUN dnf -y --setopt=tsflags=nodocs install openmpi
 
-# (optional) install SQLite and unixODBC
-RUN dnf -y --setopt=tsflags=nodocs install sqlite && \
-    dnf -y --setopt=tsflags=nodocs install unixODBC
+# download and install unixODBC (optional)
+RUN dnf -y --setopt=tsflags=nodocs install unixODBC
 
 # cleanup
 RUN dnf clean all
 
 # set local openM++ timezone
 RUN rm -f /etc/localtime && \
-    ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+  ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 # copy entry point and build scripts
 COPY entrypoint.sh \
