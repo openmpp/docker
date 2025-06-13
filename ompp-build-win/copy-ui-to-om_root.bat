@@ -18,7 +18,7 @@ if not exist "%OM_ROOT%" (
   @echo ERROR: destination directory not exist: %OM_ROOT%
   @echo        may be you want to do:
   @echo .
-  @echo   git clone https://github.com/openmpp/main.git %OM_ROOT%
+  @echo   git clone %OMPP_GIT_URL%/main.git %OM_ROOT%
   @echo .
   pause
   EXIT 1

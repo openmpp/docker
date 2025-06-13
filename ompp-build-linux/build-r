@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 #
 # build openMpp R package
+#
+# environmemnt variables:
+#
+#  OMPP_GIT_URL (default: https://github.com/openmpp)
 
 # push into ompp root and make log directory if not exist
 
@@ -27,9 +31,9 @@ echo `date` Build openMpp R package | tee log/build-r.log
 
 if [ ! -d ompp-r ]; then
   
-  echo git clone https://github.com/openmpp/R ompp-r | tee -a log/build-r.log
+  echo git clone ${OMPP_GIT_URL}/R ompp-r | tee -a log/build-r.log
   
-  if ! git clone https://github.com/openmpp/R ompp-r >> log/build-r.log 2>&1;
+  if ! git clone ${OMPP_GIT_URL}/R ompp-r >> log/build-r.log 2>&1;
   then
     echo FAILED git clone | tee -a log/build-r.log
     exit 1
@@ -46,7 +50,7 @@ echo download latest release of openMpp R package | tee -a ../log/build-r.log
 
 export OMPP_R_VER=0.8.7
 
-curl -L -o openMpp_${OMPP_R_VER}.tar.gz https://github.com/openmpp/R/releases/download/${OMPP_R_VER}/openMpp_${OMPP_R_VER}.tar.gz
+curl -L -o openMpp_${OMPP_R_VER}.tar.gz ${OMPP_GIT_URL}/R/releases/download/${OMPP_R_VER}/openMpp_${OMPP_R_VER}.tar.gz
 if [ $? -ne 0 ];
 then
   echo FAILED to download openMpp R package: openMpp_${OMPP_R_VER}.tar.gz | tee -a ../log/build-r.log

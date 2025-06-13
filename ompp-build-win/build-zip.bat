@@ -1,10 +1,12 @@
 @echo off
 REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_20180817.zip
 REM environmemnt variables:
+REM
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX,SM1
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM  set OMPP_GIT_URL                   (default: https://github.com/openmpp)
 
 setlocal enabledelayedexpansion
 
@@ -169,7 +171,7 @@ call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\run
 REM get Docker source code from git and copy Docker sources
 
 if not exist ompp-docker (
-  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/docker ompp-docker"
+  call :do_cmd_line_log log\build-zip.log "git clone %OMPP_GIT_URL%/docker ompp-docker"
   call :do_git_tag_checkout ompp-docker
 )
 
@@ -183,7 +185,7 @@ call :rcopy_files    %DEPLOY_DIR%\bin ompp-docker\ompp-build-win "copy-ui-to-om_
 REM get Python source code from git and copy Python sources
 
 if not exist ompp-python (
-  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/python ompp-python"
+  call :do_cmd_line_log log\build-zip.log "git clone %OMPP_GIT_URL%/python ompp-python"
   call :do_git_tag_checkout ompp-python
 )
 
@@ -198,7 +200,7 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-r ompp-r "openMpp,oms-R,images"
 REM copy additional sources from openmpp/other repository
 
 if not exist ompp-other (
-  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/other ompp-other"
+  call :do_cmd_line_log log\build-zip.log "git clone %OMPP_GIT_URL%/other ompp-other"
   call :do_git_tag_checkout ompp-other
 )
 
@@ -308,7 +310,7 @@ if exist %DEPLOY_DIR%\models\OzProjX (
 REM add MacOS extra source code and documents
 
 if not exist ompp-mac (
-  call :do_cmd_line_log log\build-zip.log "git clone https://github.com/openmpp/mac ompp-mac"
+  call :do_cmd_line_log log\build-zip.log "git clone %OMPP_GIT_URL%/mac ompp-mac"
   call :do_git_tag_checkout ompp-mac
 )
 

@@ -3,9 +3,7 @@
 # Examples of build and arguments default values:
 #   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile .
 #   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile --build-arg OMPP_USER=ompp .
-#   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile --build-arg OMPP_GROUP=ompp .
-#   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile --build-arg OMPP_UID=1999 .
-#   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile --build-arg OMPP_GID=1999 .
+#   docker build -t openmpp/openmpp-build:ubuntu-2204 -f ubuntu-2204.dockerfile --build-arg OMPP_GIT_URL=https://github.com/openmpp .
 #
 # Examples of run, mapping your login user, group and home to container:
 #
@@ -115,12 +113,14 @@ LABEL license=MIT
 LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, bison, flex, Go, node.js"
 
 # Done with installation
-# set work directory argument
+# set environment
 #
 ARG OMPP_USER=ompp
+ARG OMPP_GIT_URL=https://github.com/openmpp
 
-ENV OMPP_USER  ${OMPP_USER}
-ENV OMPP_LINUX ubuntu-2204
+ENV OMPP_GIT_URL ${OMPP_GIT_URL}
+ENV OMPP_USER    ${OMPP_USER}
+ENV OMPP_LINUX   ubuntu-2204
 
 # actual home directory is set by entrypoint.sh
 #

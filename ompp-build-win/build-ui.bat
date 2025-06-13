@@ -1,7 +1,9 @@
 @echo off
 REM build openM++ UI
+REM
 REM environmemnt variables:
-REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM  set OMPP_BUILD_TAG     (default: build from latest git)
+REM  set OMPP_GIT_URL       (default: https://github.com/openmpp)
 
 setlocal enabledelayedexpansion
 
@@ -34,7 +36,7 @@ REM get source code from git, if directory not already exist
 
 if not exist ompp-ui (
   
-  call :do_cmd_line_log log\build-ui.log "git clone https://github.com/openmpp/UI ompp-ui"
+  call :do_cmd_line_log log\build-ui.log "git clone %OMPP_GIT_URL%/UI ompp-ui"
   
 ) else (
   @echo Skip: git clone

@@ -7,6 +7,7 @@
 #  OM_MSG_USE=MPI                 (default: EMPTY)
 #  OMPP_BUILD_TAG                 (default: build from latest git)
 #  OMPP_CPP_BUILD_TAG             (default: build from latest git)
+#  OMPP_GIT_URL                   (default: https://github.com/openmpp)
 #
 #  OMPP_CPP_BUILD_TAG has higher priority over OMPP_BUILD_TAG
 
@@ -44,7 +45,7 @@ fi;
 
 if [ ! -d ompp ]; then
 
-  if ! git clone https://github.com/openmpp/main.git ompp ;
+  if ! git clone ${OMPP_GIT_URL}/main.git ompp ;
   then
     echo FAILED git clone
     exit 1

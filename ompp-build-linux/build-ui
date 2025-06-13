@@ -2,7 +2,9 @@
 #
 # build openM++ UI
 # environmemnt variables:
+#
 #  OMPP_BUILD_TAG   (default: build from latest git)
+#  OMPP_GIT_URL     (default: https://github.com/openmpp)
 
 # push into ompp root and make log directory if not exist
 
@@ -31,9 +33,9 @@ echo " OM_ROOT        = $OM_ROOT" | tee -a log/build-ui.log
 
 if [ ! -d ompp-ui ]; then
   
-  echo git clone https://github.com/openmpp/UI ompp-ui | tee -a log/build-ui.log
+  echo git clone ${OMPP_GIT_URL}/UI ompp-ui | tee -a log/build-ui.log
   
-  if ! git clone https://github.com/openmpp/UI ompp-ui >> log/build-ui.log 2>&1;
+  if ! git clone ${OMPP_GIT_URL}/UI ompp-ui >> log/build-ui.log 2>&1;
   then
     echo FAILED git clone | tee -a log/build-ui.log
     exit 1

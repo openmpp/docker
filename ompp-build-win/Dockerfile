@@ -3,7 +3,8 @@
 # Docker image to build openM++ latest version on Windows
 #
 # Example of build:
-#   docker build -t openmpp/openmpp-build:windows-20H2 .
+#   docker build -t openmpp/openmpp-build:windows-20H2 --build-arg OMPP_GIT_URL=https://github.com/openmpp .
+
 #
 # Example of run:
 #   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-all
@@ -141,7 +142,13 @@ LABEL license=MIT
 LABEL description="OpenM++ build environemnt: VC++ 2022, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, node.js, Perl"
 
 # Done with installation
-# 
+
+# set environment
+#
+ARG OMPP_GIT_URL=https://github.com/openmpp
+
+ENV OMPP_GIT_URL ${OMPP_GIT_URL}
+
 WORKDIR /build
 
 # start VC++ developer command prompt

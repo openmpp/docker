@@ -9,7 +9,9 @@
 # update local copy of GitHub pages git repository with new documentation
 #
 # environmemnt variables:
+#
 #  OMPP_BUILD_TAG   (default: build from latest git)
+#  OMPP_GIT_URL     (default: https://github.com/openmpp)
 
 # push into ompp-make-doc root and make log directory if not exist
 
@@ -69,7 +71,7 @@ do_git_clone()
 }
 
 #
-do_git_clone https://github.com/openmpp/main.git ompp-main $OMPP_BUILD_TAG
+do_git_clone ${OMPP_GIT_URL}/main.git ompp-main $OMPP_BUILD_TAG
 
 # make doxygen documenation for libopenm and omc
 
@@ -118,7 +120,7 @@ do_cmd()
   fi
 }
 
-do_git_clone https://github.com/openmpp/github-wikito-converter.git ompp-gwtc
+do_git_clone ${OMPP_GIT_URL}/github-wikito-converter.git ompp-gwtc
 
 export npm_config_cache=$OM_ROOT/build/npm-cache
 
@@ -135,7 +137,7 @@ popd
 # make new version of wiki as single file HTML and PDF
 WIKI_FILE_NAME=openmpp-wiki
 
-do_git_clone https://github.com/openmpp/openmpp.github.io.wiki.git ompp-wiki $OMPP_BUILD_TAG
+do_git_clone ${OMPP_GIT_URL}/openmpp.github.io.wiki.git ompp-wiki $OMPP_BUILD_TAG
 
 echo node $GWTC -v --disable-highlight-auto -f all -t "OpenM++ wiki" -n $WIKI_FILE_NAME ./ompp-wiki | tee -a $LOG_PATH
   
@@ -147,7 +149,7 @@ fi
 
 # make new version of openM++ web-site
 
-do_git_clone https://github.com/openmpp/openmpp.github.io.git ompp-pages
+do_git_clone ${OMPP_GIT_URL}/openmpp.github.io.git ompp-pages
 
 do_replace_doxygen()
 {

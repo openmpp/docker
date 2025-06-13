@@ -54,6 +54,7 @@ Examples:
     OMPP_GID=1999                  # default: 1999, container group ID
     OMPP_BUILD_TAG=v1.2.3          # default: build from latest git
     OMPP_LINUX                     # Linux distro name: debian, redhat, ubuntu, default: linux
+    OMPP_GIT_URL                   # default: https://github.com/openmpp
     OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEASE for models
     OM_MSG_USE=MPI                 # default: EMPTY
     OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD

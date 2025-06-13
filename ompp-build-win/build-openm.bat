@@ -1,11 +1,13 @@
 @echo off
 REM build openM++ run-time libraries and omc compiler
+REM
 REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release,Debug)
 REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32,x64)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set OMPP_CPP_BUILD_TAG             (default: build from latest git)
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM  set OMPP_GIT_URL                   (default: https://github.com/openmpp)
 REM
 REM  OMPP_CPP_BUILD_TAG has higher priority over OMPP_BUILD_TAG
 
@@ -38,8 +40,8 @@ REM get source code from git
 
 if not exist ompp (
   
-  @echo git clone https://github.com/openmpp/main.git ompp
-  git clone https://github.com/openmpp/main.git ompp
+  @echo git clone %OMPP_GIT_URL%/main.git ompp
+  git clone %OMPP_GIT_URL%/main.git ompp
   if ERRORLEVEL 1 (
     @echo FAILED.
     EXIT

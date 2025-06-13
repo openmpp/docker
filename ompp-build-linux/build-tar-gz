@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 #
 # create zip archive of openM++ build from ompp sub-directory: openmpp_linux_YYYYMMDD.tar.gz
+#
 # environmemnt variables:
 #  OM_MSG_USE=MPI                 default: EMPTY
 #  OM_DATE_STAMP=20220817         default: current date as YYYYMMDD
 #  MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX,SM1
 #  OMPP_BUILD_TAG                 default: build from latest git
 #  OMPP_LINUX                     Linux distro name: debian, redhat, ubuntu, default: linux
+#  OMPP_GIT_URL                  (default: https://github.com/openmpp)
 
 if [ -n "$OM_MSG_USE" ] && [ "$OM_MSG_USE" != 'EMPTY' ] && [ "$OM_MSG_USE" != 'MPI' ]; then
   echo Error: incorrect value: $OM_MSG_USE, must be one of: MPI or EMPTY
@@ -167,7 +169,7 @@ do_cmd cp -p ompp-go/etc/run-options.any_model.1.Use_Defaults.json $DEPLOY_DIR/e
 # get Docker source code from git and copy Docker sources
 
 if [ ! -d ompp-docker ]; then
-  do_cmd git clone https://github.com/openmpp/docker ompp-docker
+  do_cmd git clone ${OMPP_GIT_URL}/docker ompp-docker
   do_git_tag_checkout ompp-docker $OMPP_BUILD_TAG
 fi
 
@@ -185,7 +187,7 @@ do_cmd cp -pr ompp-docker/ompp-run-redhat     $DEPLOY_DIR/ompp-docker
 # get Python source code from git and copy Python sources
 
 if [ ! -d ompp-python ]; then
-  do_cmd git clone https://github.com/openmpp/python ompp-python
+  do_cmd git clone ${OMPP_GIT_URL}/python ompp-python
   do_git_tag_checkout ompp-python $OMPP_BUILD_TAG
 fi
 
@@ -208,7 +210,7 @@ do_cmd cp -pr ompp-r/images  $DEPLOY_DIR/ompp-r
 # copy additional sources from openmpp/other repository
 
 if [ ! -d ompp-other ]; then
-  do_cmd git clone https://github.com/openmpp/other ompp-other
+  do_cmd git clone ${OMPP_GIT_URL}/other ompp-other
   do_git_tag_checkout ompp-other $OMPP_BUILD_TAG
 fi
 
@@ -273,7 +275,7 @@ done
 # add MacOS extra source code and documents
 
 if [ ! -d ompp-mac ]; then
-  do_cmd git clone https://github.com/openmpp/mac.git ompp-mac
+  do_cmd git clone ${OMPP_GIT_URL}/mac.git ompp-mac
   do_git_tag_checkout ompp-mac $OMPP_BUILD_TAG
   do_cmd chmod a+x "ompp-mac/build/build-*"
 fi

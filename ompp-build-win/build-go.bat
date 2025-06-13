@@ -1,7 +1,9 @@
 @echo off
 REM build openM++ Go oms web-service and dbcopy, dbget utilities
+REM
 REM environmemnt variables:
-REM  set OMPP_BUILD_TAG                 (default: build from latest git)
+REM  set OMPP_BUILD_TAG     (default: build from latest git)
+REM  set OMPP_GIT_URL       (default: https://github.com/openmpp)
 
 setlocal enabledelayedexpansion
 
@@ -27,7 +29,7 @@ REM log build environment
 REM build go oms web-service and dbcopy, dbget utilities
 
 if not exist ompp-go (
-  call :do_cmd_line_log log\build-go.log "git clone https://github.com/openmpp/go ompp-go"
+  call :do_cmd_line_log log\build-go.log "git clone %OMPP_GIT_URL%/go ompp-go"
 )
 
 pushd ompp-go
