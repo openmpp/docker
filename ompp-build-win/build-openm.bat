@@ -39,7 +39,7 @@ if defined OM_P_MPI (
 REM get source code from git
 
 if not exist ompp (
-  
+
   @echo git clone %OMPP_GIT_URL%/main.git ompp
   git clone %OMPP_GIT_URL%/main.git ompp
   if ERRORLEVEL 1 (

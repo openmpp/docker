@@ -2,7 +2,7 @@
 REM build openM++ demo models
 REM environmemnt variables:
 REM  set OM_BUILD_CONFIGS=Release,Debug (default: Release)
-REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
+REM  set OM_BUILD_PLATFORMS=Win32,x64   (default: x64)
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
 REM  set OMPP_CPP_BUILD_TAG             (default: build from latest git)

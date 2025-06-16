@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+#
+# build and run openM++ model
+#
+# environmemnt variables:
+#
+# OM_ROOT                   default: ..\..
+# OM_BUILD_CONFIGS=Debug    default: Release
+# OM_MSG_USE=MPI            default: EMPTY
+# MODEL_NAME          if not empty then model name
+# MODEL_DIR           if not empty then model source code directory
+# MODEL_GIT_URL       if not empty then git URL of model source code
+# MODEL_GIT_TAG       if not empty then git tag
+# MODEL_INI           if not empty then run model after build with this model ini file
+
+# one of: MODEL_NAME or MODEL_DIR must be defined
+#
+# if MODEL_NAME not empty and MODEL_DIR empty then MODEL_DIR  = OM_ROOT/models/MODEL_NAME
+# if MODEL_NAME empty and MODEL_DIR not empty then MODEL_NAME = last element of MODEL_DIR
+
+# if MODEL_INI path is relative
+# then it must be relative to MODEL_DIR/ompp-linux/bin
+
+# if MODEL_DIR not exists and MODEL_GIT_URL specified then do git clone model source code
+
+#
+# set openM++ root folder 
+#
+self=$(basename "$0")
+sd=$(dirname "$0")
+
+[ -z "$OM_ROOT" ] && OM_ROOT="${sd}/../.."
+
+if [ ! -d "${OM_ROOT}" ] || [ ! -x "$OM_ROOT/bin/omc" ] ;
+then
+  echo "ERROR: invalid OM_ROOT = $OM_ROOT"
+  exit 1
+fi
+echo "OM_ROOT = $OM_ROOT"
+
+# one of: MODEL_NAME or MODEL_DIR must be defined
+#
+# if MODEL_NAME not empty and MODEL_DIR empty then MODEL_DIR  = OM_ROOT/models/MODEL_NAME
+# if MODEL_NAME empty and MODEL_DIR not empty then MODEL_NAME = last element of MODEL_DIR
+
+if [ -z "$MODEL_NAME" ] && [ -z "$MODEL_DIR" ] ;
+then
+   echo "ERROR: both MODEL_NAME and MODEL_DIR are not defined"
+fi
+
+[ -z "$MODEL_NAME" ] && MODEL_NAME=$(basename "$MODEL_DIR")
+[ -z "$MODEL_DIR" ]  && MODEL_DIR="$OM_ROOT/models/$MODEL_NAME"
+
+if [ -z "$MODEL_NAME" ] ;
+then
+  echo ERROR: empty MODEL_NAME
+  exit 1
+fi
+if [ -z "$MODEL_DIR" ] ;
+then
+  echo ERROR: empty MODEL_DIR
+  exit 1
+fi
+
+# set default build configuration
+ 
+OM_BLD_CFG=${OM_BUILD_CONFIGS:-RELEASE}
+
+if [ "$OM_BLD_CFG" != 'RELEASE' ] && [ "$OM_BLD_CFG" != 'DEBUG' ];
+then
+  echo Error: incorrect value: $OM_BLD_CFG, it must be one of: RELEASE or DEBUG
+  exit 1
+fi
+
+if [ -n "$OM_MSG_USE" ] && [ "$OM_MSG_USE" != 'EMPTY' ] && [ "$OM_MSG_USE" != 'MPI' ];
+then
+  echo Error: incorrect value: $OM_MSG_USE, it must be one of: MPI or EMPTY
+  exit 1
+fi
+
+[ "$OM_MSG_USE" = 'MPI' ] && OM_P_MPI="OM_MSG_USE=MPI" || OM_P_MPI=
+
+# log build environment 
+
+if [ ! -d "$OM_ROOT/log" ]; then mkdir log; fi
+
+LOG_PATH="$OM_ROOT/log/make-${MODEL_NAME}.log"
+
+echo Log file: $LOG_PATH
+echo `date` Make $MODEL_NAME model | tee "$LOG_PATH"
+echo Environment: | tee -a "$LOG_PATH"
+echo "OM_ROOT            = $OM_ROOT" | tee -a "$LOG_PATH"
+echo "MODEL_NAME         = $MODEL_NAME" | tee -a "$LOG_PATH"
+echo "MODEL_DIR          = $MODEL_DIR" | tee -a "$LOG_PATH"
+echo "OM_BUILD_CONFIGS   = $OM_BLD_CFG" | tee -a "$LOG_PATH"
+echo "OM_MSG_USE         = $OM_MSG_USE" | tee -a "$LOG_PATH"
+echo "MODEL_GIT_URL      = ${MODEL_GIT_URL}" | tee -a "$LOG_PATH"
+echo "MODEL_GIT_TAG      = $MODEL_GIT_TAG" | tee -a "$LOG_PATH"
+echo "OM_ROOT            = $OM_ROOT" | tee -a "$LOG_PATH"
+echo "MODEL_INI          = $MODEL_INI" | tee -a "$LOG_PATH"
+if [ -z "$OM_P_MPI" ]; then
+  echo Build desktop version: non-MPI | tee -a "$LOG_PATH"
+else
+  echo Build cluster version: using MPI | tee -a "$LOG_PATH"
+fi
+
+# if MODEL_DIR not exists and MODEL_GIT_URL specified then do git clone model source code
+
+if [ -d "$MODEL_DIR" ];
+then
+  echo Skip: git clone
+else
+
+  if [ -n "${MODEL_GIT_URL}" ];
+  then
+    echo git clone ${MODEL_GIT_URL} "${MODEL_DIR}" | tee -a "$LOG_PATH"
+    
+    if ! git clone ${MODEL_GIT_URL} "${MODEL_DIR}" >> "$LOG_PATH" 2>&1;
+    then
+      echo FAILED git clone | tee -a "$LOG_PATH"
+      exit 1
+    fi
+  fi
+
+  if [ -n "$MODEL_GIT_TAG" ];
+  then
+    echo "git checkout $MODEL_GIT_TAG" | tee -a "$LOG_PATH"
+
+    if ! git checkout "$MODEL_GIT_TAG" >> "$LOG_PATH" 2>&1;
+    then
+      echo FAILED git checkout "$MODEL_GIT_TAG" | tee -a "$LOG_PATH"
+      exit 1
+    fi
+  fi
+
+fi
+
+# check if model source code directory exist
+
+if [ ! -d "$MODEL_DIR" ];
+then
+  echo "ERROR: missing source code directory: $MODEL_DIR" | tee -a "$LOG_PATH"
+  exit 1
+fi
+
+# build model
+
+pushd "$MODEL_DIR"
+
+# export MODEL_INI="${MODEL_INI}"
+# export MODEL_NAME="${MODEL_NAME}"
+
+[ "$OM_BLD_CFG" = 'RELEASE' ] && OM_P_RLS="RELEASE=1" || OM_P_RLS=
+
+echo make $OM_P_RLS $OM_P_MPI all publish
+
+if ! make $OM_P_RLS $OM_P_MPI all publish >>  "$LOG_PATH" 2>&1;
+then
+  echo FAILED: make $OM_P_RLS $OM_P_MPI all publish | tee -a "$LOG_PATH"
+  exit 1
+fi
+
+# run the model if model ini-file specified
+
+if [ -n "${MODEL_INI}" ];
+then
+  echo make $OM_P_RLS $OM_P_MPI run
+
+  if ! make $OM_P_RLS $OM_P_MPI run >>  "$LOG_PATH" 2>&1;
+  then
+    echo FAILED: make $OM_P_RLS $OM_P_MPI run | tee -a "$LOG_PATH"
+    exit 1
+  fi
+fi
+
+popd
+
+echo `date` Done. | tee -a "$LOG_PATH"
