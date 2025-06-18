@@ -20,9 +20,6 @@ REM if MODEL_NAME empty and MODEL_DIR not empty then MODEL_NAME = last element o
 
 REM if MODEL_DIR not exists and MODEL_GIT_URL specified then do git clone model source code
 
-REM if MODEL_INI path is relative
-REM then it must be relative to MODEL_DIR\ompp\bin
-
 setlocal enabledelayedexpansion
 
 IF "%OM_ROOT%" == "" (
@@ -90,7 +87,7 @@ set LOG_PATH="%OM_ROOT%"\log\make-%MODEL_NAME%.log
 @echo OM_BUILD_PLATFORMS = %OM_BLD_PLT%
 @echo OM_MSG_USE         = %OM_MSG_USE%
 @echo MODEL_GIT_URL      = %MODEL_GIT_URL%
-@echo MODEL_GIT_TAG      = %MODEL_DIR%
+@echo MODEL_GIT_TAG      = %MODEL_GIT_TAG%
 @echo MODEL_INI          = %MODEL_INI%
 if defined OM_P_MPI (
   @echo Make cluster version: using MPI
@@ -107,7 +104,7 @@ if defined OM_P_MPI (
 @echo OM_BUILD_PLATFORMS = %OM_BLD_PLT% >> "%LOG_PATH%"
 @echo OM_MSG_USE         = %OM_MSG_USE% >> "%LOG_PATH%"
 @echo MODEL_GIT_URL      = %MODEL_GIT_URL% >> "%LOG_PATH%"
-@echo MODEL_GIT_TAG      = %MODEL_DIR% >> "%LOG_PATH%"
+@echo MODEL_GIT_TAG      = %MODEL_GIT_TAG% >> "%LOG_PATH%"
 @echo MODEL_INI          = %MODEL_INI% >> "%LOG_PATH%"
 if defined OM_P_MPI (
   @echo Make cluster version: using MPI >> "%LOG_PATH%"
@@ -176,25 +173,11 @@ if defined OM_P_MPI set MDL_EXE=%MDL_EXE%_mpi
      
 set MDL_P_ARGS=-p:Configuration=%OM_BLD_CFG% -p:Platform=%OM_BLD_PLT% -p:MODEL_DOC=false %MODEL_NAME%-ompp.sln
 
-call :make_model_sln %MODEL_DIR% %LOG_PATH% "%OM_P_MPI% %MDL_P_ARGS%"
+call :make_model_sln %MODEL_DIR% %OM_ROOT% %LOG_PATH% "%OM_P_MPI% %MDL_P_ARGS%"
       
 REM run the model if model ini-file specified
       
-if not "%MODEL_INI%" == "" (
-
-  pushd %MODEL_DIR%\ompp\bin\
-        
-  @echo Run: %MDL_EXE% -ini %MODEL_INI%
-  @echo Run: %MDL_EXE% -ini %MODEL_INI% >> "%LOG_PATH%"
-  
-  %MDL_EXE% -ini "%MODEL_INI%" >> "%LOG_PATH%" 2>&1
-  if ERRORLEVEL 1 (
-    @echo FAILED.
-    @echo FAILED. >> "%LOG_PATH%"
-    EXIT
-  )
-  popd
-)
+if not "%MODEL_INI%" == "" call :model_run %MODEL_DIR%\ompp\bin "%MODEL_INI%" "%LOG_PATH%"
 
 
 @echo %DATE% %TIME% Done.
@@ -208,19 +191,24 @@ REM end of main body
 REM build model subroutine
 REM arguments:
 REM  1 = model directory
-REM  2 = model build log file name
-REM  3 = msbuild command line arguments
+REM  2 = OM_ROOT
+REM  3 = model build log file name
+REM  4 = msbuild command line arguments
 
 :make_model_sln
 
 set m_dir=%1
-set m_log=%2
-set mk_args=%~3
+set om_rt=%~f2
+set m_log=%~f3
+set mk_args=%~4
 
 @echo pushd %m_dir%
 @echo pushd %m_dir% >> %m_log%
 
 pushd %m_dir%
+
+setlocal enabledelayedexpansion
+set OM_ROOT=%om_rt%
 
 @echo msbuild %mk_args%
 @echo msbuild %mk_args% >> %m_log%
@@ -229,6 +217,38 @@ msbuild %mk_args% >>%m_log% 2>&1
 if ERRORLEVEL 1 (
   @echo FAILED.
   @echo FAILED. >> %m_log%
+  EXIT
+)
+endlocal
+popd
+
+exit /b
+
+
+REM build model subroutine
+REM arguments:
+REM  1 = model exe directory: MODEL_DIR\ompp\bin
+REM  2 = path to model ini file
+REM  3 = model build log file name
+
+:model_run
+
+set m_bin=%~f1
+set m_ini=%~f2
+set m_log=%~f3
+
+@echo pushd %m_bin%
+@echo pushd %m_bin% >> %m_log%
+
+pushd %m_bin%
+
+@echo Run: %MDL_EXE% -ini %m_ini%
+@echo Run: %MDL_EXE% -ini %m_ini% >> "%m_log%"
+
+%MDL_EXE% -ini "%m_ini%" >> "%m_log%" 2>&1
+if ERRORLEVEL 1 (
+  @echo FAILED.
+  @echo FAILED. >> "%m_log%"
   EXIT
 )
 popd
