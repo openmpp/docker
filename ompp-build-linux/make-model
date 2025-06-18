@@ -18,9 +18,6 @@
 # if MODEL_NAME not empty and MODEL_DIR empty then MODEL_DIR  = OM_ROOT/models/MODEL_NAME
 # if MODEL_NAME empty and MODEL_DIR not empty then MODEL_NAME = last element of MODEL_DIR
 
-# if MODEL_INI path is relative
-# then it must be relative to MODEL_DIR/ompp-linux/bin
-
 # if MODEL_DIR not exists and MODEL_GIT_URL specified then do git clone model source code
 
 #
@@ -36,6 +33,42 @@ then
   echo "ERROR: invalid OM_ROOT = $OM_ROOT"
   exit 1
 fi
+
+# make absolute directory path if directory path is relative
+# it removes last / or last /.
+# it does not normalize path and it does not check if path exists
+#
+# openmpp/mdls/    => /home/user/openmpp/mdls
+# openmpp/mdls/.   => /home/user/openmpp/mdls
+# openmpp/mdls/..  => /home/user/openmpp/mdls/..
+# .                => /home/user
+# ..               => /home/user/..
+# /openmpp/mdls/   => /openmpp/mdls
+# /openmpp/mdls/.  => /openmpp/mdls
+# /openmpp/mdls/.. => /openmpp/mdls/..
+# /                => empty result
+# /.               => empty result
+#
+do_abspath()
+{
+  wd="$PWD"
+ [ "$PWD" = "/" ] && wd=""
+
+  case "$1" in
+    /*) d="${1}"
+    ;;
+    *)  d="$wd/${1#./}"
+    ;;
+  esac
+
+  d="${d%/}"
+  d="${d%/.}"
+
+  echo "$d"
+}
+
+OM_ROOT=$(do_abspath "$OM_ROOT")
+
 echo "OM_ROOT = $OM_ROOT"
 
 # one of: MODEL_NAME or MODEL_DIR must be defined
@@ -48,22 +81,37 @@ then
    echo "ERROR: both MODEL_NAME and MODEL_DIR are not defined"
 fi
 
-[ -z "$MODEL_NAME" ] && MODEL_NAME=$(basename "$MODEL_DIR")
+if [ -z "$MODEL_NAME" ];
+then
+  MODEL_NAME=$(basename "$MODEL_DIR")
+else
+  MODEL_NAME=$(basename "$MODEL_NAME")
+fi
 [ -z "$MODEL_DIR" ]  && MODEL_DIR="$OM_ROOT/models/$MODEL_NAME"
 
-if [ -z "$MODEL_NAME" ] ;
+if [ -z "$MODEL_NAME" ] || [ "$MODEL_NAME" = "." ] || [ "$MODEL_NAME" = ".." ] ;
 then
-  echo ERROR: empty MODEL_NAME
+  echo ERROR: invalid or empty MODEL_NAME
   exit 1
 fi
-if [ -z "$MODEL_DIR" ] ;
+if [ -z "$MODEL_DIR" ] || [ "$MODEL_DIR" = "/" ] ;
 then
-  echo ERROR: empty MODEL_DIR
+  echo ERROR: invalid or empty MODEL_DIR "$MODEL_DIR"
   exit 1
+fi
+
+MODEL_DIR=$(do_abspath "$MODEL_DIR")
+
+# make an absolute path to ini-file 
+
+if [ -n "$MODEL_INI" ];
+then
+  ini_dir=$(do_abspath $(dirname "$MODEL_INI"))
+  MODEL_INI="${ini_dir}/"$(basename "$MODEL_INI")
 fi
 
 # set default build configuration
- 
+
 OM_BLD_CFG=${OM_BUILD_CONFIGS:-RELEASE}
 
 if [ "$OM_BLD_CFG" != 'RELEASE' ] && [ "$OM_BLD_CFG" != 'DEBUG' ];
@@ -146,9 +194,6 @@ fi
 # build model
 
 pushd "$MODEL_DIR"
-
-# export MODEL_INI="${MODEL_INI}"
-# export MODEL_NAME="${MODEL_NAME}"
 
 [ "$OM_BLD_CFG" = 'RELEASE' ] && OM_P_RLS="RELEASE=1" || OM_P_RLS=
 
