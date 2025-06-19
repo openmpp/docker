@@ -20,7 +20,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://g
 
 From: `windows/servercore:20H2`
 
-Installed: `Visual C++ 2019 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
+Installed: `Visual C++ 2022 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
 
 ### `openmpp/openmpp-build:debian`
 
@@ -48,7 +48,7 @@ Pull: `docker pull openmpp/openmpp-build:redhat`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
-From: `rockylinux/rockylinux:9`
+From: `almalinux:10`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 

@@ -19,7 +19,7 @@ GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://git
 
 From: `windows/servercore:20H2`
 
-Installed: `Visual C++ re-distributable runtime (VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
+Installed: `Visual C++ re-distributable runtime (VC 2022, VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
 
 ### `openmpp/openmpp-run:debian`
 
