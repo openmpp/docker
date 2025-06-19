@@ -120,6 +120,8 @@ COPY debian.entrypoint.sh \
   model.ini \
   make-doc \
   make-r \
+  make-model \
+  README.make-model.linux.txt \
   README.debian.txt \
   /scripts/
 
@@ -134,6 +136,8 @@ RUN chmod 755 /scripts/debian.entrypoint.sh && \
   chmod 755 /scripts/make-doc && \
   chmod 755 /scripts/make-r && \
   chmod 744 /scripts/model.ini && \
+  chmod 755 /scripts/make-model && \
+  chmod 744 /scripts/README.make-model.linux.txt && \
   chmod 744 /scripts/README.debian.txt
 
 # describe image

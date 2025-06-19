@@ -193,6 +193,8 @@ fi
 
 # build model
 
+export MODEL_DOC_DISABLE=1
+
 pushd "$MODEL_DIR"
 
 [ "$OM_BLD_CFG" = 'RELEASE' ] && OM_P_RLS="RELEASE=1" || OM_P_RLS=

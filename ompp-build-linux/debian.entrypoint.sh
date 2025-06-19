@@ -36,6 +36,8 @@ cp -uv \
  /scripts/model.ini \
  /scripts/make-doc \
  /scripts/make-r \
+ /scripts/make-model \
+ /scripts/README.make-model.linux.txt \
  /scripts/README.${OMPP_LINUX}.txt \
  ${HOME}
 

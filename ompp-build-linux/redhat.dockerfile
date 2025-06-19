@@ -84,6 +84,8 @@ COPY redhat.entrypoint.sh \
   build-ui \
   build-tar-gz \
   model.ini \
+  make-model \
+  README.make-model.linux.txt \
   README.redhat.txt \
   /scripts/
 
@@ -96,6 +98,8 @@ RUN chmod 755 /scripts/redhat.entrypoint.sh && \
   chmod 755 /scripts/build-ui && \
   chmod 755 /scripts/build-tar-gz && \
   chmod 744 /scripts/model.ini && \
+  chmod 755 /scripts/make-model && \
+  chmod 744 /scripts/README.make-model.linux.txt && \
   chmod 744 /scripts/README.redhat.txt
 
 # describe image

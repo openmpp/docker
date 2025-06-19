@@ -34,6 +34,8 @@ cp -uv \
  /scripts/build-ui \
  /scripts/build-tar-gz \
  /scripts/model.ini \
+ /scripts/make-model \
+ /scripts/README.make-model.linux.txt \
  /scripts/README.${OMPP_LINUX}.txt \
  ${HOME}
 
