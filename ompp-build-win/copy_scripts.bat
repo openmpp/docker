@@ -13,7 +13,7 @@ call :do_copy_script build-ui.bat
 call :do_copy_script build-zip.bat
 call :do_copy_script make-model.bat
 call :do_copy_script README.txt
-call :do_copy_script README.make-model.txt
+call :do_copy_script README.make-model.win.txt
 
 goto :eof
 

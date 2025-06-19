@@ -124,7 +124,7 @@ COPY copy_scripts.bat `
     build-zip.bat `
     make-model.bat `
     README.txt `
-    README.make-model.txt C:\build_scripts\
+    README.make-model.win.txt C:\build_scripts\
 
 # set Go, MinGW and R environment
 USER ContainerAdministrator
