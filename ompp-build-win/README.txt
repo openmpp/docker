@@ -16,7 +16,6 @@ To build openM++ do:
   set OM_MSG_USE=MPI                 (default: EMPTY)
   set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
   set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
-
   set OMPP_GIT_URL=https://github.com/openmpp (default)
 
 Additional environment variable for build-open and build-model:

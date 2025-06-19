@@ -11,7 +11,9 @@ call :do_copy_script build-r.bat
 call :do_copy_script build-perl.bat
 call :do_copy_script build-ui.bat
 call :do_copy_script build-zip.bat
+call :do_copy_script make-model.bat
 call :do_copy_script README.txt
+call :do_copy_script README.make-model.txt
 
 goto :eof
 

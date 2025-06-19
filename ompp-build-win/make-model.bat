@@ -76,8 +76,8 @@ if /I "%OM_MSG_USE%"=="MPI"   set OM_P_MPI=-p:OM_MSG_USE=MPI
 
 REM log build environment 
 
-if not exist "%OM_ROOT%"\log mkdir "%OM_ROOT%"\log
-set LOG_PATH="%OM_ROOT%"\log\make-%MODEL_NAME%.log
+if not exist "%OM_ROOT%\log" mkdir "%OM_ROOT%\log"
+set LOG_PATH="%OM_ROOT%\log\make-%MODEL_NAME%.log"
 
 @echo %DATE% %TIME% Make %MODEL_NAME% model
 @echo OM_ROOT            = %OM_ROOT%

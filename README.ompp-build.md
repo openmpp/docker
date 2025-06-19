@@ -74,19 +74,25 @@ set OM_BUILD_PLATFORMS=Win32,x64   (default: Win32)
 set OM_MSG_USE=MPI                 (default: EMPTY)
 set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
+set OMPP_GIT_URL=https://github.com/openmpp (default)
 ```
+Additional environment variable for build-open and build-model:
+````
+set OMPP_CPP_BUILD_TAG=test_branch     (default: build from latest git)
+````
+If both `OMPP_BUILD_TAG` and `OMPP_CPP_BUILD_TAG` specified then `OMPP_CPP_BUILD_TAG` take precedence
 
 To build only openM++ libraries and omc compiler do:
 ```
 docker run .... openmpp/openmpp-build:windows-20H2 build-openm
 ```
-Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE`
+Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, OMPP_CPP_BUILD_TAG`
 
 To build models do:
 ```
 docker run .... openmpp/openmpp-build:windows-20H2 build-models
 ```
-Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS, OMPP_CPP_BUILD_TAG`
 
 To build openM++ tools do any of:
 ```
@@ -161,7 +167,14 @@ OM_BUILD_CONFIGS=RELEASE,DEBUG # default: RELEASE,DEBUG for libraries and RELEAS
 OM_MSG_USE=MPI                 # default: EMPTY
 OM_DATE_STAMP=20220817         # default: current date as YYYYMMDD
 MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX
+OMPP_GIT_URL=https://github.com/openmpp # default
 ```
+Additional environment variable for build-open and build-model:
+````
+OMPP_CPP_BUILD_TAG=test_branch # default: build from latest git
+````
+If both `OMPP_BUILD_TAG` and `OMPP_CPP_BUILD_TAG` specified then `OMPP_CPP_BUILD_TAG` take precedence
+
 Environment variables to pass your current user and home directory to container:
 ```
 OMPP_USER=ompp   # default: ompp, container user name and HOME
@@ -174,13 +187,13 @@ To build only openM++ libraries and omc compiler do:
 ```
 docker run .... openmpp/openmpp-build:debian ./build-openm
 ```
-Environment variables to control `build-openm`: `OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE`
+Environment variables to control `build-openm`: `OMPP_BUILD_TAG, OM_BUILD_CONFIGS, OM_MSG_USE OMPP_CPP_BUILD_TAG`
 
 To build only models do:
 ```
 docker run .... openmpp/openmpp-build:debian ./build-models
 ```
-Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS`
+Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_MSG_USE, MODEL_DIRS, OMPP_CPP_BUILD_TAG`
 
 To build openM++ tools do any of:
 ```
