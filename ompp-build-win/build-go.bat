@@ -29,7 +29,7 @@ REM log build environment
 REM build go oms web-service and dbcopy, dbget utilities
 
 if not exist ompp-go (
-  call :do_cmd_line_log log\build-go.log "git clone %OMPP_GIT_URL%/go ompp-go"
+  call :do_cmd_line_log log\build-go.log "git clone %OMPP_GIT_URL%/%OMPP_GO_GIT% ompp-go"
 )
 
 pushd ompp-go

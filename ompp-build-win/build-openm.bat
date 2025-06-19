@@ -40,8 +40,8 @@ REM get source code from git
 
 if not exist ompp (
 
-  @echo git clone %OMPP_GIT_URL%/main.git ompp
-  git clone %OMPP_GIT_URL%/main.git ompp
+  @echo git clone %OMPP_GIT_URL%/%OMPP_MAIN_GIT% ompp
+  git clone %OMPP_GIT_URL%/%OMPP_MAIN_GIT% ompp
   if ERRORLEVEL 1 (
     @echo FAILED.
     EXIT

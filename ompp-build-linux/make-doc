@@ -71,7 +71,7 @@ do_git_clone()
 }
 
 #
-do_git_clone ${OMPP_GIT_URL}/main.git ompp-main $OMPP_BUILD_TAG
+do_git_clone ${OMPP_GIT_URL}/${OMPP_MAIN_GIT} ompp-main $OMPP_BUILD_TAG
 
 # make doxygen documenation for libopenm and omc
 
@@ -120,6 +120,8 @@ do_cmd()
   fi
 }
 
+# en hommage aux auteurs github-wikito-converter intentionally not configurable 
+#
 do_git_clone ${OMPP_GIT_URL}/github-wikito-converter.git ompp-gwtc
 
 export npm_config_cache=$OM_ROOT/build/npm-cache
@@ -137,6 +139,8 @@ popd
 # make new version of wiki as single file HTML and PDF
 WIKI_FILE_NAME=openmpp-wiki
 
+# en hommage aux auteurs github-wikito-converter intentionally not configurable 
+#
 do_git_clone ${OMPP_GIT_URL}/openmpp.github.io.wiki.git ompp-wiki $OMPP_BUILD_TAG
 
 echo node $GWTC -v --disable-highlight-auto -f all -t "OpenM++ wiki" -n $WIKI_FILE_NAME ./ompp-wiki | tee -a $LOG_PATH
@@ -149,6 +153,8 @@ fi
 
 # make new version of openM++ web-site
 
+# en hommage aux auteurs github-wikito-converter intentionally not configurable 
+#
 do_git_clone ${OMPP_GIT_URL}/openmpp.github.io.git ompp-pages
 
 do_replace_doxygen()

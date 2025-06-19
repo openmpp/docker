@@ -45,7 +45,7 @@ fi;
 
 if [ ! -d ompp ]; then
 
-  if ! git clone ${OMPP_GIT_URL}/main.git ompp ;
+  if ! git clone ${OMPP_GIT_URL}/${OMPP_MAIN_GIT} ompp ;
   then
     echo FAILED git clone
     exit 1

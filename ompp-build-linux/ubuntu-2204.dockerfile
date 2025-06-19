@@ -120,11 +120,41 @@ LABEL description="OpenM++ build environemnt: g++, make, OpenMPI, git, SQLite, b
 # set environment
 #
 ARG OMPP_USER=ompp
-ARG OMPP_GIT_URL=https://github.com/openmpp
-
-ENV OMPP_GIT_URL ${OMPP_GIT_URL}
 ENV OMPP_USER    ${OMPP_USER}
 ENV OMPP_LINUX   ubuntu-2204
+
+ARG OMPP_GIT_URL=https://github.com/openmpp
+ENV OMPP_GIT_URL ${OMPP_GIT_URL}
+
+# I am not documenting varaibles below
+# because I think it is may be not a good idea to use it
+#
+ARG OMPP_GIT_URL=https://github.com/openmpp
+ENV OMPP_GIT_URL ${OMPP_GIT_URL}
+
+ARG OMPP_MAIN_GIT=main.git
+ENV OMPP_MAIN_GIT ${OMPP_MAIN_GIT}
+
+ARG OMPP_GO_GIT=go.git
+ENV OMPP_GO_GIT ${OMPP_GO_GIT}
+
+ARG OMPP_UI_GIT=UI.git
+ENV OMPP_UI_GIT ${OMPP_UI_GIT}
+
+ARG OMPP_DOCKER_GIT=docker.git
+ENV OMPP_DOCKER_GIT ${OMPP_DOCKER_GIT}
+
+ARG OMPP_MAC_GIT=mac.git
+ENV OMPP_MAC_GIT ${OMPP_MAC_GIT}
+
+ARG OMPP_R_GIT=R.git
+ENV OMPP_R_GIT ${OMPP_R_GIT}
+
+ARG OMPP_PYTHON_GIT=python.git
+ENV OMPP_PYTHON_GIT ${OMPP_PYTHON_GIT}
+
+ARG OMPP_OTHER_GIT=other.git
+ENV OMPP_OTHER_GIT ${OMPP_OTHER_GIT}
 
 # actual home directory is set by entrypoint.sh
 #

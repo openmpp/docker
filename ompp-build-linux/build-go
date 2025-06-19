@@ -35,7 +35,7 @@ echo `date` Build Go oms web-service and dbcopy, dbget utilities | tee log/build
 
 if [ ! -d ompp-go ]; then
   
-  if ! git clone ${OMPP_GIT_URL}/go ompp-go >> log/build-go.log 2>&1;
+  if ! git clone ${OMPP_GIT_URL}/${OMPP_GO_GIT} ompp-go >> log/build-go.log 2>&1;
   then
     echo FAILED git clone | tee -a log/build-go.log
     exit 1

@@ -169,7 +169,7 @@ do_cmd cp -p ompp-go/etc/run-options.any_model.1.Use_Defaults.json $DEPLOY_DIR/e
 # get Docker source code from git and copy Docker sources
 
 if [ ! -d ompp-docker ]; then
-  do_cmd git clone ${OMPP_GIT_URL}/docker ompp-docker
+  do_cmd git clone ${OMPP_GIT_URL}/${OMPP_DOCKER_GIT} ompp-docker
   do_git_tag_checkout ompp-docker $OMPP_BUILD_TAG
 fi
 
@@ -187,7 +187,7 @@ do_cmd cp -pr ompp-docker/ompp-run-redhat     $DEPLOY_DIR/ompp-docker
 # get Python source code from git and copy Python sources
 
 if [ ! -d ompp-python ]; then
-  do_cmd git clone ${OMPP_GIT_URL}/python ompp-python
+  do_cmd git clone ${OMPP_GIT_URL}/${OMPP_PYTHON_GIT} ompp-python
   do_git_tag_checkout ompp-python $OMPP_BUILD_TAG
 fi
 
@@ -210,7 +210,7 @@ do_cmd cp -pr ompp-r/images  $DEPLOY_DIR/ompp-r
 # copy additional sources from openmpp/other repository
 
 if [ ! -d ompp-other ]; then
-  do_cmd git clone ${OMPP_GIT_URL}/other ompp-other
+  do_cmd git clone ${OMPP_GIT_URL}/${OMPP_OTHER_GIT} ompp-other
   do_git_tag_checkout ompp-other $OMPP_BUILD_TAG
 fi
 
@@ -275,7 +275,7 @@ done
 # add MacOS extra source code and documents
 
 if [ ! -d ompp-mac ]; then
-  do_cmd git clone ${OMPP_GIT_URL}/mac.git ompp-mac
+  do_cmd git clone ${OMPP_GIT_URL}/${OMPP_MAC_GIT} ompp-mac
   do_git_tag_checkout ompp-mac $OMPP_BUILD_TAG
   do_cmd chmod a+x "ompp-mac/build/build-*"
 fi

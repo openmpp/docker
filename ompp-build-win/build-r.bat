@@ -29,7 +29,7 @@ REM get source code from git, if directory not already exist
 
 if not exist ompp-r (
   
-  call :do_cmd_line_log log\build-r.log "git clone %OMPP_GIT_URL%/R ompp-r"
+  call :do_cmd_line_log log\build-r.log "git clone %OMPP_GIT_URL%/%OMPP_R_GIT% ompp-r"
   
 ) else (
   @echo Skip: git clone
@@ -39,7 +39,7 @@ if not exist ompp-r (
 
 REM download latest release of openMpp R package
 pushd ompp-r
-call :do_cmd_line "curl -L -o openMpp_0.8.7.tar.gz %OMPP_GIT_URL%/R/releases/download/0.8.7/openMpp_0.8.7.tar.gz"
+call :do_cmd_line "curl -L -o openMpp_0.8.7.tar.gz %OMPP_GIT_URL%/%OMPP_R_GIT%/releases/download/0.8.7/openMpp_0.8.7.tar.gz"
 popd
 
 REM build openMpp R package

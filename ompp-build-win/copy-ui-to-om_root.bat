@@ -18,7 +18,7 @@ if not exist "%OM_ROOT%" (
   @echo ERROR: destination directory not exist: %OM_ROOT%
   @echo        may be you want to do:
   @echo .
-  @echo   git clone %OMPP_GIT_URL%/main.git %OM_ROOT%
+  @echo   git clone %OMPP_GIT_URL%/%OMPP_MAIN_GIT% %OM_ROOT%
   @echo .
   pause
   EXIT 1
@@ -33,7 +33,6 @@ if not exist "%OM_ROOT%\models\log"              call :make_dir "%OM_ROOT%\model
 if not exist "%OM_ROOT%\models\doc"              call :make_dir "%OM_ROOT%\models\doc"
 if not exist "%OM_ROOT%\models\home\io\download" call :make_dir "%OM_ROOT%\models\home\io\download"
 if not exist "%OM_ROOT%\models\home\io\upload"   call :make_dir "%OM_ROOT%\models\home\io\upload"
-
 
 REM copy bin utilities
 

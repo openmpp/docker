@@ -36,7 +36,7 @@ REM get source code from git, if directory not already exist
 
 if not exist ompp-ui (
   
-  call :do_cmd_line_log log\build-ui.log "git clone %OMPP_GIT_URL%/UI ompp-ui"
+  call :do_cmd_line_log log\build-ui.log "git clone %OMPP_GIT_URL%/%OMPP_UI_GIT% ompp-ui"
   
 ) else (
   @echo Skip: git clone
