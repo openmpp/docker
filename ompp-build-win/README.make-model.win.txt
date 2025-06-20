@@ -2,7 +2,7 @@
 
 To build and (optionally) openM++ model do:
 
-docker run .... openmpp/openmpp-build:windows-20H2 make-model
+docker run .... openmpp/openmpp-build:windows-ltsc2025 make-model
 
 Windows Docker examples:
 
@@ -10,7 +10,7 @@ docker run ^
   -v C:\my\build:C:\build ^
   -e OM_ROOT=ompp ^
   -e MODEL_DIR=ompp\models\RiskPaths ^
-  openmpp/openmpp-build:windows-20H2 ^
+  openmpp/openmpp-build:windows-ltsc2025 ^
   make-model
 
 docker run ^
@@ -18,7 +18,7 @@ docker run ^
   -e OM_ROOT=openmpp_win_20250601 ^
   -e MODEL_NAME=RiskPaths ^
   -e MODEL_INI=my\test.ini ^
-  openmpp/openmpp-build:windows-20H2 ^
+  openmpp/openmpp-build:windows-ltsc2025 ^
   make-model
 
 docker run ^
@@ -28,7 +28,7 @@ docker run ^
   -e MODEL_DIR=my\RiskPaths ^
   -e MODEL_GIT_URL=https://gitlab.com/my/RiskPaths.git
   -e MODEL_GIT_TAG=v1.2.3
-  openmpp/openmpp-build:windows-20H2 ^
+  openmpp/openmpp-build:windows-ltsc2025 ^
   make-model
 
 Windows examples, no Docker, use Visual Studio Command Prompt to run it:

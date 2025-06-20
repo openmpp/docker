@@ -3,23 +3,23 @@
 # Docker image to build openM++ latest version on Windows
 #
 # Example of build:
-#   docker build -t openmpp/openmpp-build:windows-20H2 --build-arg OMPP_GIT_URL=https://github.com/openmpp .
+#   docker build -t openmpp/openmpp-build:windows-ltsc2025 --build-arg OMPP_GIT_URL=https://github.com/openmpp .
 
 #
 # Example of run:
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-all
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-openmpp
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-models
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-go
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-r
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-perl
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-ui
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-20H2 build-zip
-#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 cmd
-#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-all
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-openmpp
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-models
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-go
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-r
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-perl
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-ui
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-zip
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-ltsc2025 cmd
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-ltsc2025 C:\perl32\portableshell
 # 
 
-FROM mcr.microsoft.com/windows/servercore:20H2
+FROM mcr.microsoft.com/windows/servercore:ltsc2025
 
 # download and install 7zip, curl expected to be included in servercore
 ADD https://www.7-zip.org/a/7z2301-x64.exe C:\Temp\7z_setup.exe
@@ -138,7 +138,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:windows-20H2
+LABEL name=openmpp/openmpp-build:windows-ltsc2025
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ build environemnt: VC++ 2022, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, node.js, Perl"

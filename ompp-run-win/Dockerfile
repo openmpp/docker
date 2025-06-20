@@ -3,15 +3,15 @@
 # Docker image to run openM++ models on Windows
 #
 # Example of build:
-#   docker build -t openmpp/openmpp-run:windows-20H2 .
+#   docker build -t openmpp/openmpp-run:windows-ltsc2025 .
 #
 # Example of run:
-#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-20H2 MyModel.exe
-#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-20H2 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
-#   docker run -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-20H2
+#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-ltsc2025 MyModel.exe
+#   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-ltsc2025 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
+#   docker run -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-ltsc2025
 # 
 
-FROM mcr.microsoft.com/windows/servercore:20H2
+FROM mcr.microsoft.com/windows/servercore:ltsc2025
 
 # download and install 7zip, curl expected to be included in servercore
 ADD https://www.7-zip.org/a/7z2301-x64.exe C:\Temp\7z_setup.exe
@@ -41,7 +41,7 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-run:windows-20H2
+LABEL name=openmpp/openmpp-run:windows-ltsc2025
 LABEL os=Windows
 LABEL license=MIT
 LABEL description="OpenM++ runtime environemnt: VC++ 2015, VC++ 2017, VC++ 2019, VC++ 2022 runtime (Release only), MS MPI"
