@@ -6,19 +6,19 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 ## Supported tags
 
-- `openmpp/openmpp-build:windows-20H2`
+- `openmpp/openmpp-build:windows-ltsc2025`
 - `openmpp/openmpp-build:debian`
 - `openmpp/openmpp-build:ubuntu`
 - `openmpp/openmpp-build:ubuntu-2204`
 - `openmpp/openmpp-build:redhat`
 
-### `openmpp/openmpp-build:windows-20H2`
+### `openmpp/openmpp-build:windows-ltsc2025`
 
-Pull: `docker pull openmpp/openmpp-build:windows-20H2`
+Pull: `docker pull openmpp/openmpp-build:windows-ltsc2025`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-win](https://github.com/openmpp/docker/tree/master/ompp-build-win)
 
-From: `windows/servercore:20H2`
+From: `windows/servercore:ltsc2025`
 
 Installed: `Visual C++ 2022 development tools and MSBuild, Microsoft MPI and SDK, git, bison, flex, SQLite, Go, MinGW, R, node.js, Perl, 7zip, curl`
 
@@ -54,17 +54,17 @@ Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, 
 
 User: `ompp`
 
-## How to use `openmpp/openmpp-build:windows-20H2` image
+## How to use `openmpp/openmpp-build:windows-ltsc2025` image
 
 To build openM++ do:
 ```
-docker run .... openmpp/openmpp-build:windows-20H2 build-all
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-all
 ```
 Examples:
 ```
-docker run -v C:\my\build:C:\build openmpp/openmpp-build:windows-20H2 build-all
-docker run -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-20H2 build-all
-docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-20H2 build-all
+docker run -v C:\my\build:C:\build openmpp/openmpp-build:windows-ltsc2025 build-all
+docker run -v C:\my\build:C:\build -e OM_BUILD_PLATFORMS=x64 openmpp/openmpp-build:windows-ltsc2025 build-all
+docker run -v C:\my\build:C:\build -e MODEL_DIRS=RiskPaths   openmpp/openmpp-build:windows-ltsc2025 build-all
 ```
 Environment variables:
 ```
@@ -84,34 +84,34 @@ If both `OMPP_BUILD_TAG` and `OMPP_CPP_BUILD_TAG` specified then `OMPP_CPP_BUILD
 
 To build only openM++ libraries and omc compiler do:
 ```
-docker run .... openmpp/openmpp-build:windows-20H2 build-openm
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-openm
 ```
 Environment variables to control `build-openm`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, OMPP_CPP_BUILD_TAG`
 
 To build models do:
 ```
-docker run .... openmpp/openmpp-build:windows-20H2 build-models
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-models
 ```
 Environment variables to control `build-models`: `OM_BUILD_CONFIGS, OM_BUILD_PLATFORMS, OM_MSG_USE, MODEL_DIRS, OMPP_CPP_BUILD_TAG`
 
 To build openM++ tools do any of:
 ```
-docker run .... openmpp/openmpp-build:windows-20H2 build-go   # Go oms web-service and dbcopy utility
-docker run .... openmpp/openmpp-build:windows-20H2 build-r    # openMpp R package
-docker run .... openmpp/openmpp-build:windows-20H2 build-perl # Perl utilities
-docker run .... openmpp/openmpp-build:windows-20H2 build-ui   # openM++ UI
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-go   # Go oms web-service and dbcopy utility
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-r    # openMpp R package
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-perl # Perl utilities
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-ui   # openM++ UI
 ```
 
 To create `openmpp_win_YYYYMMDD.zip` archive:
 ```
-docker run .... openmpp/openmpp-build:windows-20H2 build-zip
+docker run .... openmpp/openmpp-build:windows-ltsc2025 build-zip
 ```
 Environment variables to control `build-zip`: `OM_MSG_USE, MODEL_DIRS, OM_DATE_STAMP`
 
 To open cmd command prompt or Perl command prompt:
 ```
-docker run .... -it openmpp/openmpp-build:windows-20H2 cmd
-docker run .... -it openmpp/openmpp-build:windows-20H2 C:\perl32\portableshell
+docker run .... -it openmpp/openmpp-build:windows-ltsc2025 cmd
+docker run .... -it openmpp/openmpp-build:windows-ltsc2025 C:\perl32\portableshell
 ```
 
 ## How to use `openmpp/openmpp-build:debian` image

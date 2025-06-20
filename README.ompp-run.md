@@ -6,18 +6,18 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 ## Supported tags
 
-- `openmpp/openmpp-run:windows-20H2`
+- `openmpp/openmpp-run:windows-ltsc2025`
 - `openmpp/openmpp-run:debian`
 - `openmpp/openmpp-run:ubuntu`
 - `openmpp/openmpp-run:redhat`
 
-### `openmpp/openmpp-run:windows-20H2`
+### `openmpp/openmpp-run:windows-ltsc2025`
 
-Pull: `docker pull openmpp/openmpp-run:windows-20H2`
+Pull: `docker pull openmpp/openmpp-run:windows-ltsc2025`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-win](https://github.com/openmpp/docker/tree/master/ompp-run-win)
 
-From: `windows/servercore:20H2`
+From: `windows/servercore:ltsc2025`
 
 Installed: `Visual C++ re-distributable runtime (VC 2022, VC 2019, 2017, 2015), Microsoft MPI, 7zip, curl`
 
@@ -51,23 +51,23 @@ From: `rockylinux/rockylinux:9`
 
 Installed: `Open MPI, SQLite, unixODBC`
 
-## How to use `openmpp/openmpp-run:windows-20H2` image
+## How to use `openmpp/openmpp-run:windows-ltsc2025` image
 
 To run openM++ model do:
 ```
-docker run .... openmpp/openmpp-run:windows-20H2 modelOne.exe
+docker run .... openmpp/openmpp-run:windows-ltsc2025 modelOne.exe
 ```
 
 Examples:
 ```
-docker run -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-20H2 modelOne.exe
-docker run -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-20H2 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
-docker run -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-20H2 modelOne.exe
+docker run -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-ltsc2025 modelOne.exe
+docker run -v C:\my\models\bin:C:\ompp openmpp/openmpp-run:windows-ltsc2025 mpiexec -n 2 modelOne_mpi.exe -OpenM.SubValues 16
+docker run -v C:\my\models\bin:C:\ompp -e OM_ROOT=C:\ompp openmpp/openmpp-run:windows-ltsc2025 modelOne.exe
 ```
   
 To start command prompt do:
 ```
-docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-20H2 cmd /K
+docker run -v C:\my\models\bin:C:\ompp -it openmpp/openmpp-run:windows-ltsc2025 cmd /K
 ```
 
 ## How to use `openmpp/openmpp-run:debian` image
