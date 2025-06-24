@@ -12,6 +12,8 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 - `openmpp/openmpp-build:ubuntu-2204`
 - `openmpp/openmpp-build:redhat`
 
+## Unsupported older version: `openmpp/openmpp-build:windows-20H2`
+
 ### `openmpp/openmpp-build:windows-ltsc2025`
 
 Pull: `docker pull openmpp/openmpp-build:windows-ltsc2025`
