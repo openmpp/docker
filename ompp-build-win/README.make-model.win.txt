@@ -53,11 +53,12 @@ OM_ROOT                   default: ..\..
 OM_BUILD_CONFIGS=Debug    default: Release
 OM_BUILD_PLATFORMS=Win32  default: x64
 OM_MSG_USE=MPI            default: EMPTY
-MODEL_NAME          if not empty then model name
-MODEL_DIR           if not empty then model source code directory
-MODEL_GIT_URL       if not empty then git URL of model source code
-MODEL_GIT_TAG       if not empty then git tag
-MODEL_INI           if not empty then run model after build with this model ini file
+MODEL_NAME           if not empty then model name
+MODEL_DIR            if not empty then model source code directory
+MODEL_GIT_URL        if not empty then git URL of model source code
+MODEL_GIT_TAG        if not empty then git tag
+MODEL_INI            if not empty then run model after build with this model ini file
+MODEL_DOC_DISABLE=0  if =0 or =false then make model documentation, default: do not make model documemtation
 
 One of: MODEL_NAME or MODEL_DIR must be defined
 

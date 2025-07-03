@@ -7,11 +7,12 @@ REM  set OM_ROOT                   default: ..\..
 REM  set OM_BUILD_CONFIGS=Debug    default: Release
 REM  set OM_BUILD_PLATFORMS=Win32  default: x64
 REM  set OM_MSG_USE=MPI            default: EMPTY
-REM  set MODEL_NAME          if not empty then model name
-REM  set MODEL_DIR           if not empty then source code model directory
-REM  set MODEL_GIT_URL       if not empty then git URL of model source code
-REM  set MODEL_GIT_TAG       if not empty then git tag
-REM  set MODEL_INI           if not empty then run model after build with this model ini file
+REM  set MODEL_NAME           if not empty then model name
+REM  set MODEL_DIR            if not empty then source code model directory
+REM  set MODEL_GIT_URL        if not empty then git URL of model source code
+REM  set MODEL_GIT_TAG        if not empty then git tag
+REM  set MODEL_INI            if not empty then run model after build with this model ini file
+REM  set MODEL_DOC_DISABLE=0  if =0 or =false then make model documentation, default: do not make model documemtation
 
 REM one of: MODEL_NAME or MODEL_DIR must be defined
 REM
@@ -74,6 +75,12 @@ if defined OM_BUILD_CONFIGS   set OM_BLD_CFG=%OM_BUILD_CONFIGS%
 if defined OM_BUILD_PLATFORMS set OM_BLD_PLT=%OM_BUILD_PLATFORMS%
 if /I "%OM_MSG_USE%"=="MPI"   set OM_P_MPI=-p:OM_MSG_USE=MPI
 
+
+set OM_P_DOC=-p:MODEL_DOC=false
+
+if /I "%MODEL_DOC_DISABLE%"=="0"     set "OM_P_DOC="
+if /I "%MODEL_DOC_DISABLE%"=="false" set "OM_P_DOC="
+
 REM log build environment 
 
 if not exist "%OM_ROOT%\log" mkdir "%OM_ROOT%\log"
@@ -94,6 +101,10 @@ if defined OM_P_MPI (
 ) else (
   @echo Make desktop version: non-MPI
 )
+if not defined OM_P_DOC (
+  @echo Make model documentation
+)
+
 @echo Log file: %LOG_PATH%
 
 @echo %DATE% %TIME% Make %MODEL_NAME% model > "%LOG_PATH%"
@@ -110,6 +121,9 @@ if defined OM_P_MPI (
   @echo Make cluster version: using MPI >> "%LOG_PATH%"
 ) else (
   @echo Make desktop version: non-MPI >> "%LOG_PATH%"
+)
+if not defined OM_P_DOC (
+  @echo Make model documentation >> "%LOG_PATH%"
 )
 
 REM if MODEL_DIR not exists and MODEL_GIT_URL specified then do git clone model source code
@@ -171,7 +185,7 @@ set MDL_EXE=%MODEL_NAME%
 if /i "%OM_BLD_CFG%"=="Debug" set MDL_EXE=%MODEL_NAME%D
 if defined OM_P_MPI set MDL_EXE=%MDL_EXE%_mpi
      
-set MDL_P_ARGS=-p:Configuration=%OM_BLD_CFG% -p:Platform=%OM_BLD_PLT% -p:MODEL_DOC=false %MODEL_NAME%-ompp.sln
+set MDL_P_ARGS=-p:Configuration=%OM_BLD_CFG% -p:Platform=%OM_BLD_PLT% %OM_P_DOC% %MODEL_NAME%-ompp.sln
 
 call :make_model_sln %MODEL_DIR% %OM_ROOT% %LOG_PATH% "%OM_P_MPI% %MDL_P_ARGS%"
       
