@@ -158,6 +158,16 @@ if not "%MODEL_GIT_URL%" == "" (
 
       @echo  MODEL_GIT_TAG = %MODEL_GIT_TAG%
 
+      @echo pushd "%MODEL_DIR%"
+      @echo pushd "%MODEL_DIR%" >>  "%LOG_PATH%"
+
+      pushd "%MODEL_DIR%"
+      if ERRORLEVEL 1 (
+        @echo FAILED: pushd "%MODEL_DIR%" >> "%LOG_PATH%"
+        @echo FAILED.
+        EXIT
+      )
+
       @echo git checkout %MODEL_GIT_TAG%
       @echo git checkout %MODEL_GIT_TAG% >> "%LOG_PATH%"
 
@@ -167,6 +177,11 @@ if not "%MODEL_GIT_URL%" == "" (
         @echo FAILED.
         EXIT
       )
+
+      @echo popd
+      @echo popd >>  "%LOG_PATH%"
+
+      popd
     )
   )
 )

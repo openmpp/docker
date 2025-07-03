@@ -183,6 +183,8 @@ else
 
   if [ -n "$MODEL_GIT_TAG" ];
   then
+    pushd "$MODEL_DIR"
+
     echo "git checkout $MODEL_GIT_TAG" | tee -a "$LOG_PATH"
 
     if ! git checkout "$MODEL_GIT_TAG" >> "$LOG_PATH" 2>&1;
@@ -190,6 +192,8 @@ else
       echo FAILED git checkout "$MODEL_GIT_TAG" | tee -a "$LOG_PATH"
       exit 1
     fi
+
+    popd
   fi
 
 fi
