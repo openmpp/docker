@@ -47,6 +47,7 @@ if "%MODEL_NAME%" == "" (
 
 if not "%MODEL_NAME%" == "" (
   if "%MODEL_DIR%" == "" set MODEL_DIR=%OM_ROOT%\models\%MODEL_NAME%
+  set "OM_P_MDL_NAME=-p:MODEL_NAME=%MODEL_NAME%"
 )
 
 if "%MODEL_DIR:~-1%"=="\" set "MODEL_DIR=%MODEL_DIR:~0,-1%"
@@ -200,7 +201,7 @@ set MDL_EXE=%MODEL_NAME%
 if /i "%OM_BLD_CFG%"=="Debug" set MDL_EXE=%MODEL_NAME%D
 if defined OM_P_MPI set MDL_EXE=%MDL_EXE%_mpi
      
-set MDL_P_ARGS=-p:Configuration=%OM_BLD_CFG% -p:Platform=%OM_BLD_PLT% %OM_P_DOC% %MODEL_NAME%-ompp.sln
+set MDL_P_ARGS=-p:Configuration=%OM_BLD_CFG% -p:Platform=%OM_BLD_PLT% %OM_P_MDL_NAME% %OM_P_DOC% %MODEL_NAME%-ompp.sln
 
 call :make_model_sln %MODEL_DIR% %OM_ROOT% %LOG_PATH% "%OM_P_MPI% %MDL_P_ARGS%"
       
