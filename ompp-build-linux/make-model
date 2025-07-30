@@ -113,6 +113,10 @@ fi
 
 # set default build configuration
 
+export MODEL_NAME="$MODEL_NAME"
+export MODEL_INI="$MODEL_INI"
+
+
 OM_BLD_CFG=${OM_BUILD_CONFIGS:-RELEASE}
 
 if [ "$OM_BLD_CFG" != 'RELEASE' ] && [ "$OM_BLD_CFG" != 'DEBUG' ];
@@ -207,30 +211,20 @@ then
 fi
 
 # build model
+# run the model if model ini-file specified
+
+[ -n "${MODEL_INI}" ] && mdl_run=run
 
 pushd "$MODEL_DIR"
 
 [ "$OM_BLD_CFG" = 'RELEASE' ] && OM_P_RLS="RELEASE=1" || OM_P_RLS=
 
-echo make $OM_P_RLS $OM_P_MPI all publish
+echo make $OM_P_RLS $OM_P_MPI all publish $mdl_run
 
-if ! make $OM_P_RLS $OM_P_MPI all publish >>  "$LOG_PATH" 2>&1;
+if ! make $OM_P_RLS $OM_P_MPI all publish $mdl_run >>  "$LOG_PATH" 2>&1;
 then
-  echo FAILED: make $OM_P_RLS $OM_P_MPI all publish | tee -a "$LOG_PATH"
+  echo FAILED: make $OM_P_RLS $OM_P_MPI all publish $mdl_run | tee -a "$LOG_PATH"
   exit 1
-fi
-
-# run the model if model ini-file specified
-
-if [ -n "${MODEL_INI}" ];
-then
-  echo make $OM_P_RLS $OM_P_MPI run
-
-  if ! make $OM_P_RLS $OM_P_MPI run >>  "$LOG_PATH" 2>&1;
-  then
-    echo FAILED: make $OM_P_RLS $OM_P_MPI run | tee -a "$LOG_PATH"
-    exit 1
-  fi
 fi
 
 popd

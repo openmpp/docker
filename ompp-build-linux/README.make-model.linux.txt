@@ -19,7 +19,7 @@ docker run \
   -e OMPP_USER=build -e OMPP_GROUP=build -e OMPP_UID=$UID -e OMPP_GID=`id -g` \
   -e OM_ROOT=openmpp_win_20250601 \
   -e MODEL_NAME=RiskPaths \
-  -e MODEL_INI=my\test.ini \
+  -e MODEL_INI=my/test.ini \
   openmpp/openmpp-build:debian \
   ./make-model
 
