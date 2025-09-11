@@ -72,7 +72,7 @@ RUN apt-get install -y g++ && \
   apt-get install -y xz-utils
 
 # download and install Go
-RUN GO_VER=1.24.3; \
+RUN GO_VER=1.24.7; \
   curl -L -o /tmp/go_setup.tar.gz https://dl.google.com/go/go${GO_VER}.linux-amd64.tar.gz && \
   tar -xzf /tmp/go_setup.tar.gz -C /tmp && \
   mv /tmp/go / && \
@@ -98,7 +98,7 @@ RUN WKHPDF_VER=0.12.6.1-3; \
   rm /tmp/wkhtmltopdf_setup.deb
 
 # download and install node.js
-RUN NODE_VER=v22.15.1; \
+RUN NODE_VER=v22.19.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
