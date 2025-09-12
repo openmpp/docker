@@ -8,8 +8,8 @@ Please visit our [wiki](https://github.com/openmpp/openmpp.github.io/wiki) for m
 
 - `openmpp/openmpp-build:windows-ltsc2025`
 - `openmpp/openmpp-build:debian`
+- `openmpp/openmpp-build:debian-12`
 - `openmpp/openmpp-build:ubuntu`
-- `openmpp/openmpp-build:ubuntu-2204`
 - `openmpp/openmpp-build:redhat`
 
 ## Unsupported version: `openmpp/openmpp-build:windows-20H2`
