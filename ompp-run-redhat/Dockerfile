@@ -1,25 +1,25 @@
 # Docker image to run openM++ models on Alma Linux 10
 #
 # Examples of build and arguments default values:
-#   podman build -t openmpp/openmpp-run:redhat-10 .
-#   podman build -t openmpp/openmpp-run:redhat-10 --build-arg OMPP_USER=ompp .
+#   podman build -t openmpp/openmpp-run:redhat .
+#   podman build -t openmpp/openmpp-run:redhat --build-arg OMPP_USER=ompp .
 #
 # Examples of run:
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-10 \
+#     openmpp/openmpp-run:redhat \
 #     ./modelOne
 #
 #   podman run \
 #     -userns=host \
 #     -v $HOME/models:/home/models:z \
 #     -e OMPP_USER=models \
-#     openmpp/openmpp-run:redhat-10 \
+#     openmpp/openmpp-run:redhat \
 #     mpiexec --allow-run-as-root -n 2 modelOne_mpi -OpenM.SubValues 16
 #
-#   podman run -it openmpp/openmpp-run:redhat-10 bash
+#   podman run -it openmpp/openmpp-run:redhat bash
 #
 
 FROM almalinux:10
