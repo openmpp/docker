@@ -74,6 +74,7 @@ if defined OMPP_BUILD_TAG (
 )
 
 REM set npm_config_cache=%OM_ROOT%\build\npm-cache
+set NODE_OPTIONS=--max_old_space_size=1024
 
 call :do_npm_call "install"
 
