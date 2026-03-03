@@ -84,7 +84,7 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 # set environment for openM++ build
 ENV SQLITE_EXE_DIR=C:\sqlite
 
-RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2025/sqlite-tools-win-x64-3500400.zip && `
+RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2026/sqlite-tools-win-x64-3510200.zip && `
     C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
     del C:\Temp\sqlite_bin.zip
 
@@ -103,9 +103,9 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-20.0.
 #    del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v24.11.1/node-v24.11.1-win-x64.zip && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v24.14.0/node-v24.14.0-win-x64.zip && `
     C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v24.11.1-win-x64 node && `
+    rename C:\node-v24.14.0-win-x64 node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl

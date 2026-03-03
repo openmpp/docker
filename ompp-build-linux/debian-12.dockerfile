@@ -68,7 +68,7 @@ RUN apt-get autoclean
 
 
 # download and install node.js
-RUN NODE_VER=v24.11.1; \
+RUN NODE_VER=v24.14.0; \
   curl -L -o /tmp/node.tar.xz https://nodejs.org/dist/${NODE_VER}/node-${NODE_VER}-linux-x64.tar.xz && \
   mkdir /node && \
   tar -xJf /tmp/node.tar.xz -C /node --strip-components=1 && \
