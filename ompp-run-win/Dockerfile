@@ -14,7 +14,7 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2025
 
 # download and install 7zip, curl expected to be included in servercore
-https://www.7-zip.org/a/7z2501-x64.exe C:\Temp\7z_setup.exe
+ADD https://www.7-zip.org/a/7z2501-x64.exe C:\Temp\7z_setup.exe
 
 RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
     del C:\Temp\7z_setup.exe
