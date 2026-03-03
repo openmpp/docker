@@ -1,5 +1,7 @@
 @echo off
-REM create zip archive of openM++ build from ompp sub-directory: openmpp_win_20180817.zip
+REM create zip archive of openM++ build from ompp sub-directory     : openmpp_win_20180817.zip
+REM zip archive can have optional suffix: set DEPLOY_SUFFIX=_vs2026 : openmpp_win-vs2026_20180817.zip
+REM
 REM environmemnt variables:
 REM
 REM  set OM_MSG_USE=MPI                 (default: EMPTY)
@@ -7,6 +9,7 @@ REM  set OM_DATE_STAMP=20220817         (default: current date as YYYYMMDD)
 REM  set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjX,OzProjGenX,SM1
 REM  set OMPP_BUILD_TAG                 (default: build from latest git)
 REM  set OMPP_GIT_URL                   (default: https://github.com/openmpp)
+REM  set DEPLOY_SUFFIX                  (default: EMPTY)
 
 setlocal enabledelayedexpansion
 
@@ -33,8 +36,9 @@ for /f "tokens=2 delims==." %%G in ('wmic OS Get localdatetime /value') do (
 )
 
 if not defined OM_DATE_STAMP set OM_DATE_STAMP=%local_ts:~0,8%
+if not defined DEPLOY_NAME   set set DEPLOY_NAME=
 
-set DEPLOY_DIR=..\openmpp_win%OM_SFX_MPI%_%OM_DATE_STAMP%
+set DEPLOY_DIR=..\openmpp_win%DEPLOY_SUFFIX%%OM_SFX_MPI%_%OM_DATE_STAMP%
 set DEPLOY_ZIP=%DEPLOY_DIR%.zip
 
 REM log build environment 
@@ -210,11 +214,12 @@ call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-other ompp-other "azure_cloud,google_clou
 
 REM copy UI html build and source code
 
-call :rcopy_sub_dirs %DEPLOY_DIR%\html    ompp-ui\dist\spa "css,fonts,icons,js,public"
-call :rcopy_files    %DEPLOY_DIR%\html    ompp-ui\dist\spa "*.*"
+call :rcopy_sub_dirs %DEPLOY_DIR%    ompp-ui\dist "spa"
+call :do_cmd_line_log log\build-zip.log "rename %DEPLOY_DIR%\spa html"
+
 call :rcopy_files    %DEPLOY_DIR%\ompp-ui ompp-ui          "*.*"
 call :rcopy_sub_dirs %DEPLOY_DIR%\ompp-ui ompp-ui          ".vscode,licenses,public,src"
-call :do_cmd_line_log log\build-zip.log "del /f /q %DEPLOY_DIR%\ompp-ui\package-lock.json"
+rem call :do_cmd_line_log log\build-zip.log "del /f /q %DEPLOY_DIR%\ompp-ui\package-lock.json"
 
 REM create log directories and models directories
 

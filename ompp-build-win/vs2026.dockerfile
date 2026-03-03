@@ -1,22 +1,22 @@
 # escape=`
 
-# Docker image to build openM++ latest version on Windows
+# Docker image to build openM++ latest version on Windows, using VS2026 MSBuild tools
 #
 # Example of build:
-#   docker build -t openmpp/openmpp-build:windows-ltsc2025 --build-arg OMPP_GIT_URL=https://github.com/openmpp .
+#   docker build -t openmpp/openmpp-build:windows-vs2026 --build-arg OMPP_GIT_URL=https://github.com/openmpp .
 
 #
 # Example of run:
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-all
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-openmpp
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-models
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-go
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-r
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-perl
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-ui
-#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-ltsc2025 build-zip
-#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-ltsc2025 cmd
-#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-ltsc2025 C:\perl32\portableshell
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-all
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-openmpp
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-models
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-go
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-r
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-perl
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-ui
+#   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-zip
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-vs2026 cmd
+#   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-vs2026 C:\perl32\portableshell
 # 
 
 FROM mcr.microsoft.com/windows/servercore:ltsc2025
@@ -29,21 +29,21 @@ RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
 
 # download and install Microsoft MSBuild Tools and VC++
 #
+# v18 (VS-2026) MSBuild Tools:
+#   latest version:
+#     https://aka.ms/vs/stable/vs_BuildTools.exe
+#
 # v17 (VS-2022) Microsoft MSBuild Tools and VC++
 #   latest version:
 #     https://aka.ms/vs/17/release/vs_BuildTools.exe
 #   old version:
 #     https://aka.ms/vs/17/release.ltsc.17.4/vs_buildtools.exe
 #
-# v18 (VS-2026) MSBuild Tools:
-#   latest version:
-#     https://aka.ms/vs/stable/vs_BuildTools.exe
-#
 # versions history and links:
 #   https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-history
 #   https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-history
 #
-RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/17/release/vs_BuildTools.exe && `
+RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/stable/vs_BuildTools.exe && `
     ( C:\Temp\vs_buildtools.exe --quiet --wait --norestart --nocache --includeRecommended `
     --installPath C:\BuildTools `
     --add Microsoft.VisualStudio.Workload.MSBuildTools `
@@ -51,9 +51,9 @@ RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/17/release/vs_BuildTo
   || IF "%ERRORLEVEL%"=="3010" EXIT 0 ) && `
     del C:\Temp\vs_buildtools.exe
 
-# use v143 (VS-2022) build platform tools
+# use v145 (VS-2026) build platform tools
 
-ARG PLATFORM_TOOLSET=v143
+ARG PLATFORM_TOOLSET=v145
 ENV PLATFORM_TOOLSET ${PLATFORM_TOOLSET}
 
 # download and install MS MPI runtime and SDK
@@ -154,10 +154,10 @@ USER ContainerUser
 
 # describe image
 #
-LABEL name=openmpp/openmpp-build:windows-ltsc2025
+LABEL name=openmpp/openmpp-build:windows-vs2026
 LABEL os=Windows
 LABEL license=MIT
-LABEL description="OpenM++ build environemnt: VC++ 2022, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, node.js, Perl"
+LABEL description="OpenM++ build environemnt: VC++ 2026, MSBuild, MS MPI, git, SQLite, bison, flex, Go, MinGW, node.js, Perl"
 
 # Done with installation
 # set environment
