@@ -18,6 +18,15 @@ To build openM++ do:
   set MODEL_DIRS=modelOne,NewCaseBased,NewTimeBased,NewCaseBased_bilingual,IDMM,RiskPaths,OzProjGenX,OzProjX,SM1
   set OMPP_GIT_URL=https://github.com/openmpp (default)
 
+Additional environment variable for build-zip:
+  set DEPLOY_SUFFIX                  (default: EMPTY)
+
+Zip archive can have optional suffix, for example:
+If
+  set DEPLOY_SUFFIX=_vs2026
+then output zip result:
+  openmpp_win_vs2026_20180817.zip
+
 Additional environment variable for build-open and build-model:
   OMPP_CPP_BUILD_TAG=test_branch     (default: build from latest git)
 

@@ -1,6 +1,6 @@
 @echo off
 REM create zip archive of openM++ build from ompp sub-directory     : openmpp_win_20180817.zip
-REM zip archive can have optional suffix: set DEPLOY_SUFFIX=_vs2026 : openmpp_win-vs2026_20180817.zip
+REM zip archive can have optional suffix: set DEPLOY_SUFFIX=_vs2026 : openmpp_win_vs2026_20180817.zip
 REM
 REM environmemnt variables:
 REM
