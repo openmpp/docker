@@ -56,6 +56,9 @@ RUN curl -L -o C:\Temp\vs_buildtools.exe https://aka.ms/vs/stable/vs_BuildTools.
 ARG PLATFORM_TOOLSET=v145
 ENV PLATFORM_TOOLSET ${PLATFORM_TOOLSET}
 
+ARG DEPLOY_SUFFIX=_vs2026
+ENV DEPLOY_SUFFIX ${DEPLOY_SUFFIX}
+
 # download and install MS MPI runtime and SDK
 RUN curl -L -o C:\Temp\msmpisetup.exe https://download.microsoft.com/download/7/2/7/72731ebb-b63c-4170-ade7-836966263a8f/msmpisetup.exe && `
     C:\Temp\msmpisetup.exe && `
