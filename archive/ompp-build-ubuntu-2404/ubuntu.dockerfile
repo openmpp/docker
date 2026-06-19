@@ -32,7 +32,7 @@
 #   sudo docker run .... -it openmpp/openmpp-build:ubuntu bash
 #
 
-FROM ubuntu:26.04
+FROM ubuntu:24.04
 
 # disable debconf terminal input
 ARG DEBIAN_FRONTEND=noninteractive

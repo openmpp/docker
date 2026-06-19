@@ -37,7 +37,7 @@ Pull: `docker pull openmpp/openmpp-run:ubuntu`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu](https://github.com/openmpp/docker/tree/master/ompp-run-ubuntu)
 
-From: `ubuntu:24.04`
+From: `ubuntu:26.04`
 
 Installed: `Open MPI, SQLite, unixODBC`
 

@@ -40,7 +40,7 @@ Pull: `docker pull openmpp/openmpp-build:ubuntu`
 
 GitHub: [https://github.com/openmpp/docker/tree/master/ompp-build-linux](https://github.com/openmpp/docker/tree/master/ompp-build-linux)
 
-From: `ubuntu:24.04`
+From: `ubuntu:26.04`
 
 Installed: `gcc-c++, Open MPI, make, bison, flex, git, SQLite, Go, unixODBC, R, node.js`
 
