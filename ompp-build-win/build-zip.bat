@@ -331,7 +331,7 @@ REM create zip archive from deployment directory
 @echo Create %DEPLOY_ZIP%
 @echo Create %DEPLOY_ZIP% >> log\build-zip.log
 
-C:\7zip\7z.exe a -tzip %DEPLOY_ZIP% %DEPLOY_DIR%\*
+tar -caf %DEPLOY_ZIP% -C %DEPLOY_DIR% *.*
 if ERRORLEVEL 1 (
   @echo FAIL to create %DEPLOY_ZIP%
   @echo FAIL to create %DEPLOY_ZIP% >> log\build-zip.log

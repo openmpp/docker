@@ -9,15 +9,12 @@
 #   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-ltsc2025 MyModel.exe
 #   docker run -v C:\my\ompp:C:\ompp     openmpp/openmpp-run:windows-ltsc2025 mpiexec -n 2 MyModel_mpi -OpenM.SubValues 16
 #   docker run -v C:\my\ompp:C:\ompp -it openmpp/openmpp-run:windows-ltsc2025
-# 
+#
 
 FROM mcr.microsoft.com/windows/servercore:ltsc2025
 
-# download and install 7zip, curl expected to be included in servercore
-ADD https://www.7-zip.org/a/7z2501-x64.exe C:\Temp\7z_setup.exe
-
-RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
-    del C:\Temp\7z_setup.exe
+#
+RUN mkdir C:\Temp
 
 # download and install VC2015, VC2017, VC2019, VC2022 re-distributable runtimes
 # according to Microsoft: VC2015, VC2017, VC2019, VS2022, VS2026 all share the same re-distributable runtime

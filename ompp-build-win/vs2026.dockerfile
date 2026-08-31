@@ -17,15 +17,12 @@
 #   docker run -v C:\my\build:C:\build     openmpp/openmpp-build:windows-vs2026 build-zip
 #   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-vs2026 cmd
 #   docker run -v C:\my\build:C:\build -it openmpp/openmpp-build:windows-vs2026 C:\perl32\portableshell
-# 
+#
 
 FROM mcr.microsoft.com/windows/servercore:ltsc2025
 
-# download and install 7zip, curl expected to be included in servercore
-ADD https://www.7-zip.org/a/7z2501-x64.exe C:\Temp\7z_setup.exe
-
-RUN C:\Temp\7z_setup.exe /S /D=C:\7zip\ && `
-    del C:\Temp\7z_setup.exe
+#
+RUN mkdir C:\Temp
 
 # download and install Microsoft MSBuild Tools and VC++
 #
@@ -80,7 +77,8 @@ RUN curl -L -o C:\Temp\git_setup.exe https://github.com/git-for-windows/git/rele
 ENV BISON_FLEX_DIR=C:\bison_flex
 
 RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip && `
-    C:\7zip\7z.exe x -o%BISON_FLEX_DIR% C:\Temp\winflexbison.zip && `
+    mkdir %BISON_FLEX_DIR% && `
+    tar -xf C:\Temp\winflexbison.zip -C %BISON_FLEX_DIR% && `
     del C:\Temp\winflexbison.zip
     
 # download and install sqlite command line tools for Windows
@@ -88,16 +86,19 @@ RUN curl -L -o C:\Temp\winflexbison.zip https://github.com/lexxmark/winflexbison
 ENV SQLITE_EXE_DIR=C:\sqlite
 
 RUN curl -L -o C:\Temp\sqlite_bin.zip https://www.sqlite.org/2026/sqlite-tools-win-x64-3510300.zip && `
-    C:\7zip\7z.exe e -o%SQLITE_EXE_DIR% C:\Temp\sqlite_bin.zip && `
+    mkdir %SQLITE_EXE_DIR% && `
+    tar -xf C:\Temp\sqlite_bin.zip -C %SQLITE_EXE_DIR% && `
     del C:\Temp\sqlite_bin.zip
 
 # download and install Go and MinGW
-RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.26.1.windows-amd64.zip && `
-    C:\7zip\7z.exe x -oC:\ C:\Temp\go_setup.zip && `
+RUN curl -L -o C:\Temp\go_setup.zip https://dl.google.com/go/go1.26.5.windows-amd64.zip && `
+    tar -xf C:\Temp\go_setup.zip -C C:\Temp && `
+    move C:\Temp\go C:\ && `
     del C:\Temp\go_setup.zip
 
 RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-20.0.exe && `
-    C:\7zip\7z.exe x -oC:\ C:\Temp\mingw_setup.exe && `
+    tar -xf C:\Temp\mingw_setup.exe -C C:\Temp && `
+    move C:\Temp\MinGW C:\ && `
     del C:\Temp\mingw_setup.exe
 
 # download and install R
@@ -106,21 +107,24 @@ RUN curl -L -o C:\Temp\mingw_setup.exe https://nuwen.net/files/mingw/mingw-20.0.
 #    del C:\Temp\r_setup.exe
 
 # download and install node.js
-RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v24.14.1/node-v24.14.1-win-x64.zip && `
-    C:\7zip\7z.exe x -oC:\ C:\Temp\node.zip && `
-    rename C:\node-v24.14.1-win-x64 node && `
+RUN curl -L -o C:\Temp\node.zip https://nodejs.org/dist/v24.20.0/node-v24.20.0-win-x64.zip && `
+    tar -xf C:\Temp\node.zip -C C:\Temp && `
+    move C:\Temp\node-v24.20.0-win-x64 C:\node && `
     del C:\Temp\node.zip
 
 # download and install portable Perl
 # 5.32.1.1 is the last 32bit version, after that only 64bit available
 RUN curl -L -o C:\Temp\perl32_setup.zip https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip && `
-    C:\7zip\7z.exe x -oC:\perl32 C:\Temp\perl32_setup.zip && `
+    mkdir C:\perl32 && `
+    tar -xf C:\Temp\perl32_setup.zip -C C:\perl32 && `
     del C:\Temp\perl32_setup.zip
 
 RUN curl -L -o C:\Temp\perl64_setup.zip http://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-64bit-portable.zip && `
-    C:\7zip\7z.exe x -oC:\perl64 C:\Temp\perl64_setup.zip && `
+    mkdir C:\perl64 && `
+    tar -xf C:\Temp\perl64_setup.zip -C C:\perl64 && `
     del C:\Temp\perl64_setup.zip
 
+# install cpan modules
 # install cpan modules
 RUN C:\perl32\portableshell /SETENV && `
     SET TEMP=C:\Temp&&SET TMP=C:\Temp&&cpanm Getopt::Long::Descriptive && cpanm Config::Tiny && cpanm pp
