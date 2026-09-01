@@ -170,6 +170,7 @@ call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelRun.template.txt   ompp-go\etc\mpi
 call :do_copy_files %DEPLOY_DIR%\etc\mpi.ModelDebug.template.txt ompp-go\etc\mpi-Windows.ModelDebug.template.txt
 call :do_copy_files %DEPLOY_DIR%\etc\disk.ini                    ompp-go\etc\disk_win.ini
 call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\db-cleanup.bat
+call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\model-copy.bat
 call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\ui.extra.json
 call :do_copy_files %DEPLOY_DIR%\etc\                            ompp-go\etc\run-options.any_model.1.Use_Defaults.json
 
@@ -276,7 +277,7 @@ for %%m in (%OM_BLD_MDLS%) do (
   call :rcopy_files ^
     %DEPLOY_DIR%\models\bin ^
     models\%%m\ompp\bin ^
-    "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini"
+    "!MDL_DIR!%OM_SFX_MPI%.exe !MDL_DIR!.sqlite !MDL_DIR!*.ini !MDL_DIR!*.publish.lst"
 
   call :rcopy_files %DEPLOY_DIR%\models\log models\%%m\ompp\bin "!MDL_DIR!.*.log"
 )
